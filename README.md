@@ -4,9 +4,7 @@
 
 <p align="center">
   
-  ```
-  new stype
-  ```
+hi
   
 </p>
 
