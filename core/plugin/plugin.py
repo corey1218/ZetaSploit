@@ -24,14 +24,18 @@
 # SOFTWARE.
 #
 
+import re
+import os
+
 from core.badges import badges
 from core.options import options
+
 
 class plugin:
     def __init__(self):
         self.badges = badges()
         self.options = options()
-        
+
     def show_details(self, details):
         print(self.badges.I + "Plugin Name: " + details['Name'])
         authors = ""
@@ -40,16 +44,15 @@ class plugin:
         print(self.badges.I + "Plugin Authors: " + authors.strip())
         print(self.badges.I + "Plugin Description: " + details['Description'])
         print(self.badges.I + "Plugin Comment: " + details['Comment'])
-        
-    def console(self, plugins, plugin, module):
+
+    def console(self, plugins, plugin, title='zsf'):
         current_plugin = []
         pwd = 0
         current_plugin.append('')
         current_plugin[pwd] = plugin
         while True:
             try:
-                command = input(
-                    '\033[4m'+module+'\033[0m(\033[1;34m' + current_plugin[pwd].details['Name'] + '\033[0m)> ').strip()
+                command = input('\033[4m'+title+'\033[0m(\033[1;34m' + current_plugin[pwd].details['Name'] + '\033[0m)> ').strip()
                 commands = command.split()
                 if commands == []:
                     continue
@@ -74,7 +77,7 @@ class plugin:
                     print("    help           Show available commands.")
                     print("    plugins        Show available plugins.")
                     print("")
-                    print("plugin Commands")
+                    print("Plugin Commands")
                     print("===============")
                     print("")
                     print("    options        Show current plugins options.")
@@ -86,7 +89,7 @@ class plugin:
                     if len(commands) < 2:
                         print("Usage: exec <command>")
                     else:
-                        print(badges.I + "exec:")
+                        print(self.badges.I + "exec:")
                         os.system(arguments)
                         print("")
                 elif commands[0] == "use":
@@ -125,15 +128,28 @@ class plugin:
                 elif commands[0] == "run":
                     count = 0
                     for option in current_plugin[pwd].options.keys():
-                        if current_plugin[pwd].options[option]['Value'] == '' and current_plugin[pwd].options[option][
-                            'Required'] == True:
+                        if current_plugin[pwd].options[option]['Value'] == '' and current_plugin[pwd].options[option]['Required'] == True:
                             count += 1
                     if count > 0:
                         print(self.badges.E + "Missed some required options! (" + count + ")")
                     else:
                         current_plugin[pwd].run()
                 else:
-                    print(self.badges.E + "Unrecognized command!")
+                    if current_plugin[pwd].details['HasCommands']:
+                        if commands[0] in current_plugin[pwd].commands.keys():
+                            if current_plugin[pwd].commands[commands[0]]['NeedsArgs']:
+                                if (len(commands) - 1) < current_plugin[pwd].commands[commands[0]]['ArgsCount']:
+                                    print("Usage:" + current_plugin[pwd].commands[commands[0]]['Usage'])
+                                else:
+                                    arguments = re.split(''' (?=(?:[^'"]|'[^']*'|"[^"]*")*$)''', arguments)
+                                    current_plugin[pwd].commands[commands[0]]['ArgsList'] = arguments
+                                    current_plugin[pwd].commands[commands[0]]['Run']()
+                            else:
+                                current_plugin[pwd].commands[commands[0]]['Run']()
+                        else:
+                            print(self.badges.E + "Unrecognized command!")
+                    else:
+                        print(self.badges.E + "Unrecognized command!")
             except (KeyboardInterrupt, EOFError):
                 print("")
             except Exception as e:

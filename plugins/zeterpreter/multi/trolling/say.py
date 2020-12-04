@@ -32,17 +32,18 @@ class ZetaSploitPlugin:
         self.badges = badges()
 
         self.details = {
-            'Name': "multi/trolling/say",
-            'Authors': ['enty8080'],
+            'Name':        "multi/trolling/say",
+            'Authors':     ['enty8080'],
             'Description': "Say text message on device.",
-            'Comment': "idk?"
+            'Comment':     "idk?",
+            'HasCommands': False
         }
 
         self.options = {
             'MESSAGE': {
                 'Description': "Message to say.",
-                'Value': "Hello, zeterpreter!",
-                'Required': True
+                'Value':       "Hello, zeterpreter!",
+                'Required':    True
             }
         }
 

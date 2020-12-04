@@ -24,6 +24,9 @@
 # SOFTWARE.
 #
 
+import re
+import os
+
 from core.badges import badges
 from core.options import options
 
@@ -41,14 +44,14 @@ class module:
         print(self.badges.I + "Module Description: " + details['Description'])
         print(self.badges.I + "Module Comment: " + details['Comment'])
         
-    def console(self, modules, module):
+    def console(self, modules, module, title='zsf'):
         current_module = []
         pwd = 0
         current_module.append('')
         current_module[pwd] = module
         while True:
             try:
-                command = input('\033[4mzsf\033[0m(\033[1;31m'+current_module[pwd].details['Name']+'\033[0m)> ').strip()
+                command = input('\033[4m'+title+'\033[0m(\033[1;31m'+current_module[pwd].details['Name']+'\033[0m)> ').strip()
                 commands = command.split()
                 if commands == []:
                     continue
@@ -85,7 +88,7 @@ class module:
                     if len(commands) < 2:
                         print("Usage: exec <command>")
                     else:
-                        print(badges.I + "exec:")
+                        print(self.badges.I + "exec:")
                         os.system(arguments)
                         print("")
                 elif commands[0] == "use":
@@ -131,7 +134,21 @@ class module:
                     else:
                         current_module[pwd].run()
                 else:
-                    print(self.badges.E + "Unrecognized command!")
+                    if current_module[pwd].details['HasCommands']:
+                        if commands[0] in current_module[pwd].commands.keys():
+                            if current_module[pwd].commands[commands[0]]['NeedsArgs']:
+                                if (len(commands) - 1) < current_module[pwd].commands[commands[0]]['ArgsCount']:
+                                    print("Usage:" + current_module[pwd].commands[commands[0]]['Usage'])
+                                else:
+                                    arguments = re.split(''' (?=(?:[^'"]|'[^']*'|"[^"]*")*$)''', arguments)
+                                    current_module[pwd].commands[commands[0]]['Args'] = arguments
+                                    current_module[pwd].commands[commands[0]]['Run']()
+                            else:
+                                current_module[pwd].commands[commands[0]]['Run']()
+                        else:
+                            print(self.badges.E + "Unrecognized command!")
+                    else:
+                        print(self.badges.E + "Unrecognized command!")
             except (KeyboardInterrupt, EOFError):
                 print("")
             except Exception as e:
