@@ -9,6 +9,5 @@
     <br>
     <br>
     <b>Useful links:</b><br>
-    <br>
-    <a href="">Getting Started</a> | <a href="">Developing ZetaSploit</a> | <a href="">Using ZetaSploit</a>
+    <p><a href="">Getting Started</a> | <a href="">Developing ZetaSploit</a> | <a href="">Using ZetaSploit</a></p>
 </p>
