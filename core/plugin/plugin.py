@@ -28,13 +28,12 @@ import re
 import os
 
 from core.badges import badges
-from core.options import options
-
+from core.formatter import formatter
 
 class plugin:
     def __init__(self):
         self.badges = badges()
-        self.options = options()
+        self.formatter = formatter()
 
     def show_details(self, details):
         print(self.badges.I + "Plugin Name: " + details['Name'])
@@ -76,15 +75,10 @@ class plugin:
                     print("    exit           Exit ZetaSploit Framework.")
                     print("    help           Show available commands.")
                     print("    plugins        Show available plugins.")
-                    print("")
-                    print("Plugin Commands")
-                    print("===============")
-                    print("")
-                    print("    options        Show current plugins options.")
-                    print("    run            Run current plugins.")
-                    print("    set            Set an option value.")
-                    print("    use            Select specified plugins.")
-                    print("")
+                    if current_plugin[pwd].details['HasCommands']:
+                        self.formatter.format_commands(current_plugin[pwd].commands, "Plugin")
+                    else:
+                        print("")
                 elif commands[0] == "exec":
                     if len(commands) < 2:
                         print("Usage: exec <command>")
@@ -115,7 +109,7 @@ class plugin:
                         pwd = 0
                         break
                 elif commands[0] == "options":
-                    self.options.parse_options(current_plugin[pwd].options)
+                    self.formatter.format_options(current_plugin[pwd].options, "Plugin")
                 elif commands[0] == "set":
                     if len(commands) < 3:
                         print("Usage: set <option> <value>")

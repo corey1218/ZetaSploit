@@ -28,12 +28,12 @@ import re
 import os
 
 from core.badges import badges
-from core.options import options
+from core.formatter import formatter
 
 class module:
     def __init__(self):
         self.badges = badges()
-        self.options = options()
+        self.formatter = formatter()
         
     def show_details(self, details):
         print(self.badges.I + "Module Name: " + details['Name'])
@@ -75,15 +75,10 @@ class module:
                     print("    exit           Exit ZetaSploit Framework.")
                     print("    help           Show available commands.")
                     print("    modules        Show available modules.")
-                    print("")
-                    print("Module Commands")
-                    print("===============")
-                    print("")
-                    print("    options        Show current modules options.")
-                    print("    run            Run current modules.")
-                    print("    set            Set an option value.")
-                    print("    use            Select specified modules.")
-                    print("")
+                    if current_module[pwd].details['HasCommands']:
+                        self.formatter.format_commands(current_module[pwd].commands, "Module")
+                    else:
+                        print("")
                 elif commands[0] == "exec":
                     if len(commands) < 2:
                         print("Usage: exec <command>")
@@ -114,7 +109,7 @@ class module:
                         pwd = 0
                         break
                 elif commands[0] == "options":
-                    self.options.parse_options(current_module[pwd].options)
+                    self.formatter.format_options(current_module[pwd].options, "Module")
                 elif commands[0] == "set":
                     if len(commands) < 3:
                         print("Usage: set <option> <value>")
