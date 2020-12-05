@@ -28,6 +28,7 @@ import sys
 import time
 import threading
 import os
+import string
 
 from core.badges import badges
 from core.helper import helper
@@ -68,6 +69,7 @@ class loader:
         return plugins
     
     def import_modules(self):
+        global modules
         modules = dict()
         module_path = "modules"
         for module_system in os.listdir(module_path):
@@ -79,19 +81,35 @@ class loader:
                         continue
                     else:
                         try:
+                            time.sleep(1)
                             module_directory = module_path.replace("/", ".").replace("\\", ".") + "." + module[:-3]
                             module_file = __import__(module_directory)
                             module_object = self.get_module(module_file, module[:-3], module_directory)
                             module_object = module_object.ZetaSploitModule()
                             modules[module_object.details['Name']] = module_object
+                            time.sleep(1)
                         except Exception as e:
                             print(self.badges.E + "Failed to load plugin! Reason: " + str(e))
-        return modules
 
     def load_plugins(self, owner, system, controller):
         plugins = self.import_plugins(owner, system, controller)
         return plugins
 
     def load_modules(self):
-        modules = self.import_modules()
+        loading_process = threading.Thread(target=self.import_modules)
+        loading_process.start()
+        base_line = "Starting the ZetaSploit Framework..."
+        cycle = 0
+        while loading_process.is_alive():
+            for char in "/-\|":
+                status = base_line + char + "\r"
+                cycle += 1
+                if status[cycle % len(status)] in list(string.ascii_lowercase):
+                    status = status[:cycle % len(status)] + status[cycle % len(status)].upper() + status[cycle % len(status) + 1:]
+                elif status[cycle % len(status)] in list(string.ascii_uppercase):
+                    status = status[:cycle % len(status)] + status[cycle % len(status)].lower() + status[cycle % len(status) + 1:]
+                sys.stdout.write(self.badges.G + status)
+                time.sleep(.1)
+                sys.stdout.flush()
+        loading_process.join()
         return modules
