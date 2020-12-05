@@ -81,7 +81,6 @@ def main():
                 print("")
                 print("    Command        Description")
                 print("    -------        -----------")
-                print("    back           Return to the previous menu.")
                 print("    clear          Clear terminal window.")
                 print("    details        Show specified module details.")
                 print("    exec           Execute system command.")
@@ -103,15 +102,15 @@ def main():
                     if commands[1] in modules.keys():
                         module.console(modules, modules[commands[1]])
                     else:
-                        print(self.badges.E + "Unrecognozed module!")
+                        print(self.badges.E + "Invalid module!")
             elif commands[0] == "details":
                 if len(commands) < 2:
-                    print("Usage: details <modules>")
+                    print("Usage: details <module>")
                 else:
                     if commands[1] in modules.keys():
-                        module.show_details(modules.details)
+                        module.show_details(modules[commands[1]].details)
                     else:
-                        print(self.badges.E + "Unrecognozed module!")
+                        print(self.badges.E + "Invalid module!")
             elif commands[0] == "modules":
                 for name in modules.keys():
                     print(name)

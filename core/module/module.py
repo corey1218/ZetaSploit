@@ -26,6 +26,7 @@
 
 import re
 import os
+import sys
 
 from core.badges import badges
 from core.formatter import formatter
@@ -58,7 +59,7 @@ class module:
                 else:
                     arguments = "".join(command.split(commands[0])).strip()
                 if commands[0] == "exit":
-                    break
+                    sys.exit()
                 elif commands[0] == "clear":
                     os.system("clear")
                 elif commands[0] == "help":
@@ -70,7 +71,7 @@ class module:
                     print("    -------        -----------")
                     print("    back           Return to the previous menu.")
                     print("    clear          Clear terminal window.")
-                    print("    details        Show specified modules details.")
+                    print("    details        Show specified module details.")
                     print("    exec           Execute system command.")
                     print("    exit           Exit ZetaSploit Framework.")
                     print("    help           Show available commands.")
@@ -88,14 +89,14 @@ class module:
                         print("")
                 elif commands[0] == "use":
                     if len(commands) < 2:
-                        print("Usage: use <modules>")
+                        print("Usage: use <module>")
                     else:
                         if command[1] in modules.keys():
                             current_module.append('')
                             pwd += 1
-                            current_module[pwd] = commands[1]
+                            current_module[pwd] = modules[commands[1]]
                         else:
-                            print(self.badges.E + "Unrecognized modules!")
+                            print(self.badges.E + "Invalid module!")
                 elif commands[0] == "modules":
                     for name in modules.keys():
                         if current_module[pwd].details['Name'] == name:
@@ -110,6 +111,14 @@ class module:
                         break
                 elif commands[0] == "options":
                     self.formatter.format_options(current_module[pwd].options, "Module")
+                elif commands[0] == "details":
+                    if len(commands) < 2:
+                        print("Usage: details <module>")
+                    else:
+                        if commands[1] in modules.keys():
+                            self.show_details(modules[commands[1]].details)
+                        else:
+                            print(self.badges.E + "Invalid module!")
                 elif commands[0] == "set":
                     if len(commands) < 3:
                         print("Usage: set <option> <value>")

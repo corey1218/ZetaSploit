@@ -31,7 +31,7 @@ from core.helper import helper
 from core.badges import badges
 from core.fsmanip import fsmanip
 
-from data.linux.reverse_tcp.zeterpreter.core.handler import handler
+from data.macos.zeterpreter.reverse_tcp.core.handler import handler
 
 class transfer:
     def __init__(self, client):

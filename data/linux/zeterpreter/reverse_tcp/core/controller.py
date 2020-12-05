@@ -27,8 +27,8 @@
 from core.badges import badges
 from core.helper import helper
 
-from data.linux.reverse_tcp.zeterpreter.core.transfer import transfer
-from data.linux.reverse_tcp.zeterpreter.core.handler import handler
+from data.linux.zeterpreter.reverse_tcp.core.transfer import transfer
+from data.linux.zeterpreter.reverse_tcp.core.handler import handler
 
 class controller:
     def __init__(self, client):

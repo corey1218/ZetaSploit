@@ -34,7 +34,7 @@ from core.helper import helper
 from core.loader import loader
 from core.plugin.plugin import plugin
 
-from data.macos.reverse_tcp.zeterpreter.core.listener import listener
+from data.macos.zeterpreter.reverse_tcp.core.listener import listener
 
 class ZetaSploitModule:
     def __init__(self):
@@ -50,7 +50,7 @@ class ZetaSploitModule:
         self.is_running = False
         
         self.details = {
-            'Name':        "macos/reverse_tcp/zeterpreter",
+            'Name':        "macos/zeterpreter/reverse_tcp",
             'Authors':     ['enty8080'],
             'Description': "macOS implant written in golang and compiled for macOS.",
             'Comment':     "First macOS implant in history written in golang! Yay!",
@@ -170,11 +170,10 @@ class ZetaSploitModule:
                     print("")
                     print("    Command        Description")
                     print("    -------        -----------")
-                    print("    back           Return to the previous menu.")
                     print("    clear          Clear terminal window.")
                     print("    details        Show specified plugin details.")
                     print("    exec           Execute system command.")
-                    print("    exit           Exit Zeterpreter Framework.")
+                    print("    exit           Exit from current session.")
                     print("    help           Show available commands.")
                     print("    plugins        Show available plugins.")
                     print("")
@@ -198,7 +197,7 @@ class ZetaSploitModule:
                         print("Usage: details <modules>")
                     else:
                         if commands[1] in plugins.keys():
-                            self.plugin.show_details(plugins.details)
+                            self.plugin.show_details(plugins[commands[1]].details)
                         else:
                             print(self.badges.E + "Unrecognozed plugin!")
                 elif commands[0] == "plugins":
