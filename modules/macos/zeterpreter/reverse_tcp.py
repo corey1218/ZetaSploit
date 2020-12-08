@@ -57,6 +57,7 @@ class ZetaSploitModule:
             'Authors':     ['enty8080'],
             'Description': "macOS implant written in golang and compiled for macOS.",
             'Comment':     "First macOS implant in history written in golang! Yay!",
+            'HasOptions': True,
             'HasCommands': True
         }
         
