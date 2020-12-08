@@ -37,9 +37,7 @@ class ZetaSploitPlugin:
             'Name':        "multi/trolling/say",
             'Authors':     ['enty8080'],
             'Description': "Say text message on device.",
-            'Comment':     "idk?",
-            'HasOptions': True,
-            'HasCommands': False
+            'Comment':     "idk?"
         }
 
         self.options = {
