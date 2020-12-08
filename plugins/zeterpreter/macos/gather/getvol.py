@@ -37,9 +37,7 @@ class ZetaSploitPlugin:
             'Name':        "macos/gather/getvol",
             'Authors':     ['enty8080'],
             'Description': "Get device volume level.",
-            'Comment':     "idk?",
-            'HasOptions': False,
-            'HasCommands': False
+            'Comment':     "idk?"
         }
 
     def run(self):
