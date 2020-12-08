@@ -11,25 +11,25 @@ class moo:
         self.helper.ouput(cowsay("No easter egg could be found."))
         
     def cowsay(self, str, length=40):
-	      return build_bubble(str, length) + self.build_cow()
+	return build_bubble(str, length) + self.build_cow()
 
     def build_cow(self):
-	      return """
-              \  ^__^ 
-               \ (oo)\_______
-                 (__)\       )\/\\
-                     ||----w |
-                     ||     ||
+	return """
+\  ^__^ 
+ \ (oo)\_______
+   (__)\       )\/\\
+       ||----w |
+       ||     ||
         """
 
     def build_bubble(self, str, length=40):
-	      bubble = []
-	      lines = self.normalize_text(str, length)
-	      bordersize = len(lines[0])
-	      bubble.append("  " + "_" * bordersize)
-	      for index, line in enumerate(lines):
-		        border = self.get_border(lines, index)
-		        bubble.append("%s %s %s" % (border[0], line, border[1]))
+	bubble = []
+	lines = self.normalize_text(str, length)
+	bordersize = len(lines[0])
+	bubble.append("  " + "_" * bordersize)
+	for index, line in enumerate(lines):
+	    border = self.get_border(lines, index)
+            bubble.append("%s %s %s" % (border[0], line, border[1]))
 	      
         bubble.append("  " + "-" * bordersize)
 	      return "\n".join(bubble)
