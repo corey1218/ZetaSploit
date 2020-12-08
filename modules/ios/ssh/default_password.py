@@ -100,5 +100,5 @@ class ZetaSploitModule:
             return
         self.helper.output(self.badges.G + "Connecting to " + remote_host + "...")
         self.shell(ssh)
-        self.helper.output(self.badges.W + "Closing closed.")
+        self.helper.output(self.badges.W + "Clonnection closed.")
         ssh.close()
