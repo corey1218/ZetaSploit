@@ -96,7 +96,7 @@ class ZetaSploitModule:
                 'NeedsArgs': False,
                 'Args': [],
                 'Run': self.stop_background_server
-            }
+            },
             'sessions': {
                 'Description': "List all active sessions.",
                 'Usage': "list",
