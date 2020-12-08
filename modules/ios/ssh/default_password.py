@@ -68,7 +68,8 @@ class ZetaSploitModule:
                 prompt = '#'
             else:
                 prompt = '$'
-            hostname = ssh.exec_command("hostname")
+            stdin, stdout, stderr = ssh.exec_command("hostname")
+            hostname = stdout.readlines()[0]
         except:
             return
         while True:
