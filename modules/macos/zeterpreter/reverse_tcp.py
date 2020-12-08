@@ -151,7 +151,8 @@ class ZetaSploitModule:
             self.thread.join()
 
     def shell(self, controller):
-        plugins = self.loader.load_plugins('zeterpreter', 'macos', controller)
+        plugins = self.loader.load_plugins('zeterpreter', 'multi', controller)
+        plugins.update(self.loader.load_plugins('zeterpreter', 'macos', controller))
         self.menus.main_plugins_menu(plugins, 'zeterpreter')
             
     def run(self):
