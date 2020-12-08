@@ -89,6 +89,14 @@ class ZetaSploitModule:
                 'Args': [],
                 'Run': self.close
             },
+            'stop': {
+                'Description': "Stop background server.",
+                'Usage': "stop",
+                'ArgsCount': 0,
+                'NeedsArgs': False,
+                'Args': [],
+                'Run': self.stop_background_server
+            }
             'sessions': {
                 'Description': "List all active sessions.",
                 'Usage': "list",
@@ -128,7 +136,12 @@ class ZetaSploitModule:
         id_number = 0
         while True:
             if self.is_running:
-                session = self.listener.listen(local_host, local_port)
+                try:
+                    session = self.listener.listen(local_host, local_port)
+                except exceptions.GlobalException:
+                    self.helper.output(self.badges.E + "Failed to listen! Maybe host busy.")
+                    self.stop_background_server()
+                    return
                 if session:
                     self.sessions_id[id_number] = session
                     self.helper.output(self.badges.S + "Session "+str(id_number)+" opened!")
@@ -142,13 +155,16 @@ class ZetaSploitModule:
         self.thread.start()
 
     def stop_background_server(self):
-        self.helper.output(self.badges.G + "Cleaning up...")
+        self.helper.output(self.badges.G + "Stopping background server...")
         for session in self.sessions_id.keys():
             session = self.sessions_id[session]
             session.close_connection()
         self.is_running = False
         if self.thread:
+            self.helper.output(self.badges.S + "Server stopped successfully!")
             self.thread.join()
+        else:
+            self.helper.output(self.badges.E + "Failed to stop server!")
 
     def shell(self, controller):
         plugins = self.loader.load_plugins('zeterpreter', 'multi', controller)
@@ -160,8 +176,6 @@ class ZetaSploitModule:
         local_port = self.options['LPORT']['Value']
 
         self.helper.output(self.badges.G + "Starting server...")
-        try:
-            self.start_background_server(local_host, local_port)
-            self.helper.output(self.badges.S + "Server started successfully!")
-        except exceptions.GlobalException:
-            self.helper.output(self.badges.E + "Failed to start server!")
+        
+        self.start_background_server(local_host, local_port)
+        self.helper.output(self.badges.S + "Server started successfully!")
