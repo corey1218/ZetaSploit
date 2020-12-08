@@ -69,13 +69,13 @@ class ZetaSploitModule:
             else:
                 prompt = '$'
             stdin, stdout, stderr = ssh.exec_command("hostname")
-            hostname = stdout.readlines()[0]
+            hostname = stdout.readlines()[0].strip()
         except:
             return
         while True:
             try:
                 stdin, stdout, stderr = ssh.exec_command("pwd")
-                cwd = stdout.readlines()[0]
+                cwd = stdout.readlines()[0].strip()
                 command = input(hostname + ':' + cwd + ' ' + username + prompt + ' ').strip()
                 if command.split() != []:
                     if command.split()[0] == "exit":
@@ -84,7 +84,7 @@ class ZetaSploitModule:
                         stdin, stdout, stderr = ssh.exec_command(command)
                         response = stdout.readlines()
                         for resp in response:
-                            self.helper.output(resp)
+                            self.helper.output(resp.strip())
             except:
                 break
         
