@@ -58,6 +58,7 @@ class ZetaSploitModule:
             'Authors': ['enty8080'],
             'Description': "Linux implant written in golang and compiled for Linux.",
             'Comment': "First Linux implant in history written in golang! Yay!",
+            'HasOptions': True,
             'HasCommands': True
         }
 
