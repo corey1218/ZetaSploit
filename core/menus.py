@@ -213,7 +213,7 @@ class menus:
                     if len(commands) < 2:
                         self.helper.output("Usage: use <module>")
                     else:
-                        if command[1] in modules.keys():
+                        if commands[1] in modules.keys():
                             current_module.append('')
                             pwd += 1
                             current_module[pwd] = modules[commands[1]]
@@ -326,7 +326,7 @@ class menus:
                     if len(commands) < 2:
                         self.helper.output("Usage: use <plugin>")
                     else:
-                        if command[1] in plugins.keys():
+                        if commands[1] in plugins.keys():
                             current_plugin.append('')
                             pwd += 1
                             current_plugin[pwd] = plugins[commands[1]]
