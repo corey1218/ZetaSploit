@@ -104,7 +104,10 @@ class menus:
                         else:
                             self.helper.output(self.badges.E + "Invalid module!")
                 elif commands[0] == "modules":
-                    self.formatter.format_modules(modules)
+                    if not modules:
+                        self.helper.output(self.badges.W + "No module could not be found.")
+                    else:
+                        self.formatter.format_modules(modules)
                 else:
                     self.helper.output(self.badges.E + "Unrecognized command!")
             except (KeyboardInterrupt, EOFError):
@@ -161,7 +164,10 @@ class menus:
                         else:
                             self.helper.output(self.badges.E + "Unrecognozed plugin!")
                 elif commands[0] == "plugins":
-                    self.formatter.format_plugins(plugins)
+                    if not plugins:
+                        self.helper.output(self.badges.W + "No plugin could not be found.")
+                    else:
+                        self.formatter.format_plugins(plugins)
                 else:
                     self.helper.output(self.badges.E +"Unrecognized command!")
             except (KeyboardInterrupt, EOFError):
@@ -220,7 +226,10 @@ class menus:
                         else:
                             self.helper.output(self.badges.E + "Invalid module!")
                 elif commands[0] == "modules":
-                    self.formatter.format_modules(modules)
+                    if not modules:
+                        self.helper.output(self.badges.W + "No module could not be found.")
+                    else:
+                        self.formatter.format_modules(modules)
                 elif commands[0] == "back":
                     pwd -= 1
                     current_module = current_module[0:-1]
@@ -333,7 +342,10 @@ class menus:
                         else:
                             self.helper.output(self.badges.E + "Invalid plugin!")
                 elif commands[0] == "plugins":
-                    self.formatter.format_plugins(plugins)
+                    if not plugins:
+                        self.helper.output(self.badges.W + "No plugin could not be found.")
+                    else:
+                        self.formatter.format_plugins(plugins)
                 elif commands[0] == "back":
                     pwd -= 1
                     current_plugin = current_plugin[0:-1]
