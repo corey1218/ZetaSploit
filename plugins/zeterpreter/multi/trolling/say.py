@@ -38,6 +38,7 @@ class ZetaSploitPlugin:
             'Authors':     ['enty8080'],
             'Description': "Say text message on device.",
             'Comment':     "idk?",
+            'HasOptions': True,
             'HasCommands': False
         }
 
