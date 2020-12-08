@@ -228,7 +228,10 @@ class menus:
                         pwd = 0
                         break
                 elif commands[0] == "options":
-                    self.formatter.format_options(current_module[pwd].options, "Module")
+                    if hasattr(current_module[pwd], "options"):
+                        self.formatter.format_options(current_module[pwd].options, "Module")
+                    else:
+                        self.helper.output(self.badges.W + "Module does not have options.")
                 elif commands[0] == "details":
                     if len(commands) < 2:
                         self.helper.output("Usage: details <module>")
@@ -248,15 +251,18 @@ class menus:
                             self.helper.output(self.badges.E + "Unrecognized option!")
                 elif commands[0] == "run":
                     count = 0
-                    for option in current_module[pwd].options.keys():
-                        if current_module[pwd].options[option]['Value'] == '' and current_module[pwd].options[option]['Required'] == True:
-                            count += 1
-                    if count > 0:
-                        self.helper.output(self.badges.E + "Missed some required options! (" + count + ")")
+                    if hasattr(current_module[pwd], "options"):
+                        for option in current_module[pwd].options.keys():
+                            if current_module[pwd].options[option]['Value'] == '' and current_module[pwd].options[option]['Required'] == True:
+                                count += 1
+                        if count > 0:
+                            self.helper.output(self.badges.E + "Missed some required options! (" + count + ")")
+                        else:
+                            current_module[pwd].run()
                     else:
                         current_module[pwd].run()
                 else:
-                    if current_module[pwd].details['HasCommands']:
+                    if hasattr(current_module[pwd], "commands"):
                         if commands[0] in current_module[pwd].commands.keys():
                             if current_module[pwd].commands[commands[0]]['NeedsArgs']:
                                 if (len(commands) - 1) < current_module[pwd].commands[commands[0]]['ArgsCount']:
@@ -335,7 +341,10 @@ class menus:
                         pwd = 0
                         break
                 elif commands[0] == "options":
-                    self.formatter.format_options(current_plugin[pwd].options, "Plugin")
+                    if hasattr(current_plugin[pwd], "options"):
+                        self.formatter.format_options(current_plugin[pwd].options, "Plugin")
+                    else:
+                        self.helper.output(self.badges.W + "Plugin does not have options.")
                 elif commands[0] == "details":
                     if len(commands) < 2:
                         self.helper.output("Usage: details <plugin>")
@@ -355,15 +364,18 @@ class menus:
                             self.helper.output(self.badges.E + "Unrecognized option!")
                 elif commands[0] == "run":
                     count = 0
-                    for option in current_plugin[pwd].options.keys():
-                        if current_plugin[pwd].options[option]['Value'] == '' and current_plugin[pwd].options[option]['Required'] == True:
-                            count += 1
-                    if count > 0:
-                        self.helper.output(self.badges.E + "Missed some required options! (" + count + ")")
+                    if hasattr(current_plugin[pwd], "options"):
+                        for option in current_plugin[pwd].options.keys():
+                            if current_plugin[pwd].options[option]['Value'] == '' and current_plugin[pwd].options[option]['Required'] == True:
+                                count += 1
+                        if count > 0:
+                            self.helper.output(self.badges.E + "Missed some required options! (" + count + ")")
+                        else:
+                            current_plugin[pwd].run()
                     else:
                         current_plugin[pwd].run()
                 else:
-                    if current_plugin[pwd].details['HasCommands']:
+                    if hasattr(current_plugin[pwd], "commands"):
                         if commands[0] in current_plugin[pwd].commands.keys():
                             if current_plugin[pwd].commands[commands[0]]['NeedsArgs']:
                                 if (len(commands) - 1) < current_plugin[pwd].commands[commands[0]]['ArgsCount']:
