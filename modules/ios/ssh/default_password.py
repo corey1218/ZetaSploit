@@ -45,9 +45,7 @@ class ZetaSploitModule:
             'Name': "ios/ssh/default_password",
             'Authors': ['enty8080'],
             'Description': "Bypass iOS OpenSSH using default password.",
-            'Comment': "Default iOS password - alpine",
-            'HasOptions': True,
-            'HasCommands': False
+            'Comment': "Default iOS root and mobile password - alpine"
         }
 
         self.options = {
