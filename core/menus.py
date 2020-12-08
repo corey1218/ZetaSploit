@@ -198,7 +198,7 @@ class menus:
                     self.helper.output("    exit           Exit ZetaSploit Framework.")
                     self.helper.output("    help           Show available commands.")
                     self.helper.output("    modules        Show available modules.")
-                    if current_module[pwd].details['HasCommands']:
+                    if hasattr(current_module[pwd], "commands"):
                         self.formatter.format_commands(current_module[pwd].commands, "Module")
                     else:
                         self.helper.output("")
@@ -311,7 +311,7 @@ class menus:
                     self.helper.output("    exit           Exit ZetaSploit Framework.")
                     self.helper.output("    help           Show available commands.")
                     self.helper.output("    plugins        Show available plugins.")
-                    if current_plugin[pwd].details['HasCommands']:
+                    if hasattr(current_plugin[pwd], "commands"):
                         self.formatter.format_commands(current_plugin[pwd].commands, "Plugin")
                     else:
                         self.helper.output("")
