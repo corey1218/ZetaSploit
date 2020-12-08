@@ -74,7 +74,8 @@ class ZetaSploitModule:
             return
         while True:
             try:
-                cwd = ssh.exec_command("pwd")
+                stdin, stdout, stderr = ssh.exec_command("pwd")
+                cwd = stdout.readlines()[0]
                 command = input(hostname + ':' + cwd + ' ' + username + prompt + ' ').strip()
                 if command.split() != []:
                     if command.split()[0] == "exit":
