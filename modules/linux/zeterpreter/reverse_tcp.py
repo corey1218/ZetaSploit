@@ -57,9 +57,7 @@ class ZetaSploitModule:
             'Name': "linux/zeterpreter/reverse_tcp",
             'Authors': ['enty8080'],
             'Description': "Linux implant written in golang and compiled for Linux.",
-            'Comment': "First Linux implant in history written in golang! Yay!",
-            'HasOptions': True,
-            'HasCommands': True
+            'Comment': "First Linux implant in history written in golang! Yay!"
         }
 
         self.options = {
