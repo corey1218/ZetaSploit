@@ -45,4 +45,4 @@ class ZetaSploitPlugin:
         if status == "error":
             self.helper.output(self.badges.E + "Failed to get device volume level!")
         else:
-            self.helper.output(self.badges.I + "Volume Level:", output)
+            self.helper.output(self.badges.I + "Volume Level: " + output)
