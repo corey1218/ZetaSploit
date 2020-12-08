@@ -52,46 +52,52 @@ class loader:
     def import_plugins(self, plugin_owner, plugin_system, controller):
         plugins = dict()
         plugin_path = "plugins/" + plugin_owner + "/" + plugin_system
-        for plugin_type in os.listdir(plugin_path):
-            plugin_path = plugin_path + "/" + plugin_type
-            for plugin in os.listdir(plugin_path):
-                if plugin == '__init__.py' or plugin[-3:] != '.py':
-                    continue
-                else:
-                    try:
-                        plugin_directory = plugin_path.replace("/", ".").replace("\\", ".") + "." + plugin[:-3]
-                        plugin_file = __import__(plugin_directory)
-                        plugin_object = self.get_module(plugin_file, plugin[:-3], plugin_directory)
-                        plugin_object = plugin_object.ZetaSploitPlugin(controller)
-                        plugins[plugin_object.details['Name']] = plugin_object
-                    except Exception as e:
-                        self.helper.output(self.badges.E + "Failed to load plugin! Reason: "+str(e))
-                plugin_path = "plugins/" + plugin_owner + "/" + plugin_system
+        try:
+            for plugin_type in os.listdir(plugin_path):
+                plugin_path = plugin_path + "/" + plugin_type
+                for plugin in os.listdir(plugin_path):
+                    if plugin == '__init__.py' or plugin[-3:] != '.py':
+                        continue
+                    else:
+                        try:
+                            plugin_directory = plugin_path.replace("/", ".").replace("\\", ".") + "." + plugin[:-3]
+                            plugin_file = __import__(plugin_directory)
+                            plugin_object = self.get_module(plugin_file, plugin[:-3], plugin_directory)
+                            plugin_object = plugin_object.ZetaSploitPlugin(controller)
+                            plugins[plugin_object.details['Name']] = plugin_object
+                        except Exception as e:
+                            self.helper.output(self.badges.E + "Failed to load plugin! Reason: "+str(e))
+                    plugin_path = "plugins/" + plugin_owner + "/" + plugin_system
+        except Exception as e:
+            self.helper.output(self.badges.E + "Failed to load some plugins! Reason: "+str(e))
         return plugins
     
     def import_modules(self):
         global modules
         modules = dict()
         module_path = "modules"
-        for module_system in os.listdir(module_path):
-            module_path = module_path + "/" + module_system
-            for module_type in os.listdir(module_path):
-                module_path = module_path + "/" + module_type
-                for module in os.listdir(module_path):
-                    if module == '__init__.py' or module[-3:] != '.py':
-                        continue
-                    else:
-                        try:
-                            time.sleep(1)
-                            module_directory = module_path.replace("/", ".").replace("\\", ".") + "." + module[:-3]
-                            module_file = __import__(module_directory)
-                            module_object = self.get_module(module_file, module[:-3], module_directory)
-                            module_object = module_object.ZetaSploitModule()
-                            modules[module_object.details['Name']] = module_object
-                            time.sleep(1)
-                        except Exception as e:
-                            self.helper.output(self.badges.E + "Failed to load plugin! Reason: " + str(e))
-                    module_path = "modules"
+        try:
+            for module_system in os.listdir(module_path):
+                module_path = module_path + "/" + module_system
+                for module_type in os.listdir(module_path):
+                    module_path = module_path + "/" + module_type
+                    for module in os.listdir(module_path):
+                        if module == '__init__.py' or module[-3:] != '.py':
+                            continue
+                        else:
+                            try:
+                                time.sleep(1)
+                                module_directory = module_path.replace("/", ".").replace("\\", ".") + "." + module[:-3]
+                                module_file = __import__(module_directory)
+                                module_object = self.get_module(module_file, module[:-3], module_directory)
+                                module_object = module_object.ZetaSploitModule()
+                                modules[module_object.details['Name']] = module_object
+                                time.sleep(1)
+                            except Exception as e:
+                                self.helper.output(self.badges.E + "Failed to load module! Reason: " + str(e))
+                        module_path = "modules"
+        except Exception as e:
+            self.helper.output(self.badges.E + "Failed to load some modules! Reason: "+str(e))
 
     def load_plugins(self, owner, system, controller):
         plugins = self.import_plugins(owner, system, controller)
