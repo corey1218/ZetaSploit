@@ -33,7 +33,9 @@ import readline
 
 from core.menus import menus
 from core.loader import loader
+from core.io import io
 from core.helper import helper
+from core.badges import badges
 
 readline.parse_and_bind("tab: complete")
 
@@ -41,7 +43,15 @@ class zsf:
     def __init__(self):
         self.menus = menus()
         self.loader = loader()
+        self.io = io()
         self.helper = helper()
+        self.badges = badges()
+
+    def check_root(self):
+        if os.getuid() == 0:
+            return True
+        self.badges.output_error("Operation not permitted!")
+        return False
 
     def start_zsf(self):
         try:
@@ -53,15 +63,16 @@ class zsf:
     def banner(self):
         os.system("clear")
         os.system("cat banner/banner.txt")
-        self.helper.output("")
-        self.helper.output("ZetaSploit Framework "+self.helper.version)
-        self.helper.output("-------------------------")
-        self.helper.output("")
+        self.io.output("")
+        self.io.output("ZetaSploit Framework "+self.helper.version)
+        self.io.output("-------------------------")
+        self.io.output("")
 
     def shell(self):
         modules = self.start_zsf()
         self.banner()
-        self.menus.main_modules_menu(modules)
+        self.menus.main_menu(modules)
 
 zsf = zsf()
-zsf.shell()
+if zsf.check_root():
+    zsf.shell()

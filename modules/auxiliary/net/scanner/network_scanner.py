@@ -24,19 +24,35 @@
 # SOFTWARE.
 #
 
-import socket
+import os
+import sys
 
-class helper:
+from core.badges import badges
+from scapy.all import *
+
+class ZetaSploitModule:
     def __init__(self):
-        self.version = "v1.0"
+        self.badges = badges()
 
-    def getip(self):
-        try:
-            server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-            server.connect(("192.168.1.1", 80))
-            local_host = server.getsockname()[0]
-            server.close()
-            local_host = local_host
-        except:
-            local_host = "127.0.0.1"
-        return local_host
+        self.details = {
+            'Name': "net/scanner/network_scanner",
+            'Authors': ['enty8080'],
+            'Description': "Scan local network.",
+            'Comment': ""
+        }
+
+        self.options = {
+            'RANGE': {
+                'Description': "IP range.",
+                'Value': "192.168.1.1/24",
+                'Required': True
+            }
+        }
+
+    def run(self):
+        ip_range = self.options['RANGE']['Value']
+        arp = ARP(pdst=ip_range)
+        ether = Ether(dst="ff:ff:ff:ff:ff:ff")
+        result = srp(ether/arp, timeout=10, verbose=False)[0]
+        for _, received in result:
+            self.badges.output_information(f"{received.psrc:<20} {received.hwsrc:^18}")

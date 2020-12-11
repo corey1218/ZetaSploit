@@ -24,19 +24,38 @@
 # SOFTWARE.
 #
 
+import os
+import sys
+
 import socket
 
-class helper:
-    def __init__(self):
-        self.version = "v1.0"
+from core.badges import badges
 
-    def getip(self):
-        try:
-            server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-            server.connect(("192.168.1.1", 80))
-            local_host = server.getsockname()[0]
-            server.close()
-            local_host = local_host
-        except:
-            local_host = "127.0.0.1"
-        return local_host
+class ZetaSploitModule:
+    def __init__(self):
+        self.badges = badges()
+
+        self.details = {
+            'Name': "ios/check/jailbroken_or_not",
+            'Authors': ['enty8080'],
+            'Description': "Check if remote iPhone jailbroken.",
+            'Comment': ""
+        }
+
+        self.options = {
+            'RHOST': {
+                'Description': "Remote host.",
+                'Value': "",
+                'Required': True
+            }
+        }
+
+    def run(self):
+        self.badges.output_process("Checking...")
+        remote_host = self.options['RHOST']['Value']
+        checker = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        if checker.connect_ex((remote_host, 22)) == 0:
+            self.badges.output_success("Target device jailbroken!")
+        else:
+            self.badges.output_error("Target device is not jailbroken!")
+        checker.close()

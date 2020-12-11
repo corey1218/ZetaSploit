@@ -31,6 +31,18 @@ class vars:
     def set(self, name, value):
         globals()[name] = value
 
+    def update(self, name, value):
+        try:
+            globals()[name].update(value)
+        except:
+            pass
+
+    def delete_element(self, name, value):
+        try:
+            del globals()[name][value]
+        except:
+            pass
+
     def delete(self, name):
         try:
             del globals()[name]

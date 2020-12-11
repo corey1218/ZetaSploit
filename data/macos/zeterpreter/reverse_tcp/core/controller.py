@@ -24,18 +24,12 @@
 # SOFTWARE.
 #
 
-from core.badges import badges
-from core.helper import helper
-
 from data.macos.zeterpreter.reverse_tcp.core.transfer import transfer
 from data.macos.zeterpreter.reverse_tcp.core.handler import handler
 
 class controller:
     def __init__(self, client):
         self.client = client
-        self.badges = badges()
-        self.helper = helper()
-
         self.transfer = transfer(client)
         self.handler = handler(client)
 

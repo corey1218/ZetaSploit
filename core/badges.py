@@ -24,13 +24,31 @@
 # SOFTWARE.
 #
 
+from core.io import io
+
 class badges:
     def __init__(self):
+        self.io = io()
+
         self.I = '\033[1;77m[i] \033[0m'
-        self.Q = '\033[1;77m[?] \033[0m'
         self.S = '\033[1;32m[+] \033[0m'
         self.W = '\033[1;33m[!] \033[0m'
         self.E = '\033[1;31m[-] \033[0m'
-        self.G = '\033[1;34m[*] \033[0m'
+        self.P = '\033[1;34m[*] \033[0m'
         self.GREEN = '\033[0;33m'
         self.RESET = '\033[0m'
+
+    def output_process(self, message):
+        self.io.output(self.P + message)
+
+    def output_success(self, message):
+        self.io.output(self.S + message)
+
+    def output_error(self, message):
+        self.io.output(self.E + message)
+
+    def output_warning(self, message):
+        self.io.output(self.W + message)
+
+    def output_information(self, message):
+        self.io.output(self.I + message)

@@ -24,15 +24,15 @@
 # SOFTWARE.
 #
 
-from core.helper import helper
+from data.macos.zeterpreter.reverse_tcp.core.terminator import terminator
 
 class handler:
     def __init__(self, client):
         self.client = client
-        self.helper = helper()
-        
+        self.terminator = terminator()
+
     def sendterm(self):
-        terminator = self.helper.generate_terminator()
+        terminator = self.terminator.generate_terminator()
         self.client.send((terminator + '\x04').encode())
         return terminator
         

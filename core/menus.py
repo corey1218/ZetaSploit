@@ -30,36 +30,23 @@ import re
 import readline
 
 from core.badges import badges
-from core.helper import helper
 from core.module.module import module
-from core.plugin.plugin import plugin
 from core.formatter import formatter
 from core.vars import vars
+from core.io import io
 
 class menus:
     def __init__(self):
         self.badges = badges()
-        self.helper = helper()
         self.module = module()
-        self.plugin = plugin()
         self.formatter = formatter()
         self.vars = vars()
+        self.io = io()
 
-    def prompt(self, prompt_message):
-        self.vars.set("active_input", True)
-        command = input(prompt_message).strip()
-        commands = command.split()
-        arguments = ""
-        if commands != []:
-            arguments = "".join(command.split(commands[0])).strip()
-        self.vars.set("active_input", False)
-        return (commands, arguments)
-
-    def main_modules_menu(self, modules, title='zsf'):
+    def main_menu(self, modules, title='zsf'):
         while True:
             try:
-                self.vars.set("current_prompt", '\033[4m' + title + '\033[0m> ')
-                commands, arguments = self.prompt(self.vars.get("current_prompt"))
+                commands, arguments = self.io.input('\033[4m' + title + '\033[0m> ')
                 if commands == []:
                     continue
                 if commands[0] == "exit":
@@ -67,113 +54,66 @@ class menus:
                 elif commands[0] == "clear":
                     os.system("clear")
                 elif commands[0] == "help":
-                    self.helper.output("")
-                    self.helper.output("Core Commands")
-                    self.helper.output("=============")
-                    self.helper.output("")
-                    self.helper.output("    Command        Description")
-                    self.helper.output("    -------        -----------")
-                    self.helper.output("    clear          Clear terminal window.")
-                    self.helper.output("    details        Show specified module details.")
-                    self.helper.output("    exec           Execute system command.")
-                    self.helper.output("    exit           Exit ZetaSploit Framework.")
-                    self.helper.output("    help           Show available commands.")
-                    self.helper.output("    modules        Show available modules.")
-                    self.helper.output("")
+                    self.io.output("")
+                    self.io.output("Core Commands")
+                    self.io.output("=============")
+                    self.io.output("")
+                    self.io.output("    Command        Description")
+                    self.io.output("    -------        -----------")
+                    self.io.output("    clear          Clear terminal window.")
+                    self.io.output("    details        Show specified module details.")
+                    self.io.output("    exec           Execute system command.")
+                    self.io.output("    exit           Exit ZetaSploit Framework.")
+                    self.io.output("    help           Show available commands.")
+                    self.io.output("    show           Show specified information.")
+                    self.io.output("")
                 elif commands[0] == "exec":
                     if len(commands) < 2:
-                        self.helper.output("Usage: exec <command>")
+                        self.io.output("Usage: exec <command>")
                     else:
-                        self.helper.output(self.badges.I + "exec:")
+                        self.badges.output_information("exec:")
                         os.system(arguments)
-                        self.helper.output("")
+                        self.io.output("")
                 elif commands[0] == "use":
                     if len(commands) < 2:
-                        self.helper.output("Usage: use <module>")
+                        self.io.output("Usage: use <module>")
                     else:
-                        if commands[1] in modules.keys():
-                            self.modules_menu(modules, modules[commands[1]])
-                        else:
-                            self.helper.output(self.badges.E + "Invalid module!")
+                        not_found = True
+                        for category in modules.keys():
+                            if commands[1] in modules[category].keys():
+                                not_found = False
+                                self.modules_menu(modules, modules[category][commands[1]])
+                        if not_found:
+                            self.badges.output_error("Invalid module!")
                 elif commands[0] == "details":
                     if len(commands) < 2:
-                        self.helper.output("Usage: details <module>")
+                        self.io.output("Usage: details <module>")
+                    else:
+                        not_found = True
+                        for category in modules.keys():
+                            if commands[1] in modules[category].keys():
+                                not_found = False
+                                self.module.show_details(modules[category][commands[1]].details)
+                        if not_found:
+                            self.badges.output_error("Invalid module!")
+                elif commands[0] == "show":
+                    usage = "Usage: show ["
+                    for category in modules.keys():
+                        usage += category + "|"
+                    usage = usage[:-1] + "]"
+                    if len(commands) < 2:
+                        self.io.output(usage)
                     else:
                         if commands[1] in modules.keys():
-                            self.module.show_details(modules[commands[1]].details)
+                            self.formatter.format_modules(modules[commands[1]], commands[1])
                         else:
-                            self.helper.output(self.badges.E + "Invalid module!")
-                elif commands[0] == "modules":
-                    if not modules:
-                        self.helper.output(self.badges.W + "No module could not be found.")
-                    else:
-                        self.formatter.format_modules(modules)
+                            self.io.output(usage)
                 else:
-                    self.helper.output(self.badges.E + "Unrecognized command!")
+                    self.badges.output_error("Unrecognized command!")
             except (KeyboardInterrupt, EOFError):
-                self.helper.output("")
+                self.io.output("")
             except Exception as e:
-                self.helper.output(self.badges.E + "An error occurred: " + str(e) + "!")
-
-    def main_plugins_menu(self, plugins, title='zsf'):
-        while True:
-            try:
-                self.vars.set("current_prompt", '\033[4m' + title + '\033[0m> ')
-                commands, arguments = self.prompt(self.vars.get("current_prompt"))
-                if commands == []:
-                    continue
-                if commands[0] == "exit":
-                    break
-                elif commands[0] == "clear":
-                    os.system("clear")
-                elif commands[0] == "help":
-                    self.helper.output("")
-                    self.helper.output("Core Commands")
-                    self.helper.output("=============")
-                    self.helper.output("")
-                    self.helper.output("    Command        Description")
-                    self.helper.output("    -------        -----------")
-                    self.helper.output("    clear          Clear terminal window.")
-                    self.helper.output("    details        Show specified plugin details.")
-                    self.helper.output("    exec           Execute system command.")
-                    self.helper.output("    exit           Exit from current session.")
-                    self.helper.output("    help           Show available commands.")
-                    self.helper.output("    plugins        Show available plugins.")
-                    self.helper.output("")
-                elif commands[0] == "exec":
-                    if len(commands) < 2:
-                        self.helper.output("Usage: exec <command>")
-                    else:
-                        self.helper.output(self.badges.I + "exec:")
-                        os.system(arguments)
-                        self.helper.output("")
-                elif commands[0] == "use":
-                    if len(commands) < 2:
-                        self.helper.output("Usage: use <plugin>")
-                    else:
-                        if commands[1] in plugins.keys():
-                            self.plugins_menu(plugins, plugins[commands[1]], 'zeterpreter')
-                        else:
-                            self.helper.output(self.badges.E + "Unrecognozed plugin!")
-                elif commands[0] == "details":
-                    if len(commands) < 2:
-                        self.helper.output("Usage: details <modules>")
-                    else:
-                        if commands[1] in plugins.keys():
-                            self.plugin.show_details(plugins[commands[1]].details)
-                        else:
-                            self.helper.output(self.badges.E + "Unrecognozed plugin!")
-                elif commands[0] == "plugins":
-                    if not plugins:
-                        self.helper.output(self.badges.W + "No plugin could not be found.")
-                    else:
-                        self.formatter.format_plugins(plugins)
-                else:
-                    self.helper.output(self.badges.E +"Unrecognized command!")
-            except (KeyboardInterrupt, EOFError):
-                self.helper.output("")
-            except Exception as e:
-                self.helper.output(self.badges.E +"An error occurred: "+str(e)+"!")
+                self.badges.output_error("An error occurred: " + str(e) + "!")
 
     def modules_menu(self, modules, module, title='zsf'):
         current_module = []
@@ -182,8 +122,7 @@ class menus:
         current_module[pwd] = module
         while True:
             try:
-                self.vars.set("current_prompt", '\033[4m' + title + '\033[0m(\033[1;31m' + current_module[pwd].details['Name'] + '\033[0m)> ')
-                commands, arguments = self.prompt(self.vars.get("current_prompt"))
+                commands, arguments = self.io.input('\033[4m' + title + '\033[0m(\033[1;31m' + current_module[pwd].details['Name'] + '\033[0m)> ')
                 if commands == []:
                     continue
                 if commands[0] == "exit":
@@ -191,45 +130,55 @@ class menus:
                 elif commands[0] == "clear":
                     os.system("clear")
                 elif commands[0] == "help":
-                    self.helper.output("")
-                    self.helper.output("Core Commands")
-                    self.helper.output("=============")
-                    self.helper.output("")
-                    self.helper.output("    Command        Description")
-                    self.helper.output("    -------        -----------")
-                    self.helper.output("    back           Return to the previous menu.")
-                    self.helper.output("    clear          Clear terminal window.")
-                    self.helper.output("    details        Show specified module details.")
-                    self.helper.output("    exec           Execute system command.")
-                    self.helper.output("    exit           Exit ZetaSploit Framework.")
-                    self.helper.output("    help           Show available commands.")
-                    self.helper.output("    modules        Show available modules.")
+                    self.io.output("")
+                    self.io.output("Core Commands")
+                    self.io.output("=============")
+                    self.io.output("")
+                    self.io.output("    Command        Description")
+                    self.io.output("    -------        -----------")
+                    self.io.output("    back           Return to the previous menu.")
+                    self.io.output("    clear          Clear terminal window.")
+                    self.io.output("    details        Show specified module details.")
+                    self.io.output("    exec           Execute system command.")
+                    self.io.output("    exit           Exit ZetaSploit Framework.")
+                    self.io.output("    help           Show available commands.")
+                    self.io.output("    run            Run current selected module.")
+                    self.io.output("    set            Set module option value.")
+                    self.io.output("    show           Show specified information.")
                     if hasattr(current_module[pwd], "commands"):
                         self.formatter.format_commands(current_module[pwd].commands, "Module")
                     else:
-                        self.helper.output("")
+                        self.io.output("")
                 elif commands[0] == "exec":
                     if len(commands) < 2:
-                        self.helper.output("Usage: exec <command>")
+                        self.io.output("Usage: exec <command>")
                     else:
-                        self.helper.output(self.badges.I + "exec:")
+                        self.badges.output_information("exec:")
                         os.system(arguments)
-                        self.helper.output("")
+                        self.io.output("")
                 elif commands[0] == "use":
                     if len(commands) < 2:
-                        self.helper.output("Usage: use <module>")
+                        self.io.output("Usage: use <module>")
+                    else:
+                        not_found = True
+                        for category in modules.keys():
+                            if commands[1] in modules[category].keys():
+                                not_found = False
+                                self.modules_menu(modules, modules[category][commands[1]])
+                        if not_found:
+                            self.badges.output_error("Invalid module!")
+                elif commands[0] == "show":
+                    usage = "Usage: show ["
+                    for category in modules.keys():
+                        usage += category + "|"
+                    usage = usage[:-1] + "]"
+                    if len(commands) < 2:
+                        self.io.output(usage)
                     else:
                         if commands[1] in modules.keys():
-                            current_module.append('')
-                            pwd += 1
-                            current_module[pwd] = modules[commands[1]]
+                            self.formatter.format_modules(modules[commands[1]], commands[1])
                         else:
-                            self.helper.output(self.badges.E + "Invalid module!")
-                elif commands[0] == "modules":
-                    if not modules:
-                        self.helper.output(self.badges.W + "No module could not be found.")
-                    else:
-                        self.formatter.format_modules(modules)
+                            self.io.output(usage)
                 elif commands[0] == "back":
                     pwd -= 1
                     current_module = current_module[0:-1]
@@ -240,24 +189,27 @@ class menus:
                     if hasattr(current_module[pwd], "options"):
                         self.formatter.format_options(current_module[pwd].options, "Module")
                     else:
-                        self.helper.output(self.badges.W + "Module does not have options.")
+                        self.badges.output_warning("Module does not have options.")
                 elif commands[0] == "details":
                     if len(commands) < 2:
-                        self.helper.output("Usage: details <module>")
+                        self.io.output("Usage: details <module>")
                     else:
-                        if commands[1] in modules.keys():
-                            self.module.show_details(modules[commands[1]].details)
-                        else:
-                            self.helper.output(self.badges.E + "Invalid module!")
+                        not_found = True
+                        for category in modules.keys():
+                            if commands[1] in modules[category].keys():
+                                not_found = False
+                                self.module.show_details(modules[category][commands[1]].details)
+                        if not_found:
+                            self.badges.output_error("Invalid module!")
                 elif commands[0] == "set":
                     if len(commands) < 3:
-                        self.helper.output("Usage: set <option> <value>")
+                        self.io.output("Usage: set <option> <value>")
                     else:
                         if commands[1] in current_module[pwd].options.keys():
-                            self.helper.output(self.badges.I + commands[1] + " ==> " + commands[2])
+                            self.badges.output_information(commands[1] + " ==> " + commands[2])
                             current_module[pwd].options[commands[1]]['Value'] = commands[2]
                         else:
-                            self.helper.output(self.badges.E + "Unrecognized option!")
+                            self.badges.output_error("Unrecognized option!")
                 elif commands[0] == "run":
                     count = 0
                     if hasattr(current_module[pwd], "options"):
@@ -265,144 +217,40 @@ class menus:
                             if current_module[pwd].options[option]['Value'] == '' and current_module[pwd].options[option]['Required'] == True:
                                 count += 1
                         if count > 0:
-                            self.helper.output(self.badges.E + "Missed some required options! (" + count + ")")
+                            self.badges.output_error("Missed some required options! (" + count + ")")
                         else:
-                            current_module[pwd].run()
+                            try:
+                                current_module[pwd].run()
+                            except (KeyboardInterrupt, EOFError):
+                                self.io.output("")
                     else:
-                        current_module[pwd].run()
+                        try:
+                            current_module[pwd].run()
+                        except (KeyboardInterrupt, EOFError):
+                            self.io.output("")
                 else:
                     if hasattr(current_module[pwd], "commands"):
                         if commands[0] in current_module[pwd].commands.keys():
                             if current_module[pwd].commands[commands[0]]['NeedsArgs']:
                                 if (len(commands) - 1) < current_module[pwd].commands[commands[0]]['ArgsCount']:
-                                    self.helper.output("Usage:" + current_module[pwd].commands[commands[0]]['Usage'])
+                                    self.io.output("Usage:" + current_module[pwd].commands[commands[0]]['Usage'])
                                 else:
                                     arguments = re.split(''' (?=(?:[^'"]|'[^']*'|"[^"]*")*$)''', arguments)
                                     current_module[pwd].commands[commands[0]]['Args'] = arguments
+                                    try:
+                                        current_module[pwd].commands[commands[0]]['Run']()
+                                    except (KeyboardInterrupt, EOFError):
+                                        self.io.output("")
+                            else:
+                                try:
                                     current_module[pwd].commands[commands[0]]['Run']()
-                            else:
-                                current_module[pwd].commands[commands[0]]['Run']()
+                                except (KeyboardInterrupt, EOFError):
+                                    self.io.output("")
                         else:
-                            self.helper.output(self.badges.E + "Unrecognized command!")
+                            self.badges.output_error("Unrecognized command!")
                     else:
-                        self.helper.output(self.badges.E + "Unrecognized command!")
+                        self.badges.output_error("Unrecognized command!")
             except (KeyboardInterrupt, EOFError):
-                self.helper.output("")
+                self.io.output("")
             except Exception as e:
-                self.helper.output(self.badges.E + "An error occurred: " + str(e) + "!")
-
-    def plugins_menu(self, plugins, plugin, title='zsf'):
-        current_plugin = []
-        pwd = 0
-        current_plugin.append('')
-        current_plugin[pwd] = plugin
-        while True:
-            try:
-                self.vars.set("current_prompt", '\033[4m' + title + '\033[0m(\033[1;34m' + current_plugin[pwd].details['Name'] + '\033[0m)> ')
-                commands, arguments = self.prompt(self.vars.get("current_prompt"))
-                if commands == []:
-                    continue
-                if commands[0] == "exit":
-                    sys.exit()
-                elif commands[0] == "clear":
-                    os.system("clear")
-                elif commands[0] == "help":
-                    self.helper.output("")
-                    self.helper.output("Core Commands")
-                    self.helper.output("=============")
-                    self.helper.output("")
-                    self.helper.output("    Command        Description")
-                    self.helper.output("    -------        -----------")
-                    self.helper.output("    back           Return to the previous menu.")
-                    self.helper.output("    clear          Clear terminal window.")
-                    self.helper.output("    details        Show specified plugin details.")
-                    self.helper.output("    exec           Execute system command.")
-                    self.helper.output("    exit           Exit ZetaSploit Framework.")
-                    self.helper.output("    help           Show available commands.")
-                    self.helper.output("    plugins        Show available plugins.")
-                    if hasattr(current_plugin[pwd], "commands"):
-                        self.formatter.format_commands(current_plugin[pwd].commands, "Plugin")
-                    else:
-                        self.helper.output("")
-                elif commands[0] == "exec":
-                    if len(commands) < 2:
-                        self.helper.output("Usage: exec <command>")
-                    else:
-                        self.helper.output(self.badges.I + "exec:")
-                        os.system(arguments)
-                        self.helper.output("")
-                elif commands[0] == "use":
-                    if len(commands) < 2:
-                        self.helper.output("Usage: use <plugin>")
-                    else:
-                        if commands[1] in plugins.keys():
-                            current_plugin.append('')
-                            pwd += 1
-                            current_plugin[pwd] = plugins[commands[1]]
-                        else:
-                            self.helper.output(self.badges.E + "Invalid plugin!")
-                elif commands[0] == "plugins":
-                    if not plugins:
-                        self.helper.output(self.badges.W + "No plugin could not be found.")
-                    else:
-                        self.formatter.format_plugins(plugins)
-                elif commands[0] == "back":
-                    pwd -= 1
-                    current_plugin = current_plugin[0:-1]
-                    if current_plugin == []:
-                        pwd = 0
-                        break
-                elif commands[0] == "options":
-                    if hasattr(current_plugin[pwd], "options"):
-                        self.formatter.format_options(current_plugin[pwd].options, "Plugin")
-                    else:
-                        self.helper.output(self.badges.W + "Plugin does not have options.")
-                elif commands[0] == "details":
-                    if len(commands) < 2:
-                        self.helper.output("Usage: details <plugin>")
-                    else:
-                        if commands[1] in plugins.keys():
-                            self.plugin.show_details(plugins[commands[1]].details)
-                        else:
-                            self.helper.output(self.badges.E + "Invalid module!")
-                elif commands[0] == "set":
-                    if len(commands) < 3:
-                        self.helper.output("Usage: set <option> <value>")
-                    else:
-                        if commands[1] in current_plugin[pwd].options.keys():
-                            self.helper.output(self.badges.I + commands[1] + " ==> " + commands[2])
-                            current_plugin[pwd].options[commands[1]]['Value'] = commands[2]
-                        else:
-                            self.helper.output(self.badges.E + "Unrecognized option!")
-                elif commands[0] == "run":
-                    count = 0
-                    if hasattr(current_plugin[pwd], "options"):
-                        for option in current_plugin[pwd].options.keys():
-                            if current_plugin[pwd].options[option]['Value'] == '' and current_plugin[pwd].options[option]['Required'] == True:
-                                count += 1
-                        if count > 0:
-                            self.helper.output(self.badges.E + "Missed some required options! (" + count + ")")
-                        else:
-                            current_plugin[pwd].run()
-                    else:
-                        current_plugin[pwd].run()
-                else:
-                    if hasattr(current_plugin[pwd], "commands"):
-                        if commands[0] in current_plugin[pwd].commands.keys():
-                            if current_plugin[pwd].commands[commands[0]]['NeedsArgs']:
-                                if (len(commands) - 1) < current_plugin[pwd].commands[commands[0]]['ArgsCount']:
-                                    self.helper.output("Usage:" + current_plugin[pwd].commands[commands[0]]['Usage'])
-                                else:
-                                    arguments = re.split(''' (?=(?:[^'"]|'[^']*'|"[^"]*")*$)''', arguments)
-                                    current_plugin[pwd].commands[commands[0]]['ArgsList'] = arguments
-                                    current_plugin[pwd].commands[commands[0]]['Run']()
-                            else:
-                                current_plugin[pwd].commands[commands[0]]['Run']()
-                        else:
-                            self.helper.output(self.badges.E + "Unrecognized command!")
-                    else:
-                        self.helper.output(self.badges.E + "Unrecognized command!")
-            except (KeyboardInterrupt, EOFError):
-                self.helper.output("")
-            except Exception as e:
-                self.helper.output(self.badges.E + "An error occurred: " + str(e) + "!")
+                self.badges.output_error("An error occurred: " + str(e) + "!")

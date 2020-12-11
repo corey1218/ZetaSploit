@@ -24,19 +24,14 @@
 # SOFTWARE.
 #
 
-import socket
+import os
+import base64
+import binascii
 
-class helper:
-    def __init__(self):
-        self.version = "v1.0"
+class terminator:
+    def generate_terminator(self):
+        return binascii.hexlify(os.urandom(8)).decode()
 
-    def getip(self):
-        try:
-            server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-            server.connect(("192.168.1.1", 80))
-            local_host = server.getsockname()[0]
-            server.close()
-            local_host = local_host
-        except:
-            local_host = "127.0.0.1"
-        return local_host
+    def encode_remote_data(self, local_host, local_port):
+        remote_data = (local_host + ":" + local_port).encode()
+        return base64.b64encode(remote_data).decode()

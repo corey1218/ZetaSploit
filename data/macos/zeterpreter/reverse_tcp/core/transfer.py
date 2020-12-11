@@ -27,7 +27,6 @@
 import os
 import time
 
-from core.helper import helper
 from core.badges import badges
 from core.fsmanip import fsmanip
 
@@ -36,7 +35,6 @@ from data.macos.zeterpreter.reverse_tcp.core.handler import handler
 class transfer:
     def __init__(self, client):
         self.client = client
-        self.helper = helper()
         self.badges = badges()
         self.fsmanip = fsmanip()
         self.handler = handler(client)
@@ -52,13 +50,13 @@ class transfer:
             terminator = self.handler.sendall("download " + input_file)
             status = self.handler.recvstr().decode().strip()
             if status == "success":
-                self.helper.output(self.badges.G + "Downloading " + input_file + "...")
+                self.badges.output_process("Downloading " + input_file + "...")
                 self.handler.recvfile(terminator, output_path)
-                self.helper.output(self.badges.G + "Saving to " + output_path + "...")
-                self.helper.output(self.badges.S + "Saved to " + output_path + "!")
+                self.badges.output_process("Saving to " + output_path + "...")
+                self.badges.output_success("Saved to " + output_path + "!")
             else:
                 _ = self.handler.recvall(terminator).decode().strip()
-                self.helper.output(self.badges.E + status)
+                self.badges.output_error(status)
 
     def upload(self, input_file, output_path):
         if self.fsmanip.file(input_file):
@@ -67,7 +65,7 @@ class transfer:
             terminator = self.handler.sendall("upload " + output_directory + ":" + output_filename)
             status = self.handler.recvstr().decode().strip()
             if status == "success":
-                self.helper.output(self.badges.G + "Uploading " + input_file + "...")
+                self.badges.output_process("Uploading " + input_file + "...")
                 with open(input_file, "rb") as wf:
                     for data in iter(lambda: wf.read(4100), b""):
                         try:
@@ -75,12 +73,12 @@ class transfer:
                         except (KeyboardInterrupt, EOFError):
                             wf.close()
                             self.handler.send("error")
-                            self.helper.output(self.badges.E + "Failed to upload!")
+                            self.badges.output_error("Failed to upload!")
                             return
                 self.handler.send(terminator)
-                self.helper.output(self.badges.G + self.handler.recvstr().decode().strip())
-                self.helper.output(self.badges.S + self.handler.recvstr().decode().strip())
+                self.badges.output_process(self.handler.recvstr().decode().strip())
+                self.badges.output_success(self.handler.recvstr().decode().strip())
                 _ = self.handler.recvall(terminator)
             else:
                 _ = self.handler.recvall(terminator)
-                self.helper.output(self.badges.E + status)
+                self.badges.output_error(status)

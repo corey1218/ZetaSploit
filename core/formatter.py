@@ -24,13 +24,11 @@
 # SOFTWARE.
 #
 
-from core.badges import badges
-from core.helper import helper
+from core.io import io
 
 class formatter:
     def __init__(self):
-        self.badges = badges()
-        self.helper = helper()
+        self.io = io()
 
     def format_options(self, options, title):
         names = []
@@ -64,15 +62,15 @@ class formatter:
             bigger_required = 4
         else:
             bigger_required = 4
-        self.helper.output("")
-        self.helper.output(title+" Options")
-        self.helper.output("="*len(title+" Options"))
-        self.helper.output("")
-        self.helper.output("    Name" + " " * (bigger_name) + "Value" + " " * (bigger_value) + "Required    Description")
-        self.helper.output("    ----" + " " * (bigger_name) + "-----" + " " * (bigger_value) + "--------    -----------")
+        self.io.output("")
+        self.io.output(title+" Options")
+        self.io.output("="*len(title+" Options"))
+        self.io.output("")
+        self.io.output("    Name" + " " * (bigger_name) + "Value" + " " * (bigger_value) + "Required    Description")
+        self.io.output("    ----" + " " * (bigger_name) + "-----" + " " * (bigger_value) + "--------    -----------")
         for name in names:
-            self.helper.output("    " + name + " " * (4 - len(name) + bigger_name) + str(options[name]['Value']) + " " * (5 - len(str(options[name]['Value'])) + bigger_value) + str(options[name]['Required']) + " " * (8 - len(str(options[name]['Required'])) + bigger_required) + options[name]['Description'])
-        self.helper.output("")
+            self.io.output("    " + name + " " * (4 - len(name) + bigger_name) + str(options[name]['Value']) + " " * (5 - len(str(options[name]['Value'])) + bigger_value) + str(options[name]['Required']) + " " * (8 - len(str(options[name]['Required'])) + bigger_required) + options[name]['Description'])
+        self.io.output("")
 
     def format_commands(self, commands, title):
         command_names = []
@@ -86,17 +84,17 @@ class formatter:
             bigger = bigger - 5
         else:
             bigger = 8
-        self.helper.output("")
-        self.helper.output(title + " Commands")
-        self.helper.output("=" * len(title + " Commands"))
-        self.helper.output("")
-        self.helper.output("    Command" + " " * (bigger) + "Description")
-        self.helper.output("    -------" + " " * (bigger) + "-----------")
+        self.io.output("")
+        self.io.output(title + " Commands")
+        self.io.output("=" * len(title + " Commands"))
+        self.io.output("")
+        self.io.output("    Command" + " " * (bigger) + "Description")
+        self.io.output("    -------" + " " * (bigger) + "-----------")
         for i in command_names:
-            self.helper.output("    " + i + " " * (7 - len(i) + bigger) + commands[i]['Description'])
-        self.helper.output("")
+            self.io.output("    " + i + " " * (7 - len(i) + bigger) + commands[i]['Description'])
+        self.io.output("")
 
-    def format_modules(self, modules):
+    def format_modules(self, modules, title):
         module_names = []
         for name in modules.keys():
             module_names.append(name)
@@ -108,34 +106,12 @@ class formatter:
             bigger = bigger - 4
         else:
             bigger = 8
-        self.helper.output("")
-        self.helper.output("Modules")
-        self.helper.output("=======")
-        self.helper.output("")
-        self.helper.output("    Module" + " " * (bigger) + "Description")
-        self.helper.output("    ------" + " " * (bigger) + "-----------")
+        self.io.output("")
+        self.io.output(title.title() + " Modules")
+        self.io.output("=" * len(title.title() + " Modules"))
+        self.io.output("")
+        self.io.output("    Module" + " " * (bigger) + "Description")
+        self.io.output("    ------" + " " * (bigger) + "-----------")
         for i in module_names:
-            self.helper.output("    " + i + " " * (6 - len(i) + bigger) + modules[i].details['Description'])
-        self.helper.output("")
-
-    def format_plugins(self, plugins):
-        plugin_names = []
-        for name in plugins.keys():
-            plugin_names.append(name)
-        bigger = len(plugin_names[0])
-        for i in plugin_names:
-            if len(i) > bigger:
-                bigger = len(i)
-        if bigger >= 13:
-            bigger = bigger - 4
-        else:
-            bigger = 8
-        self.helper.output("")
-        self.helper.output("Plugins")
-        self.helper.output("=======")
-        self.helper.output("")
-        self.helper.output("    Plugin" + " " * (bigger) + "Description")
-        self.helper.output("    ------" + " " * (bigger) + "-----------")
-        for i in plugin_names:
-            self.helper.output("    " + i + " " * (6 - len(i) + bigger) + plugins[i].details['Description'])
-        self.helper.output("")
+            self.io.output("    " + i + " " * (6 - len(i) + bigger) + modules[i].details['Description'])
+        self.io.output("")

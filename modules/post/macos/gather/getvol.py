@@ -25,16 +25,43 @@
 #
 
 from core.badges import badges
+from core.vars import vars
 
-class module:
+class ZetaSploitModule:
     def __init__(self):
         self.badges = badges()
-        
-    def show_details(self, details):
-        self.badges.output_information("Module Name: " + details['Name'])
-        authors = ""
-        for author in details['Authors']:
-            authors += author + " "
-        self.badges.output_information("Module Authors: " + authors.strip())
-        self.badges.output_information("Module Description: " + details['Description'])
-        self.badges.output_information("Module Comment: " + details['Comment'])
+        self.vars = vars()
+
+        self.details = {
+            'Name': "macos/gather/getvol",
+            'Authors': ['enty8080'],
+            'Description': "Get device volume level.",
+            'Comment': ""
+        }
+
+        self.options = {
+            'SESSION': {
+                'Description': 'Session to run on.',
+                'Value': 0,
+                'Required': True
+            }
+        }
+
+    def get_session(self):
+        session = self.options['SESSION']['Value']
+        sessions = self.vars.get("macos_sessions")
+        if sessions != None:
+            for i in sessions.keys():
+                if int(session) == int(i):
+                    return (True, sessions[int(session)])
+        self.badges.output_error("Invalid session given!")
+        return (False, None)
+
+    def run(self):
+        exists, controller = self.get_session()
+        if exists:
+            status, output = controller.send_command("getvol")
+            if status == "error":
+                self.badges.output_error("Failed to get device volume level!")
+            else:
+                self.badges.output_information("Volume Level: " + output)

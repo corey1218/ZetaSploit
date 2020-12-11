@@ -24,19 +24,29 @@
 # SOFTWARE.
 #
 
-import socket
+import os
+import sys
 
-class helper:
+from core.vars import vars
+
+class io:
     def __init__(self):
-        self.version = "v1.0"
+        self.vars = vars()
 
-    def getip(self):
-        try:
-            server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-            server.connect(("192.168.1.1", 80))
-            local_host = server.getsockname()[0]
-            server.close()
-            local_host = local_host
-        except:
-            local_host = "127.0.0.1"
-        return local_host
+    def output(self, message):
+        sys.stdout.write('\033[1K\r' + message + os.linesep)
+        sys.stdout.flush()
+        if self.vars.get("current_prompt") != None and self.vars.get("active_input"):
+            sys.stdout.write('\033[1K\r' + self.vars.get("current_prompt"))
+            sys.stdout.flush()
+
+    def input(self, prompt_message):
+        self.vars.set("current_prompt", prompt_message)
+        self.vars.set("active_input", True)
+        command = input(prompt_message).strip()
+        commands = command.split()
+        arguments = ""
+        if commands != []:
+            arguments = "".join(command.split(commands[0])).strip()
+        self.vars.set("active_input", False)
+        return (commands, arguments)
