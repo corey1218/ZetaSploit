@@ -10,6 +10,15 @@
     <br>interacting with targets, spawning reverse shells and etc.
     <br>
     <br>
+    <b>TODO</b><br>
+    <br>
+    1. Clean code, remove unusable imports
+    <br>2. Add more post modules and zeterpreter support for Linux and Windows
+    <br>3. Fix macOS zeterpreter session handler and global variables imports
+    <br>4. Add android/adb/reverse/tcp exploit and ios/zeterpreter/reverse_tcp exploit
+    <br>5. Update all binary executbale implants (abs0rb, ac1d)
+    <br>
+    <br>
     <b>Useful links:</b><br>
     <p align="center"><a href="">Getting Started</a> | <a href="">Using ZetaSploit</a> | <a href="">Developing ZetaSploit</a></p>
 </p>
