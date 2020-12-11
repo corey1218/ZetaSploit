@@ -11,5 +11,5 @@
     <br>
     <br>
     <b>Useful links:</b><br>
-    <p align="center"><a href="">Getting Started</a> | <a href="">Using ZetaSploit</a></p> | <a href="">Developing ZetaSploit</a>
+    <p align="center"><a href="">Getting Started</a> | <a href="">Using ZetaSploit</a> | <a href="">Developing ZetaSploit</a></p>
 </p>
