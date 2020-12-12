@@ -60,7 +60,8 @@ class ZetaSploitModule:
     def run(self):
         exists, controller = self.get_session()
         if exists:
-            status, output = controller.send_command("getvol")
+            payload = "output volume of (get volume settings)"
+            status, output = controller.send_command("osascript", payload)
             if status == "error":
                 self.badges.output_error("Failed to get device volume level!")
             else:

