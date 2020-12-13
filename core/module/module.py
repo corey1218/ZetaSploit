@@ -24,17 +24,27 @@
 # SOFTWARE.
 #
 
+from core.io import io
 from core.badges import badges
 
 class module:
     def __init__(self):
+        self.io = io()
         self.badges = badges()
         
     def show_details(self, details):
-        self.badges.output_information("Module Name: " + details['Name'])
-        authors = ""
+        self.io.output("")
+        self.badges.output_information("Name:")
+        self.io.output("    " + details['Name'])
+        self.io.output("")
+        self.badges.output_information("Authors:")
         for author in details['Authors']:
-            authors += author + " "
-        self.badges.output_information("Module Authors: " + authors.strip())
-        self.badges.output_information("Module Description: " + details['Description'])
-        self.badges.output_information("Module Comment: " + details['Comment'])
+            self.io.output("    " + author)
+        self.io.output("")
+        self.badges.output_information("Description:")
+        self.io.output("    " + details['Description'])
+        self.io.output("")
+        self.badges.output_information("Comment:")
+        for line in details['Comment']:
+            self.io.output("    " + line)
+        self.io.output("")

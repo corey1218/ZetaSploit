@@ -34,9 +34,13 @@ class ZetaSploitModule:
 
         self.details = {
             'Name': "macos/gather/getvol",
-            'Authors': ['enty8080'],
+            'Authors': [
+                'enty8080'
+            ],
             'Description': "Get device volume level.",
-            'Comment': ""
+            'Comment': [
+                ''
+            ]
         }
 
         self.options = {

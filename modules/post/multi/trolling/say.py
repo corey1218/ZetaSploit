@@ -34,9 +34,13 @@ class ZetaSploitModule:
 
         self.details = {
             'Name': "multi/trolling/say",
-            'Authors': ['enty8080'],
+            'Authors': [
+                'enty8080'
+            ],
             'Description': "Say text message on device.",
-            'Comment': ""
+            'Comment': [
+                ''
+            ]
         }
 
         self.options = {

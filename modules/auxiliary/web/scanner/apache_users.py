@@ -42,9 +42,13 @@ class ZetaSploitModule:
 
         self.details = {
             'Name': "web/scanner/apache_users",
-            'Authors': ['enty8080'],
+            'Authors': [
+                'enty8080'
+            ],
             'Description': "Scan website apache users.",
-            'Comment': ""
+            'Comment': [
+                ''
+            ]
         }
 
         self.options = {

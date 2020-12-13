@@ -37,9 +37,14 @@ class ZetaSploitModule:
 
         self.details = {
             'Name': "ios/check/jailbroken_or_not",
-            'Authors': ['enty8080'],
+            'Authors': [
+                'enty8080'
+            ],
             'Description': "Check if remote iPhone jailbroken.",
-            'Comment': ""
+            'Comment': [
+                'Remote iPhone jailbroken if 22 port opened on it.',
+                'Cydia.app opens this port by default for SSH connections.'
+            ]
         }
 
         self.options = {

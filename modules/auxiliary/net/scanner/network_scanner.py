@@ -36,9 +36,13 @@ class ZetaSploitModule:
 
         self.details = {
             'Name': "net/scanner/network_scanner",
-            'Authors': ['enty8080'],
+            'Authors': [
+                'enty8080'
+            ],
             'Description': "Scan local network.",
-            'Comment': ""
+            'Comment': [
+                'Uses Python scapy module to scan local network.'
+            ]
         }
 
         self.options = {

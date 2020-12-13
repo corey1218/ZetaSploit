@@ -46,7 +46,7 @@ class menus:
     def main_menu(self, modules, title='zsf'):
         while True:
             try:
-                commands, arguments = self.io.input('\033[4m' + title + '\033[0m> ')
+                commands, arguments = self.io.input('(' + title + ')> ')
                 if commands == []:
                     continue
                 if commands[0] == "exit":
@@ -123,7 +123,7 @@ class menus:
         current_module[pwd] = module
         while True:
             try:
-                commands, arguments = self.io.input('\033[4m' + title + '\033[0m(\033[1;31m' + current_module[pwd].details['Name'] + '\033[0m)> ')
+                commands, arguments = self.io.input('(' + title + ': \033[1;31m' + current_module[pwd].details['Name'] + '\033[0m)> ')
                 if commands == []:
                     continue
                 if commands[0] == "exit":
