@@ -6,8 +6,8 @@
     <b>ZetaSploit Framework</b><br>
     <br>
     ZetaSploit Framework is a powerful exploitation framework that
-    <br>contains a lot of modules and plugins for attacking targets, 
-    <br>interacting with targets, spawning reverse shells and etc.
+    <br>contains a lot of modules for attacking targets, interacting
+    <br>with targets, exploiting common vulnerabilities and etc.
     <br>
     <br>
     <b>TODO</b><br>
