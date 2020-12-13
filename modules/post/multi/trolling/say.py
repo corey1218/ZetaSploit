@@ -42,7 +42,7 @@ class ZetaSploitModule:
         self.options = {
             'MESSAGE': {
                 'Description': "Message to say.",
-                'Value': "Hello, zeterpreter!",
+                'Value': "Hello, abs0rb!",
                 'Required': True
             },
             'SESSION': {

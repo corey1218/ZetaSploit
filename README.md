@@ -13,9 +13,9 @@
     <b>TODO</b><br>
     <br>
     1. Clean code, remove unusable imports, clean up messy code
-    <br>2. Add more post modules and zeterpreter support for Linux and Windows
-    <br>3. Fix macOS zeterpreter session handler and global variables imports
-    <br>4. Add android/adb/reverse/tcp exploit and ios/zeterpreter/reverse_tcp exploit
+    <br>2. Add more post modules and abs0rb support for Linux and Windows
+    <br>3. Fix macOS abs0rb session handler and global variables imports
+    <br>4. Add android/adb/reverse/tcp exploit and ios/ac1d/reverse_tcp exploit
     <br>5. Update all binary executbale implants (abs0rb, ac1d)
     <br>
     <br>

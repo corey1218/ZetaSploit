@@ -66,6 +66,7 @@ class menus:
                     self.io.output("    exit           Exit ZetaSploit Framework.")
                     self.io.output("    help           Show available commands.")
                     self.io.output("    show           Show specified information.")
+                    self.io.output("    use            Use specified module.")
                     self.io.output("")
                 elif commands[0] == "exec":
                     if len(commands) < 2:
@@ -82,7 +83,7 @@ class menus:
                         for category in modules.keys():
                             if commands[1] in modules[category].keys():
                                 not_found = False
-                                self.modules_menu(modules, modules[category][commands[1]])
+                                self.modules_menu(modules, modules[category][commands[1]], category)
                         if not_found:
                             self.badges.output_error("Invalid module!")
                 elif commands[0] == "details":
@@ -115,7 +116,7 @@ class menus:
             except Exception as e:
                 self.badges.output_error("An error occurred: " + str(e) + "!")
 
-    def modules_menu(self, modules, module, title='zsf'):
+    def modules_menu(self, modules, module, category, title='zsf'):
         current_module = []
         pwd = 0
         current_module.append('')
@@ -145,6 +146,7 @@ class menus:
                     self.io.output("    run            Run current selected module.")
                     self.io.output("    set            Set module option value.")
                     self.io.output("    show           Show specified information.")
+                    self.io.output("    use            Use specified module.")
                     if hasattr(current_module[pwd], "commands"):
                         self.formatter.format_commands(current_module[pwd].commands, "Module")
                     else:
@@ -160,13 +162,16 @@ class menus:
                     if len(commands) < 2:
                         self.io.output("Usage: use <module>")
                     else:
-                        not_found = True
-                        for category in modules.keys():
-                            if commands[1] in modules[category].keys():
-                                not_found = False
-                                self.modules_menu(modules, modules[category][commands[1]])
-                        if not_found:
-                            self.badges.output_error("Invalid module!")
+                        if commands[1] != category + "/" + current_module[pwd].details['Name']:
+                            not_found = True
+                            for category in modules.keys():
+                                if commands[1] in modules[category].keys():
+                                    not_found = False
+                                    current_module.append('')
+                                    pwd += 1
+                                    current_module[pwd] = modules[category][commands[1]]
+                            if not_found:
+                                self.badges.output_error("Invalid module!")
                 elif commands[0] == "show":
                     usage = "Usage: show ["
                     for category in modules.keys():

@@ -32,7 +32,7 @@ import http.client
 from core.badges import badges
 from core.io import io
 
-from data.web.scanner.php_my_admin_scan.dictionary import dictionary
+from data.auxiliary.web.scanner.php_my_admin_scan.dictionary import dictionary
 
 class ZetaSploitModule:
     def __init__(self):
