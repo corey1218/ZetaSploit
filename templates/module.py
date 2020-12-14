@@ -24,8 +24,13 @@ class ZetaSploitModule:
         
         self.commands = {
             'command': {
-                ''
-            }
+                'Description': "",
+                'Usage': "",
+                'ArgsCount': 0,
+                'NeedsArgs': False,
+                'Args': [],
+                'Run': self.command
+            },
         }
         
     def command(self):
