@@ -36,7 +36,7 @@ class ZetaSploitModule:
         self.badges = badges()
 
         self.details = {
-            'Name': "ios/check/jailbroken_or_not",
+            'Name': "ios/checker/jailbroken_or_not",
             'Authors': [
                 'enty8080'
             ],
