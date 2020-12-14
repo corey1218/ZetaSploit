@@ -11,6 +11,7 @@ class ZetaSploitModule:
             ],
             'Description': "",
             'Comments': [
+                ''
             ]
         }
         
