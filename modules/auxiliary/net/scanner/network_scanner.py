@@ -40,7 +40,7 @@ class ZetaSploitModule:
                 'enty8080'
             ],
             'Description': "Scan local network.",
-            'Comment': [
+            'Comments': [
                 'Uses Python scapy module to scan local network.'
             ]
         }

@@ -38,7 +38,7 @@ class ZetaSploitModule:
                 'enty8080'
             ],
             'Description': "Say text message on device.",
-            'Comment': [
+            'Comments': [
                 ''
             ]
         }

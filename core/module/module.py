@@ -44,7 +44,7 @@ class module:
         self.badges.output_information("Description:")
         self.io.output("    " + details['Description'])
         self.io.output("")
-        self.badges.output_information("Comment:")
-        for line in details['Comment']:
+        self.badges.output_information("Comments:")
+        for line in details['Comments']:
             self.io.output("    " + line)
         self.io.output("")

@@ -41,7 +41,7 @@ class ZetaSploitModule:
                 'enty8080'
             ],
             'Description': "Check if remote iPhone jailbroken.",
-            'Comment': [
+            'Comments': [
                 'Remote iPhone jailbroken if 22 port opened on it.',
                 'Cydia.app opens this port by default for SSH connections.'
             ]

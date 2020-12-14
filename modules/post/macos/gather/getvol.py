@@ -38,7 +38,7 @@ class ZetaSploitModule:
                 'enty8080'
             ],
             'Description': "Get device volume level.",
-            'Comment': [
+            'Comments': [
                 ''
             ]
         }
