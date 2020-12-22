@@ -32,11 +32,13 @@ import string
 
 from core.badges import badges
 from core.storage import storage
+from core.helper import helper
 
 class loader:
     def __init__(self):
         self.badges = badges()
         self.storage = storage()
+        self.helper = helper()
 
     def get_module(self, mu, name, folderpath):
         folderpath_list = folderpath.split(".")
