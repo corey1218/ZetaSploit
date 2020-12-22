@@ -80,8 +80,3 @@ class zsf:
         self.start_zsf()
         self.launch_shell()
         self.main.main_menu()
-
-zsf = zsf()
-if zsf.check_root():
-    if zsf.check_install():
-        zsf.shell()
