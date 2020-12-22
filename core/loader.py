@@ -51,12 +51,12 @@ class loader:
 
     def import_commands(self):
         commands = dict()
-        command_path = "core/commands"
+        command_path = self.helper.commands_path
         for menu in os.listdir(command_path):
             commands[menu] = dict()
         try:
             for command_menu in os.listdir(command_path):
-                command_path = "core/commands/" + command_menu
+                command_path = self.helper.commands_path + command_menu
                 for path, sub, files in os.walk(command_path):
                     for file in files:
                         if file.endswith('py'):
@@ -76,7 +76,7 @@ class loader:
 
     def import_plugins(self):
         plugins = dict()
-        plugin_path = "plugins"
+        plugin_path = self.helper.plugins_path
         try:
             for plugin in os.listdir(plugin_path):
                 if plugin.endswith("py"):
@@ -96,12 +96,12 @@ class loader:
 
     def import_modules(self):
         modules = dict()
-        module_path = "modules"
+        module_path = self.helper.modules_path
         for category in os.listdir(module_path):
             modules[category] = dict()
         try:
             for module_category in os.listdir(module_path):
-                module_path = "modules/" + module_category
+                module_path = self.helper.modules_path + module_category
                 for path, sub, files in os.walk(module_path):
                     for file in files:
                         if file.endswith('py'):
