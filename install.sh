@@ -101,6 +101,12 @@ else
     exit 1
 fi
 
+if [[ ! -d /opt ]]; then
+    {
+        sudo mkdir /opt
+    } &> /dev/null
+fi
+
 if [[ ! -d /opt/zsf ]]; then
     {
         git clone https://github.com/EntySec/ZetaSploit.git /opt/zsf
