@@ -58,6 +58,8 @@ class zsf:
     
     def check_install(self):
         if os.path.exists(self.helper.base_path):
+            self.badges.output_error("ZetaSploit is not installed!")
+            self.badges.output_information("Consider running ./install.sh")
             return True
         return False
 
