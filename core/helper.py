@@ -35,7 +35,7 @@ class helper:
         self.banners_path = self.base_path + 'banners/'
         self.modules_path = self.base_path + 'modules/'
         self.plugins_path = self.base_path + 'plugins/'
-        self.commands_path = self.base_path + 'commands/'
+        self.commands_path = self.base_path + 'core/commands/'
 
     def getip(self):
         try:
