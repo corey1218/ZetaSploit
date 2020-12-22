@@ -41,7 +41,7 @@ from core.banner import banner
 
 readline.parse_and_bind("tab: complete")
 
-class zsf:
+class console:
     def __init__(self):
         self.main = main()
         self.loader = loader()
