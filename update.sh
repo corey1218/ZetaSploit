@@ -29,10 +29,6 @@ S="\033[1;32m[+] \033[0m"
 E="\033[1;31m[-] \033[0m"
 P="\033[1;77m[>] \033[0m"
 
-clear
-cat banner/banner.txt
-echo
-
 while [[ $(sudo -n id -u 2>&1) != 0 ]]; do
     {
         sudo -v -p "$(echo -e -n $P)Password for $(whoami): " 
@@ -56,15 +52,15 @@ else
 fi
 
 {
-    rm -rf /opt/zsf
+    sudo rm -rf /opt/zsf
     sudo rm /usr/bin/zsf
     sudo rm /usr/local/bin/zsf
     sudo rm /data/data/com.termux/files/usr/bin/zsf
     git clone https://github.com/EntySec/ZetaSploit.git /opt/zsf
     if [[ $update ]]; then
         cd /opt/zsf/zsf
-        chmod +x install.sh
-        ./install.sh
+        sudo chmod +x install.sh
+        sudo ./install.sh
     fi
 } &> /dev/null
 
