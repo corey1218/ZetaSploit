@@ -37,12 +37,11 @@ class banner:
 
     def print_random_banner(self):
         banners = []
-        banners_path = self.helper.base_path + "banners/"
-        all_banners = os.listdir(banners_path)
+        all_banners = os.listdir(self.helper.banners_path)
         for banner in all_banners:
             if banner.endswith("txt"):
                 banners.append(banner)
         random_banner = random.randint(0, len(banners) - 1)
-        banner = open(banners_path + banners[random_banner])
+        banner = open(self.helper.banners_path + banners[random_banner])
         print(banner.read())
         banner.close()
