@@ -100,7 +100,7 @@ fi
 {
     pip3 install setuptools
     pip3 install -r requirements.txt
-} &> /dev/tcp
+} &> /dev/null
 
 if [[ ! -d /opt ]]; then
     {
