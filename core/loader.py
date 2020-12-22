@@ -62,7 +62,7 @@ class loader:
                 for path, sub, files in os.walk(command_path):
                     for file in files:
                         if file.endswith('py'):
-                            command_file_path = path + file[:-3]
+                            command_file_path = path + '/' + file[:-3]
                             try:
                                 command_directory = command_file_path.replace(self.helper.base_path, '')
                                 command_directory = command_directory.replace("/", ".")
@@ -109,7 +109,7 @@ class loader:
                 for path, sub, files in os.walk(module_path):
                     for file in files:
                         if file.endswith('py'):
-                            module_file_path = path + file[:-3]
+                            module_file_path = path + '/' + file[:-3]
                             try:
                                 module_directory = module_file_path.replace(self.helper.base_path, '')
                                 module_directory = module_directory.replace("/", ".")
