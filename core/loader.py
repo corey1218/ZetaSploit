@@ -62,7 +62,7 @@ class loader:
                 for path, sub, files in os.walk(command_path):
                     for file in files:
                         if file.endswith('py'):
-                            command_file_path = path + '/' + file[:-3]
+                            command_file_path = 'core/commands/' + file[:-3]
                             try:
                                 command_directory = command_file_path.replace("/", ".")
                                 command_file = __import__(command_directory)
@@ -82,7 +82,7 @@ class loader:
         try:
             for plugin in os.listdir(plugin_path):
                 if plugin.endswith("py"):
-                        plugin_file_path = plugin_path + '/' + plugin[:-3]
+                        plugin_file_path = 'plugins/' + plugin[:-3]
                         try:
                             plugin_directory = plugin_file_path.replace("/", ".")
                             plugin_file = __import__(plugin_directory)
@@ -107,7 +107,7 @@ class loader:
                 for path, sub, files in os.walk(module_path):
                     for file in files:
                         if file.endswith('py'):
-                            module_file_path = path + '/' + file[:-3]
+                            module_file_path = 'modules/' + file[:-3]
                             try:
                                 module_directory = module_file_path.replace("/", ".")
                                 module_file = __import__(module_directory)
