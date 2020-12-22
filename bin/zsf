@@ -28,16 +28,16 @@ import sys
 
 sys.path.append("/opt/zsf")
 
-from zsf import zsf
+from core.console import console
 
 class zsf:
     def __init__(self):
-        self.zsf = zsf()
+        self.console = console()
         
     def launch(self):
-        if self.zsf.check_root():
-            if self.zsf.check_install():
-                self.zsf.shell()
+        if self.console.check_root():
+            if self.console.check_install():
+                self.console.shell()
                 
 zsf = zsf()
 zsf.launch()
