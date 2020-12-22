@@ -24,23 +24,20 @@
 # SOFTWARE.
 #
 
-import os
+import sys
+
+sys.path.append("/opt/zsf")
+
+from zsf import zsf
 
 class zsf:
     def __init__(self):
-        self.base_path = "/opt/zsf/"
-        self.user_path = os.getcwd()
+        self.zsf = zsf()
         
     def launch(self):
-        os.chdir(self.base_path)
-        from core.storage import storage
-        storage = storage
-        storage.set("user_path", self.user_path)
-        from zsf import zsf
-        zsf = zsf()
-        if zsf.check_root():
-            if zsf.check_install():
-                zsf.shell()
+        if self.zsf.check_root():
+            if self.zsf.check_install():
+                self.zsf.shell()
                 
 zsf = zsf()
 zsf.launch()
