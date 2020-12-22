@@ -27,16 +27,10 @@
 import os
 import socket
 
-from core.storage import storage
-
 class helper:
     def __init__(self):
-        self.storage = storage()
-        
         self.version = "v1.0"
-        
         self.base_path = '/opt/zsf/'
-        self.user_path = self.storage.get("user_path")
 
     def getip(self):
         try:
@@ -54,6 +48,3 @@ class helper:
 
     def len_line(self, line):
         return str(len(line.encode())) + " bytes"
-    
-    def path(user_path):
-        return self.user_path + '/' + user_path
