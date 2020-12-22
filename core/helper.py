@@ -31,7 +31,7 @@ class helper:
     def __init__(self):
         self.version = "v1.0"
         self.base_path = os.path.expanduser("~") + '/.zsf/'
-        self.loot_path = self.base_path + '/loot'
+        self.loot_path = self.base_path + '/loot/'
 
     def getip(self):
         try:
