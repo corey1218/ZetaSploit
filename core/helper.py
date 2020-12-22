@@ -24,6 +24,7 @@
 # SOFTWARE.
 #
 
+import os
 import socket
 
 class helper:
@@ -40,3 +41,9 @@ class helper:
         except:
             local_host = "127.0.0.1"
         return local_host
+
+    def len_file(self, path):
+        return str(os.path.getsize(path)) + " bytes"
+
+    def len_line(self, line):
+        return str(len(line.encode())) + " bytes"

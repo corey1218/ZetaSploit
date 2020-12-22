@@ -12,11 +12,7 @@
     <br>
     <b>TODO</b><br>
     <br>
-    1. Clean code, remove unusable imports, clean up messy code
-    <br>2. Add more post modules and abs0rb support for Linux and Windows
-    <br>3. Fix macOS abs0rb session handler and global variables imports
-    <br>4. Add android/adb/reverse/tcp exploit and ios/stager/ac1d_reverse_tcp exploit
-    <br>5. Update all binary executbale implants (abs0rb, ac1d)
+    1. Clean up messy code
     <br>
     <br>
     <b>Useful links:</b><br>

@@ -62,17 +62,15 @@ class formatter:
             bigger_required = 4
         else:
             bigger_required = 4
-        self.io.output("")
-        self.io.output(title+" Options")
-        self.io.output("="*len(title+" Options"))
+        self.io.output(title.title() + " Options")
+        self.io.output("="*len(title.title() + " Options"))
         self.io.output("")
         self.io.output("    Name" + " " * (bigger_name) + "Value" + " " * (bigger_value) + "Required    Description")
         self.io.output("    ----" + " " * (bigger_name) + "-----" + " " * (bigger_value) + "--------    -----------")
         for name in names:
             self.io.output("    " + name + " " * (4 - len(name) + bigger_name) + str(options[name]['Value']) + " " * (5 - len(str(options[name]['Value'])) + bigger_value) + str(options[name]['Required']) + " " * (8 - len(str(options[name]['Required'])) + bigger_required) + options[name]['Description'])
-        self.io.output("")
 
-    def format_commands(self, commands, title):
+    def format_global_commands(self, commands, title):
         command_names = []
         for command in commands.keys():
             command_names.append(command)
@@ -84,15 +82,33 @@ class formatter:
             bigger = bigger - 5
         else:
             bigger = 8
+        self.io.output(title.title() + " Commands")
+        self.io.output("=" * len(title.title() + " Commands"))
         self.io.output("")
-        self.io.output(title + " Commands")
-        self.io.output("=" * len(title + " Commands"))
+        self.io.output("    Command" + " " * (bigger) + "Description")
+        self.io.output("    -------" + " " * (bigger) + "-----------")
+        for i in command_names:
+            self.io.output("    " + i + " " * (7 - len(i) + bigger) + commands[i].details['Description'])
+
+    def format_local_commands(self, commands, title):
+        command_names = []
+        for command in commands.keys():
+            command_names.append(command)
+        bigger = len(command_names[0])
+        for i in command_names:
+            if len(i) > bigger:
+                bigger = len(i)
+        if bigger >= 14:
+            bigger = bigger - 5
+        else:
+            bigger = 8
+        self.io.output(title.title() + " Commands")
+        self.io.output("=" * len(title.title() + " Commands"))
         self.io.output("")
         self.io.output("    Command" + " " * (bigger) + "Description")
         self.io.output("    -------" + " " * (bigger) + "-----------")
         for i in command_names:
             self.io.output("    " + i + " " * (7 - len(i) + bigger) + commands[i]['Description'])
-        self.io.output("")
 
     def format_modules(self, modules, title):
         module_names = []
@@ -106,7 +122,6 @@ class formatter:
             bigger = bigger - 4
         else:
             bigger = 8
-        self.io.output("")
         self.io.output(title.title() + " Modules")
         self.io.output("=" * len(title.title() + " Modules"))
         self.io.output("")
@@ -114,4 +129,23 @@ class formatter:
         self.io.output("    ------" + " " * (bigger) + "-----------")
         for i in module_names:
             self.io.output("    " + i + " " * (6 - len(i) + bigger) + modules[i].details['Description'])
+
+    def format_plugins(self, plugins):
+        plugin_names = []
+        for name in plugins.keys():
+            plugin_names.append(name)
+        bigger = len(plugin_names[0])
+        for i in plugin_names:
+            if len(i) > bigger:
+                bigger = len(i)
+        if bigger >= 13:
+            bigger = bigger - 4
+        else:
+            bigger = 8
+        self.io.output("ZetaSploit Plugins")
+        self.io.output("==================")
         self.io.output("")
+        self.io.output("    Plugin" + " " * (bigger) + "Description")
+        self.io.output("    ------" + " " * (bigger) + "-----------")
+        for i in plugin_names:
+            self.io.output("    " + i + " " * (6 - len(i) + bigger) + plugins[i].details['Description'])

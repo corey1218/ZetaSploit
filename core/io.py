@@ -27,26 +27,26 @@
 import os
 import sys
 
-from core.vars import vars
+from core.storage import storage
 
 class io:
     def __init__(self):
-        self.vars = vars()
+        self.storage = storage()
 
     def output(self, message):
         sys.stdout.write('\033[1K\r' + message + os.linesep)
         sys.stdout.flush()
-        if self.vars.get("current_prompt") != None and self.vars.get("active_input"):
-            sys.stdout.write('\033[1K\r' + self.vars.get("current_prompt"))
+        if self.storage.get("current_prompt") != None and self.storage.get("active_input"):
+            sys.stdout.write('\033[1K\r' + self.storage.get("current_prompt"))
             sys.stdout.flush()
 
     def input(self, prompt_message):
-        self.vars.set("current_prompt", prompt_message)
-        self.vars.set("active_input", True)
+        self.storage.set("current_prompt", prompt_message)
+        self.storage.set("active_input", True)
         command = input(prompt_message).strip()
         commands = command.split()
         arguments = ""
         if commands != []:
             arguments = "".join(command.split(commands[0])).strip()
-        self.vars.set("active_input", False)
+        self.storage.set("active_input", False)
         return (commands, arguments)

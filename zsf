@@ -31,21 +31,24 @@ sys.stdout.write("\033]0;ZetaSploit Framework\007")
 import os
 import readline
 
-from core.menus import menus
+from core.menus.main import main
+
 from core.loader import loader
 from core.io import io
 from core.helper import helper
 from core.badges import badges
+from core.banner import banner
 
 readline.parse_and_bind("tab: complete")
 
 class zsf:
     def __init__(self):
-        self.menus = menus()
+        self.main = main()
         self.loader = loader()
         self.io = io()
         self.helper = helper()
         self.badges = badges()
+        self.banner = banner()
 
     def check_root(self):
         if os.getuid() == 0:
@@ -55,23 +58,21 @@ class zsf:
 
     def start_zsf(self):
         try:
-            modules = self.loader.load_modules()
+            self.loader.load_all()
         except:
             sys.exit()
-        return modules
 
-    def banner(self):
+    def launch_shell(self):
         os.system("clear")
-        os.system("cat banner/banner.txt")
-        self.io.output("")
+        self.banner.print_random_banner()
         self.io.output("ZetaSploit Framework "+self.helper.version)
         self.io.output("-------------------------")
         self.io.output("")
 
     def shell(self):
-        modules = self.start_zsf()
-        self.banner()
-        self.menus.main_menu(modules)
+        self.start_zsf()
+        self.launch_shell()
+        self.main.main_menu()
 
 zsf = zsf()
 if zsf.check_root():
