@@ -62,9 +62,10 @@ class loader:
                 for path, sub, files in os.walk(command_path):
                     for file in files:
                         if file.endswith('py'):
-                            command_file_path = 'core/commands/' + file[:-3]
+                            command_file_path = path + file[:-3]
                             try:
-                                command_directory = command_file_path.replace("/", ".")
+                                command_directory = command_file_path.replace(self.helper.base_path, '')
+                                command_directory = command_directory.replace("/", ".")
                                 command_file = __import__(command_directory)
                                 command_object = self.get_module(command_file, file[:-3], command_directory)
                                 command_object = command_object.ZetaSploitCommand()
@@ -82,9 +83,10 @@ class loader:
         try:
             for plugin in os.listdir(plugin_path):
                 if plugin.endswith("py"):
-                        plugin_file_path = 'plugins/' + plugin[:-3]
+                        plugin_file_path = plugin_path + plugin[:-3]
                         try:
-                            plugin_directory = plugin_file_path.replace("/", ".")
+                            plugin_directory = plugin_file_path.replace(self.helper.base_path, '')
+                            plugin_directory = plugin_directory.replace("/", ".")
                             plugin_file = __import__(plugin_directory)
                             plugin_object = self.get_module(plugin_file, plugin[:-3], plugin_directory)
                             plugin_object = plugin_object.ZetaSploitPlugin()
@@ -107,9 +109,10 @@ class loader:
                 for path, sub, files in os.walk(module_path):
                     for file in files:
                         if file.endswith('py'):
-                            module_file_path = 'modules/' + file[:-3]
+                            module_file_path = path + file[:-3]
                             try:
-                                module_directory = module_file_path.replace("/", ".")
+                                module_directory = module_file_path.replace(self.helper.base_path, '')
+                                module_directory = module_directory.replace("/", ".")
                                 module_file = __import__(module_directory)
                                 module_object = self.get_module(module_file, file[:-3], module_directory)
                                 module_object = module_object.ZetaSploitModule()
