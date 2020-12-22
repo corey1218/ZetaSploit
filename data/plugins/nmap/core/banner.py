@@ -24,11 +24,16 @@
 # SOFTWARE.
 #
 
+from core.badges import badges
+
 class banner:
+    def __init__(self):
+        self.badges = badges()
+        
     def print_banner(self):
-        print("""
+        print(f"""{self.badges.RED}
 .-----.--------.---.-.-----.
 |     |        |  _  |  _  |
 |__|__|__|__|__|___._|   __|
                      |__|   
-        """)
+        {self.badges.END}""")
