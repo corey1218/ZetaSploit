@@ -55,6 +55,11 @@ class zsf:
             return True
         self.badges.output_error("Operation not permitted!")
         return False
+    
+    def check_install(self):
+        if os.path.exists(self.helper.base_path):
+            return True
+        return False
 
     def start_zsf(self):
         try:
@@ -76,4 +81,5 @@ class zsf:
 
 zsf = zsf()
 if zsf.check_root():
-    zsf.shell()
+    if zsf.check_install():
+        zsf.shell()
