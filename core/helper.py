@@ -30,8 +30,12 @@ import socket
 class helper:
     def __init__(self):
         self.version = "v1.0"
+        
         self.base_path = '/opt/zsf/'
-        self.loot_path = self.base_path + 'loot/'
+        self.banners_path = self.base_path + 'banners/'
+        self.modules_path = self.base_path + 'modules/'
+        self.plugins_path = self.base_path + 'plugins/'
+        self.commands_path = self.base_path + 'commands/'
 
     def getip(self):
         try:

@@ -28,18 +28,20 @@ import os
 import random
 
 from core.badges import badges
+from core.helper import helper
 
 class banner:
     def __init__(self):
         self.badges = badges()
+        self.helper = helper()
 
     def print_random_banner(self):
         banners = []
-        all_banners = os.listdir("banners")
+        all_banners = os.listdir(self.helper.banners_path)
         for banner in all_banners:
             if banner.endswith("txt"):
                 banners.append(banner)
         random_banner = random.randint(0, len(banners) - 1)
-        banner = open('banners/' + banners[random_banner])
+        banner = open(self.helper.banners_path + banners[random_banner])
         print(banner.read())
         banner.close()

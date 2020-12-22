@@ -41,7 +41,7 @@ from core.banner import banner
 
 readline.parse_and_bind("tab: complete")
 
-class zsf:
+class console:
     def __init__(self):
         self.main = main()
         self.loader = loader()
@@ -80,8 +80,3 @@ class zsf:
         self.start_zsf()
         self.launch_shell()
         self.main.main_menu()
-
-zsf = zsf()
-if zsf.check_root():
-    if zsf.check_install():
-        zsf.shell()
