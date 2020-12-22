@@ -42,7 +42,7 @@ done
 echo -e $G"Uninstalling ZetaSploit Framework..."
 
 {
-    rm -rf /opt/zsf
+    sudo rm -rf /opt/zsf
     sudo rm /usr/bin/zsf
     sudo rm /usr/local/bin/zsf
     sudo rm /data/data/com.termux/files/usr/bin/zsf
