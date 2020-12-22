@@ -109,7 +109,7 @@ fi
 
 if [[ ! -d /opt/zsf ]]; then
     {
-        git clone https://github.com/EntySec/ZetaSploit.git /opt/zsf
+        sudo git clone https://github.com/EntySec/ZetaSploit.git /opt/zsf
     } &> /dev/null
 fi
 
