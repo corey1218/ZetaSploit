@@ -56,19 +56,19 @@ else
 fi
 
 {
-    rm -rf ~/.zsf
+    rm -rf /opt/zsf
     sudo rm /usr/bin/zsf
     sudo rm /usr/local/bin/zsf
     sudo rm /data/data/com.termux/files/usr/bin/zsf
-    git clone https://github.com/EntySec/ZetaSploit.git ~/.zsf
+    git clone https://github.com/EntySec/ZetaSploit.git /opt/zsf
     if [[ $update ]]; then
-        cd ~/.zsf/zsf
+        cd /opt/zsf/zsf
         chmod +x install.sh
         ./install.sh
     fi
 } &> /dev/null
 
-if [[ ! -d ~/.zsf ]]; then
+if [[ ! -d /opt/zsf ]]; then
     echo -e $E"Installation failed!"
     exit 1
 fi

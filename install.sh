@@ -101,14 +101,14 @@ else
     exit 1
 fi
 
-if [[ ! -d ~/.zsf ]]; then
+if [[ ! -d /opt/zsf ]]; then
     {
-        git clone https://github.com/EntySec/ZetaSploit.git ~/.zsf
+        git clone https://github.com/EntySec/ZetaSploit.git /opt/zsf
     } &> /dev/null
 fi
 
-if [[ -d ~/.zsf ]]; then
-    cd ~/.zsf
+if [[ -d /opt/zsf ]]; then
+    cd /opt/zsf
 else
     echo -e $E"Installation failed!"
     exit 1

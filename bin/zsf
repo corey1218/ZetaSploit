@@ -29,46 +29,46 @@ S="\033[1;32m[+] \033[0m"
 E="\033[1;31m[-] \033[0m"
 P="\033[1;77m[>] \033[0m"
 
-if [[ -d ~/.zsf ]]; then
+if [[ -d /opt/zsf ]]; then
     {
-        cd ~/.zsf
+        cd /opt/zsf
         mkdir etc/.disabled
         mv core/transfer.py etc/.disabled
-        mv etc/core/transfer.py ~/.zsf/core
+        mv etc/core/transfer.py /opt/zsf/core
         cp etc/.disabled/transfer.py etc/core
         rm -rf etc/.disabled
     } &> /dev/null
     chmod +x zsf
     ./zsf
     {
-        cd ~/.zsf
+        cd /opt/zsf
         mkdir etc/.disabled
         mv core/transfer.py etc/.disabled
-        mv etc/core/transfer.py ~/.zsf/core
+        mv etc/core/transfer.py /opt/zsf/core
         cp etc/.disabled/transfer.py etc/core
         rm -rf etc/.disabled
     } &> /dev/null
 else
     {
-        git clone https://github.com/EntySec/ZetaSploit.git ~/.zsf
-        cd ~/.zsf
+        git clone https://github.com/EntySec/ZetaSploit.git /opt/zsf
+        cd /opt/zsf
         mkdir etc/.disabled
         mv core/transfer.py etc/.disabled
-        mv etc/core/transfer.py ~/.zsf/core
+        mv etc/core/transfer.py /opt/zsf/core
         cp etc/.disabled/transfer.py etc/core
         rm -rf etc/.disabled
     } &> /dev/null
-    if [[ ! -d ~/.zsf ]]; then
+    if [[ ! -d /opt/zsf ]]; then
         echo -e $E"Execution failed!"
         exit 1
     fi
     chmod +x zsf
     ./zsf
     {
-        cd ~/.zsf
+        cd /opt/zsf
         mkdir etc/.disabled
         mv core/transfer.py etc/.disabled
-        mv etc/core/transfer.py ~/.zsf/core
+        mv etc/core/transfer.py /opt/zsf/core
         cp etc/.disabled/transfer.py etc/core
         rm -rf etc/.disabled
     } &> /dev/null
