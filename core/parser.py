@@ -35,6 +35,6 @@ class parser:
             values = []
             for option in options.keys():
                 values.append(str(options[option]['Value']))
-            return tuple(values)
+            return values
         else:
             return str(options[option]['Value'])
