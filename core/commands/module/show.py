@@ -54,11 +54,15 @@ class ZetaSploitCommand:
             usage += category + ", "
         usage += "plugins, options"
         if information in modules.keys():
+            self.io.output("")
             self.formatter.format_modules(modules[information], information)
+            self.io.output("")
         else:
             if information == "options":
                 if hasattr(current_module, "options"):
+                    self.io.output("")
                     self.formatter.format_options(current_module.options, "Module")
+                    self.io.output("")
                 else:
                     self.badges.output_warning("Module does not have options.")
             else:
