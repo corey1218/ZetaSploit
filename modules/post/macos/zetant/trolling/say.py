@@ -63,8 +63,9 @@ class ZetaSploitModule:
         }
 
     def run(self):
-        exists, controller = self.session.get_session(self.parser.parse_options(self.options))
+        message, session = self.parser.parse_options(self.options)
+        exists, controller = self.session.get_session(session)
         if exists:
-            status, output = controller.send_command("say", self.options['MESSAGE']['Value'])
+            status, output = controller.send_command("say", message)
             if status == "error":
                 self.badges.output_error("Failed to say message!")
