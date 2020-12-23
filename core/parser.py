@@ -35,6 +35,8 @@ class parser:
             values = []
             for option in options.keys():
                 values.append(str(options[option]['Value']))
+            if len(values) == 1:
+                return values[0]
             return values
         else:
             return str(options[option]['Value'])
