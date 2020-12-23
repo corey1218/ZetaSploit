@@ -26,6 +26,7 @@
 
 from core.badges import badges
 from core.storage import storage
+from core.parser import parser
 
 from data.modules.exploit.macos.stager.zetant_reverse_tcp.core.session import session
 
@@ -33,6 +34,8 @@ class ZetaSploitModule:
     def __init__(self):
         self.badges = badges()
         self.storage = storage()
+        self.parser = parser()
+        
         self.session = session()
 
         self.details = {
@@ -58,16 +61,6 @@ class ZetaSploitModule:
                 'Required': True
             }
         }
-
-    def get_session(self):
-        session = self.options['SESSION']['Value']
-        sessions = self.storage.get("post/macos/zetant")
-        if sessions != None:
-            for i in sessions.keys():
-                if int(session) == int(i):
-                    return (True, sessions[int(session)])
-        self.badges.output_error("Invalid session given!")
-        return (False, None)
 
     def run(self):
         exists, controller = self.get_session()
