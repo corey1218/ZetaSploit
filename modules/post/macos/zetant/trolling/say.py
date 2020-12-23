@@ -63,7 +63,7 @@ class ZetaSploitModule:
         }
 
     def run(self):
-        exists, controller = self.get_session()
+        exists, controller = self.session.get_session(self.parser.parse_options(options))
         if exists:
             status, output = controller.send_command("say", self.options['MESSAGE']['Value'])
             if status == "error":
