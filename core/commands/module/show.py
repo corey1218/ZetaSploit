@@ -26,12 +26,14 @@
 
 import os
 
+from core.io import io
 from core.badges import badges
 from core.storage import storage
 from core.formatter import formatter
 
 class ZetaSploitCommand:
     def __init__(self):
+        self.io = io()
         self.badges = badges()
         self.storage = storage()
         self.formatter = formatter()
