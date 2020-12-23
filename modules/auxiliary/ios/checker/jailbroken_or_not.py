@@ -30,10 +30,12 @@ import sys
 import socket
 
 from core.badges import badges
+from core.parser import parser
 
 class ZetaSploitModule:
     def __init__(self):
         self.badges = badges()
+        self.parser = parser()
 
         self.details = {
             'Name': "ios/checker/jailbroken_or_not",
@@ -57,7 +59,7 @@ class ZetaSploitModule:
 
     def run(self):
         self.badges.output_process("Checking...")
-        remote_host = self.options['RHOST']['Value']
+        remote_host = self.parser.parse_options(options)
         checker = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         if checker.connect_ex((remote_host, 22)) == 0:
             self.badges.output_success("Target device jailbroken!")
