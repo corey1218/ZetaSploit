@@ -60,7 +60,7 @@ class ZetaSploitModule:
         }
 
     def run(self):
-        exists, controller = self.session.get_session(self.parser.parse_options(options))
+        exists, controller = self.session.get_session(self.parser.parse_options(self.options))
         if exists:
             status, output = controller.send_command("shell", "dumpsys battery")
             if status == "error":

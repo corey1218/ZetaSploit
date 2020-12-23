@@ -63,7 +63,7 @@ class ZetaSploitModule:
         }
 
     def run(self):
-        url = self.parser.parse_options(options)
+        url = self.parser.parse_options(self.options)
         paths = self.dictionary.paths
         try:
             for path in paths:

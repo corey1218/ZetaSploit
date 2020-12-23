@@ -57,7 +57,7 @@ class ZetaSploitModule:
         }
 
     def run(self):
-        ip_range = self.parser.parse_options(options)
+        ip_range = self.parser.parse_options(self.options)
         arp = ARP(pdst=ip_range)
         ether = Ether(dst="ff:ff:ff:ff:ff:ff")
         result = srp(ether/arp, timeout=10, verbose=False)[0]

@@ -59,7 +59,7 @@ class ZetaSploitModule:
 
     def run(self):
         self.badges.output_process("Checking...")
-        remote_host = self.parser.parse_options(options)
+        remote_host = self.parser.parse_options(self.options)
         checker = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         if checker.connect_ex((remote_host, 22)) == 0:
             self.badges.output_success("Target device jailbroken!")
