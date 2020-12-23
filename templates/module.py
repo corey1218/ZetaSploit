@@ -40,14 +40,26 @@ class ZetaSploitModule:
         }
         
         self.options = {
-            'OPTION1': {
-                'Description': "option1_description",
-                'Value': "option1_value/empty if no value",
+            'OPTION': {
+                'Description': "option_description",
+                'Value': "option_value/empty if no value",
                 'Required': True,
-            },
-            'OPTION2': {
-                'Description': "option2_description",
-                'Value': "option2_value/empty if no value",
-                'Required': False,
             }
         }
+        
+        self.commands = {
+            'command': {
+                'Description': "command_description",
+                'Usage': "command1 <command1_options>",
+                'ArgsCount': 1,
+                'NeedsArgs': True,
+                'Args': [],
+                'Run': self.command
+            }
+        }
+
+    def command(self):
+        pass # code of command
+    
+    def run(self):
+        pass # code of module
