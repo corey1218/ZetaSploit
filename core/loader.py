@@ -64,7 +64,7 @@ class loader:
                         if file.endswith('py'):
                             command_file_path = path + '/' + file[:-3]
                             try:
-                                command_directory = command_file_path.replace(self.helper.base_path, '')
+                                command_directory = command_file_path.replace(self.helper.base_path, '', 1)
                                 command_directory = command_directory.replace("/", ".")
                                 command_file = __import__(command_directory)
                                 command_object = self.get_module(command_file, file[:-3], command_directory)
@@ -85,7 +85,7 @@ class loader:
                 if plugin.endswith("py"):
                         plugin_file_path = plugin_path + plugin[:-3]
                         try:
-                            plugin_directory = plugin_file_path.replace(self.helper.base_path, '')
+                            plugin_directory = plugin_file_path.replace(self.helper.base_path, '', 1)
                             plugin_directory = plugin_directory.replace("/", ".")
                             plugin_file = __import__(plugin_directory)
                             plugin_object = self.get_module(plugin_file, plugin[:-3], plugin_directory)
@@ -111,7 +111,7 @@ class loader:
                         if file.endswith('py'):
                             module_file_path = path + '/' + file[:-3]
                             try:
-                                module_directory = module_file_path.replace(self.helper.base_path, '')
+                                module_directory = module_file_path.replace(self.helper.base_path, '', 1)
                                 module_directory = module_directory.replace("/", ".")
                                 module_file = __import__(module_directory)
                                 module_object = self.get_module(module_file, file[:-3], module_directory)
