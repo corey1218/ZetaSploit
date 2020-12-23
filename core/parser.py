@@ -26,11 +26,11 @@
 
 from core.io import io
 
-class options:
+class parser:
     def __init__(self):
         self.io = io()
         
-    def parse(self, options, option=None):
+    def parse_options(self, options, option=None):
         if not option:
             values = []
             for option in options.keys():
