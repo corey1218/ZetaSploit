@@ -30,6 +30,7 @@ import sys
 import http.client
 
 from core.badges import badges
+from core.parser import parser
 from core.io import io
 
 from data.modules.auxiliary.web.scanner.php_my_admin_scan.dictionary import dictionary
@@ -37,7 +38,9 @@ from data.modules.auxiliary.web.scanner.php_my_admin_scan.dictionary import dict
 class ZetaSploitModule:
     def __init__(self):
         self.badges = badges()
+        self.parser = parser()
         self.io = io()
+        
         self.dictionary = dictionary()
 
         self.details = {
@@ -60,7 +63,7 @@ class ZetaSploitModule:
         }
 
     def run(self):
-        url = self.options['URL']['Value']
+        url = self.parser.parse_options(options)
         paths = self.dictionary.paths
         try:
             for path in paths:
