@@ -28,7 +28,7 @@ from core.io import io
 from core.badges import badges
 
 
-class module:
+class modules:
     def __init__(self):
         self.io = io()
         self.badges = badges()
