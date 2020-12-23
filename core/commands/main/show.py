@@ -55,7 +55,9 @@ class ZetaSploitCommand:
             usage += category + ", "
         usage += "plugins"
         if information in modules.keys():
+            self.io.output("")
             self.formatter.format_modules(modules[information], information)
+            self.io.output("")
         else:
             if information == "plugins":
                 if self.storage.get("plugins"):
