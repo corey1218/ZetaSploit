@@ -50,7 +50,7 @@ class ZetaSploitModule:
         self.commands = {
             'command': {
                 'Description': "command_description",
-                'Usage': "command1 <command1_options>",
+                'Usage': "command <command1_options>",
                 'ArgsCount': 1,
                 'NeedsArgs': True,
                 'Args': [],
