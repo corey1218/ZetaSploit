@@ -26,12 +26,14 @@
 
 import os
 
+from core.io import io
 from core.badges import badges
 from core.storage import storage
 from core.formatter import formatter
 
 class ZetaSploitCommand:
     def __init__(self):
+        self.io = io()
         self.badges = badges()
         self.storage = storage()
         self.formatter = formatter()
@@ -54,11 +56,15 @@ class ZetaSploitCommand:
             usage += category + ", "
         usage += "plugins, options"
         if information in modules.keys():
+            self.io.output("")
             self.formatter.format_modules(modules[information], information)
+            self.io.output("")
         else:
             if information == "options":
                 if hasattr(current_module, "options"):
+                    self.io.output("")
                     self.formatter.format_options(current_module.options, "Module")
+                    self.io.output("")
                 else:
                     self.badges.output_warning("Module does not have options.")
             else:

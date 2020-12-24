@@ -24,28 +24,28 @@
 # SOFTWARE.
 #
 
-import socket
-
+from core.io import io
 from core.badges import badges
-from core.exceptions import exceptions
 
-class server:
+
+class modules:
     def __init__(self):
+        self.io = io()
         self.badges = badges()
-        self.exceptions = exceptions()
 
-        self.server = None
-
-    def stop_server(self):
-        self.server.close()
-
-    def start_server(self, local_host, local_port):
-        self.badges.output_process("Binding to " + local_host + ":" + local_port + "...")
-        try:
-            self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            self.server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-            self.server.bind((local_host, int(local_port)))
-            self.server.listen(1)
-        except:
-            self.badges.output_error("Failed to bind to " + local_host + ":" + local_port + "!")
-            raise self.exceptions.GlobalException
+    def show_details(self, details):
+        self.io.output("")
+        self.badges.output_information("Name:")
+        self.io.output("    " + details['Name'])
+        self.io.output("")
+        self.badges.output_information("Authors:")
+        for author in details['Authors']:
+            self.io.output("    " + author)
+        self.io.output("")
+        self.badges.output_information("Description:")
+        self.io.output("    " + details['Description'])
+        self.io.output("")
+        self.badges.output_information("Comments:")
+        for line in details['Comments']:
+            self.io.output("    " + line)
+        self.io.output("")

@@ -25,27 +25,18 @@
 #
 
 from core.io import io
-from core.badges import badges
 
-
-class module:
+class parser:
     def __init__(self):
         self.io = io()
-        self.badges = badges()
-
-    def show_details(self, details):
-        self.io.output("")
-        self.badges.output_information("Name:")
-        self.io.output("    " + details['Name'])
-        self.io.output("")
-        self.badges.output_information("Authors:")
-        for author in details['Authors']:
-            self.io.output("    " + author)
-        self.io.output("")
-        self.badges.output_information("Description:")
-        self.io.output("    " + details['Description'])
-        self.io.output("")
-        self.badges.output_information("Comments:")
-        for line in details['Comments']:
-            self.io.output("    " + line)
-        self.io.output("")
+        
+    def parse_options(self, options, option=None):
+        if not option:
+            values = []
+            for option in options.keys():
+                values.append(str(options[option]['Value']))
+            if len(values) == 1:
+                return values[0]
+            return values
+        else:
+            return str(options[option]['Value'])

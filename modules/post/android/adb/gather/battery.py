@@ -26,6 +26,7 @@
 
 from core.badges import badges
 from core.storage import storage
+from core.parser import parser
 from core.io import io
 
 from data.modules.exploit.android.adb.reverse_tcp.core.session import session
@@ -34,7 +35,9 @@ class ZetaSploitModule:
     def __init__(self):
         self.badges = badges()
         self.storage = storage()
+        self.parser = parser()
         self.io = io()
+        
         self.session = session()
 
         self.details = {
@@ -51,13 +54,13 @@ class ZetaSploitModule:
         self.options = {
             'SESSION': {
                 'Description': 'Session to run on.',
-                'Value': "0",
+                'Value': 0,
                 'Required': True
             }
         }
 
     def run(self):
-        exists, controller = self.session.get_session(self.options['SESSION']['Value'])
+        exists, controller = self.session.get_session(self.parser.parse_options(self.options))
         if exists:
             status, output = controller.send_command("shell", "dumpsys battery")
             if status == "error":
