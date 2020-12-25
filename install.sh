@@ -24,6 +24,7 @@
 # SOFTWARE.
 #
 
+I="\033[1;77m[i] \033[0m"
 G="\033[1;34m[*] \033[0m"
 S="\033[1;32m[+] \033[0m"
 E="\033[1;31m[-] \033[0m"
@@ -38,12 +39,17 @@ done
 echo -e $G"Installing ZetaSploit Framework..."
 
 if [[ $(uname -s) == "Darwin" && $(uname -m) == "x86_64" || $(uname -m) == "arm64" ]]; then
-    {
-        if [[ -z $(command -v brew) ]]; then
-            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-        fi
-        brew install git python3 openssl
-    } &> /dev/null
+    if [[ -z $(command -v brew) ]]; then
+        echo -e $E"Installation requires Mac Ports!"
+        echo -e $I"Install Mac Ports from here: https://macports.org/install.php"
+        exit 1
+    else
+        {
+            sudo port install git python39 openssl
+            sudo port select --set python3 python39
+            sudo python3 -m ensurepip
+        } &> /dev/null
+    fi
 elif [[ $(uname -s) == "Linux" ]]; then
     if [[ ! -z $(command -v apt-get) ]]; then
         {
@@ -111,17 +117,9 @@ if [[ ! -d /opt ]]; then
     } &> /dev/null
 fi
 
-if [[ ! -d /usr/local/bin ]]; then
-    {
-        sudo mkdir /usr/local/bin
-    } &> /dev/null
-fi
-
-if [[ ! -d /opt/zsf ]]; then
-    {
-        sudo git clone https://github.com/EntySec/ZetaSploit.git /opt/zsf
-    } &> /dev/null
-fi
+{
+    sudo git clone https://github.com/EntySec/ZetaSploit.git /opt/zsf
+} &> /dev/null
 
 if [[ -d /opt/zsf ]]; then
     cd /opt/zsf
@@ -130,9 +128,13 @@ else
     exit 1
 fi
 
+if [[ ! -d /usr/local/bin ]]; then
+    {
+        sudo mkdir /usr/local/bin
+    } &> /dev/null
+fi
+
 {
-    sudo cp bin/zsf /usr/bin
-    sudo chmod +x /usr/bin/zsf
     sudo cp bin/zsf /usr/local/bin
     sudo chmod +x /usr/local/bin/zsf
     sudo cp bin/zsf /data/data/com.termux/files/usr/bin
