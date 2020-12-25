@@ -97,6 +97,9 @@ else
     exit 1
 fi
 
+export CPPFLAGS=-I/usr/local/opt/openssl/include
+export LDFLAGS=-L/usr/local/opt/openssl/lib
+
 {
     pip3 install setuptools
     pip3 install -r requirements.txt
