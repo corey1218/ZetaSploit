@@ -33,8 +33,8 @@ class io:
     def __init__(self):
         self.storage = storage()
 
-    def output(self, message):
-        sys.stdout.write('\033[1K\r' + message + os.linesep)
+    def output(self, message, end=os.linesep):
+        sys.stdout.write('\033[1K\r' + message + end)
         sys.stdout.flush()
         if self.storage.get("current_prompt") != None and self.storage.get("active_input"):
             sys.stdout.write('\033[1K\r' + self.storage.get("current_prompt"))
@@ -43,7 +43,8 @@ class io:
     def input(self, prompt_message):
         self.storage.set("current_prompt", prompt_message)
         self.storage.set("active_input", True)
-        command = input(prompt_message).strip()
+        self.output(prompt_message)
+        command = input().strip()
         commands = command.split()
         arguments = ""
         if commands != []:
