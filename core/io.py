@@ -36,18 +36,18 @@ class io:
     def output(self, message, end=os.linesep):
         sys.stdout.write('\033[1K\r' + message + end)
         sys.stdout.flush()
-        if self.storage.get("current_prompt") != None and self.storage.get("active_input"):
-            sys.stdout.write('\033[1K\r' + self.storage.get("current_prompt"))
-            sys.stdout.flush()
+        #if self.storage.get("current_prompt") != None and self.storage.get("active_input"):
+        #    sys.stdout.write('\033[1K\r' + self.storage.get("current_prompt"))
+        #    sys.stdout.flush()
 
     def input(self, prompt_message):
-        self.storage.set("current_prompt", prompt_message)
-        self.storage.set("active_input", True)
-        self.output(prompt_message)
+        #self.storage.set("current_prompt", prompt_message)
+        #self.storage.set("active_input", True)
+        self.output(prompt_message, end='')
         command = input().strip()
         commands = command.split()
         arguments = ""
         if commands != []:
             arguments = "".join(command.split(commands[0])).strip()
-        self.storage.set("active_input", False)
+        #self.storage.set("active_input", False)
         return (commands, arguments)
