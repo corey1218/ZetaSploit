@@ -41,7 +41,7 @@ echo -e $G"Installing ZetaSploit Framework..."
 if [[ $(uname -s) == "Darwin" && $(uname -m) == "x86_64" || $(uname -m) == "arm64" ]]; then
     if [[ -z $(command -v port) ]]; then
         echo -e $E"Installation requires Mac Ports!"
-        echo -e $I"Install Mac Ports from here: https://macports.org/install.php"
+        echo -e $I"Install Mac Ports from here: \033[4;4mhttps://macports.org/install.php\033[0m"
         exit 1
     else
         {
