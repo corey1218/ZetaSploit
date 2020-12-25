@@ -104,7 +104,7 @@ else
 fi
 
 export CPPFLAGS=-I/opt/local/include/openssl
-export LDFLAGS=-L/opt/local/lib/openssl
+export LDFLAGS=-L/opt/local/lib
 
 {
     pip3 install setuptools
