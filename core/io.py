@@ -43,8 +43,8 @@ class io:
     def input(self, prompt_message):
         #self.storage.set("current_prompt", prompt_message)
         #self.storage.set("active_input", True)
-        self.output(prompt_message, end='')
-        command = input().strip()
+        sys.stdout.write(prompt_message)
+        command = sys.stdin.readline().strip()
         commands = command.split()
         arguments = ""
         if commands != []:
