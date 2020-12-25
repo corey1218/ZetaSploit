@@ -37,7 +37,7 @@ done
 
 echo -e $G"Installing ZetaSploit Framework..."
 
-if [[ $(uname -s) == "Darwin" && $(arch) == "i386" ]]; then
+if [[ $(uname -s) == "Darwin" && $(uname -m) == "x86_64" || $(uname -m) == "arm64" ]]; then
     {
         if [[ -z $(command -v brew) ]]; then
             /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
@@ -105,6 +105,12 @@ fi
 if [[ ! -d /opt ]]; then
     {
         sudo mkdir /opt
+    } &> /dev/null
+fi
+
+if [[ ! -d /usr/local/bin ]]; then
+    {
+        sudo mkdir /usr/local/bin
     } &> /dev/null
 fi
 
