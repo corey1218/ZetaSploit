@@ -24,6 +24,7 @@
 # SOFTWARE.
 #
 
+I="\033[1;77m[i] \033[0m"
 G="\033[1;34m[*] \033[0m"
 S="\033[1;32m[+] \033[0m"
 E="\033[1;31m[-] \033[0m"
@@ -53,7 +54,6 @@ fi
 
 {
     sudo rm -rf /opt/zsf
-    sudo rm /usr/bin/zsf
     sudo rm /usr/local/bin/zsf
     sudo rm /data/data/com.termux/files/usr/bin/zsf
     git clone https://github.com/EntySec/ZetaSploit.git /opt/zsf
