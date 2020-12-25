@@ -60,4 +60,4 @@ class badges:
         self.io.output(self.I + message)
 
     def input_confirm(self, message):
-        return input(self.Q + message)
+        return self.io.input(self.Q + message)[0]
