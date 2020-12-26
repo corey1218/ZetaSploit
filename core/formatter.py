@@ -24,6 +24,8 @@
 # SOFTWARE.
 #
 
+import re
+
 from core.io import io
 
 class formatter:
