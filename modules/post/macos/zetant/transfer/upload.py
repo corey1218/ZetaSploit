@@ -66,6 +66,7 @@ class ZetaSploitModule:
         }
 
     def run(self):
-        exists, controller = self.session.get_session(self.parser.parse_options(self.options))
+        lpath, rpath, session = self.parser.parse_options(self.options)
+        exists, controller = self.session.get_session(session)
         if exists:
-            controller.upload_file()
+            controller.upload(lpath, rpath)
