@@ -30,6 +30,7 @@ import re
 
 from core.badges import badges
 from core.exceptions import exceptions
+from core.formatter import formatter
 from core.io import io
 from core.jobs import jobs
 from core.storage import storage
@@ -38,6 +39,7 @@ class main:
     def __init__(self):
         self.badges = badges()
         self.exceptions = exceptions()
+        self.formatter = formatter()
         self.io = io()
         self.jobs = jobs()
         self.storage = storage()
@@ -55,11 +57,7 @@ class main:
                             if (len(commands) - 1) < command.details['ArgsCount']:
                                 self.io.output("Usage: " + command.details['Usage'])
                             else:
-                                arguments = re.split(''' (?=(?:[^'"]|'[^']*'|"[^"]*")*$)''', arguments)
-                                formated_args = []
-                                for i in arguments:
-                                    formated_args.append(i.strip('"' and "'"))
-                                command.details['Args'] = formated_args
+                                command.details['Args'] = self.formatter.format_arguments(arguments)
                                 try:
                                     command.run()
                                 except (KeyboardInterrupt, EOFError):
@@ -80,11 +78,7 @@ class main:
                                             if (len(commands) - 1) < command['ArgsCount']:
                                                 self.io.output("Usage: " + command['Usage'])
                                             else:
-                                                arguments = re.split(''' (?=(?:[^'"]|'[^']*'|"[^"]*")*$)''', arguments)
-                                                formated_args = []
-                                                for i in arguments:
-                                                    formated_args.append(i.strip('"' and "'"))
-                                                command['Args'] = formated_args
+                                                command['Args'] = self.formatter.format_arguments(arguments)
                                                 try:
                                                     command['Run']()
                                                 except (KeyboardInterrupt, EOFError):
