@@ -31,10 +31,11 @@ class formatter:
         self.io = io()
 
     def format_options(self, options, title):
+        all_names = sorted(options.keys())
         names = []
         values = []
         required = []
-        for name in options.keys():
+        for name in all_names:
             names.append(name)
             values.append(str(options[name]['Value']))
             required.append(str(options[name]['Required']))
@@ -113,8 +114,9 @@ class formatter:
             self.io.output("    " + i + " " * (7 - len(i) + bigger) + commands[i]['Description'])
 
     def format_modules(self, modules, title):
+        all_modules = sorted(modules.keys())
         module_names = []
-        for name in modules.keys():
+        for name in all_modules:
             module_names.append(name)
         bigger = len(module_names[0])
         for i in module_names:
@@ -133,8 +135,9 @@ class formatter:
             self.io.output("    " + i + " " * (6 - len(i) + bigger) + modules[i].details['Description'])
 
     def format_plugins(self, plugins):
+        all_plugins = sorted(plugins.keys())
         plugin_names = []
-        for name in plugins.keys():
+        for name in all_plugins:
             plugin_names.append(name)
         bigger = len(plugin_names[0])
         for i in plugin_names:
