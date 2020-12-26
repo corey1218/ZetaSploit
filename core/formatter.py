@@ -31,10 +31,11 @@ class formatter:
         self.io = io()
 
     def format_options(self, options, title):
+        all_names = sorted(options.keys())
         names = []
         values = []
         required = []
-        for name in options.keys():
+        for name in all_names:
             names.append(name)
             values.append(str(options[name]['Value']))
             required.append(str(options[name]['Required']))
@@ -71,8 +72,9 @@ class formatter:
             self.io.output("    " + name + " " * (4 - len(name) + bigger_name) + str(options[name]['Value']) + " " * (5 - len(str(options[name]['Value'])) + bigger_value) + str(options[name]['Required']) + " " * (8 - len(str(options[name]['Required'])) + bigger_required) + options[name]['Description'])
 
     def format_global_commands(self, commands, title):
+        all_commands = sorted(commands.keys())
         command_names = []
-        for command in commands.keys():
+        for command in all_commands:
             command_names.append(command)
         bigger = len(command_names[0])
         for i in command_names:
@@ -91,8 +93,9 @@ class formatter:
             self.io.output("    " + i + " " * (7 - len(i) + bigger) + commands[i].details['Description'])
 
     def format_local_commands(self, commands, title):
+        all_commands = sorted(commands.keys())
         command_names = []
-        for command in commands.keys():
+        for command in all_commands:
             command_names.append(command)
         bigger = len(command_names[0])
         for i in command_names:
@@ -111,8 +114,9 @@ class formatter:
             self.io.output("    " + i + " " * (7 - len(i) + bigger) + commands[i]['Description'])
 
     def format_modules(self, modules, title):
+        all_modules = sorted(modules.keys())
         module_names = []
-        for name in modules.keys():
+        for name in all_modules:
             module_names.append(name)
         bigger = len(module_names[0])
         for i in module_names:
@@ -131,8 +135,9 @@ class formatter:
             self.io.output("    " + i + " " * (6 - len(i) + bigger) + modules[i].details['Description'])
 
     def format_plugins(self, plugins):
+        all_plugins = sorted(plugins.keys())
         plugin_names = []
-        for name in plugins.keys():
+        for name in all_plugins:
             plugin_names.append(name)
         bigger = len(plugin_names[0])
         for i in plugin_names:
