@@ -37,11 +37,11 @@ class ZetaSploitModule:
         self.session = session()
 
         self.details = {
-            'Name': "macos/zetant/gather/prompt",
+            'Name': "macos/zetant/transfer/upload",
             'Authors': [
                 'enty8080'
             ],
-            'Description': "Prompt user to type password.",
+            'Description': "Upload local file.",
             'Comments': [
                 ''
             ]
@@ -50,7 +50,7 @@ class ZetaSploitModule:
         self.options = {
             'LPATH': {
                 'Description': "Local path.",
-                'Value': 0,
+                'Value': "",
                 'Required': True
             },
             'RPATH': {
