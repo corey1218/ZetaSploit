@@ -25,7 +25,6 @@
 #
 
 from core.badges import badges
-from core.storage import storage
 from core.parser import parser
 
 from data.modules.exploit.macos.stager.zetant_reverse_tcp.core.session import session
@@ -33,7 +32,6 @@ from data.modules.exploit.macos.stager.zetant_reverse_tcp.core.session import se
 class ZetaSploitModule:
     def __init__(self):
         self.badges = badges()
-        self.storage = storage()
         self.parser = parser()
         
         self.session = session()
