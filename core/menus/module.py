@@ -48,7 +48,7 @@ class module:
     def module_menu(self):
         while True:
             try:
-                commands, arguments = self.io.input('(zsf: \033[1;31m' + self.storage.get_array("current_module", self.storage.get("pwd")).details['Name'] + '\033[0m)> ')
+                commands, arguments = self.io.input('(zsf: '+self.storage.get("current_module_category")+': \033[1;31m' + self.storage.get_array("current_module", self.storage.get("pwd")).details['Name'] + '\033[0m)> ')
                 if commands == []:
                     continue
                 else:
