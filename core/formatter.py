@@ -30,6 +30,13 @@ class formatter:
     def __init__(self):
         self.io = io()
 
+    def format_arguments(self, arguments):
+        arguments = re.split(''' (?=(?:[^'"]|'[^']*'|"[^"]*")*$)''', arguments)
+        formated_args = []
+        for i in arguments:
+            formated_args.append(i.strip('"' and "'"))
+        return formated_args
+        
     def format_options(self, options, title):
         all_names = sorted(options.keys())
         names = []
