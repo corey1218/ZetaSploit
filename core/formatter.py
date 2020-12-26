@@ -71,9 +71,9 @@ class formatter:
             self.io.output("    " + name + " " * (4 - len(name) + bigger_name) + str(options[name]['Value']) + " " * (5 - len(str(options[name]['Value'])) + bigger_value) + str(options[name]['Required']) + " " * (8 - len(str(options[name]['Required'])) + bigger_required) + options[name]['Description'])
 
     def format_global_commands(self, commands, title):
-        commands = sorted(commands.keys())
+        all_commands = sorted(commands.keys())
         command_names = []
-        for command in commands:
+        for command in all_commands:
             command_names.append(command)
         bigger = len(command_names[0])
         for i in command_names:
@@ -92,9 +92,9 @@ class formatter:
             self.io.output("    " + i + " " * (7 - len(i) + bigger) + commands[i].details['Description'])
 
     def format_local_commands(self, commands, title):
-        commands = sorted(commands.keys())
+        all_commands = sorted(commands.keys())
         command_names = []
-        for command in commands:
+        for command in all_commands:
             command_names.append(command)
         bigger = len(command_names[0])
         for i in command_names:
