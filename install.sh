@@ -103,13 +103,13 @@ else
     exit 1
 fi
 
-export CPPFLAGS=-I/opt/local/include/openssl
-export LDFLAGS=-L/opt/local/lib
-
-{
-    pip3 install setuptools
-    pip3 install -r requirements.txt
-} &> /dev/null
+#export CPPFLAGS=-I/opt/local/include/openssl
+#export LDFLAGS=-L/opt/local/lib
+#
+#{
+#    pip3 install setuptools
+#    pip3 install -r requirements.txt
+#} &> /dev/null
 
 if [[ ! -d /opt ]]; then
     {
