@@ -49,7 +49,7 @@ class ZetaSploitModule:
 
         self.options = {
             'SESSION': {
-                'Description': 'Session to run on.',
+                'Description': "Session to run on.",
                 'Value': 0,
                 'Required': True
             }
