@@ -23,6 +23,5 @@ This module uses system `osascript` to dump system volume level.
 
 ```
 (zsf: post: macos/zetant/gather/getvol)> run
-
 [i] Volume Level: 25
 ```
