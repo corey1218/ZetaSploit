@@ -25,44 +25,41 @@
 #
 
 import os
-import sys
 
-import socket
-
+from core.io import io
+from core.jobs import jobs
 from core.badges import badges
-from core.parser import parser
+from core.storage import storage
+from core.formatter import formatter
 
-class ZetaSploitModule:
+class ZetaSploitCommand:
     def __init__(self):
+        self.io = io()
+        self.jobs = jobs()
         self.badges = badges()
-        self.parser = parser()
+        self.storage = storage()
+        self.formatter = formatter()
 
         self.details = {
-            'Name': "auxiliary/ios/checker/jailbroken_or_not",
-            'Authors': [
-                'enty8080'
-            ],
-            'Description': "Check if remote iPhone jailbroken.",
-            'Comments': [
-                'Remote iPhone jailbroken if 22 port opened on it.',
-                'Cydia.app opens this port by default for SSH connections.'
-            ]
-        }
-
-        self.options = {
-            'RHOST': {
-                'Description': "Remote host.",
-                'Value': None,
-                'Required': True
-            }
+            'Name': "jobs",
+            'Description': "Manage active jobs.",
+            'Usage': "jobs [-l|-k <id>]",
+            'ArgsCount': 1,
+            'NeedsArgs': True,
+            'Args': []
         }
 
     def run(self):
-        self.badges.output_process("Checking...")
-        remote_host = self.parser.parse_options(self.options)
-        checker = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        if checker.connect_ex((remote_host, 22)) == 0:
-            self.badges.output_success("Target device jailbroken!")
+        choice = self.details['Args'][0]
+        if choice == '-l':
+            if self.storage.get("jobs"):
+                self.io.output("")
+                self.formatter.format_jobs(self.storage.get("jobs"))
+                self.io.output("")
+            else:
+                self.badges.output_warning("No running jobs available!")
         else:
-            self.badges.output_error("Target device is not jailbroken!")
-        checker.close()
+            if len(self.details['Args']) < 2:
+                self.io.output(self.details['Usage'])
+            else:
+                self.jobs.delete_job(self.details['Args'][1])

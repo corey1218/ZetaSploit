@@ -48,8 +48,13 @@ class jobs():
 
         self.job_process = None
 
-    def exit_jobs(self):
+    def check_jobs(self):
         if not self.storage.get("jobs"):
+            return True
+        return False
+
+    def exit_jobs(self):
+        if self.check_jobs():
             return True
         else:
             self.badges.output_warning("You have some running jobs.")
@@ -61,8 +66,9 @@ class jobs():
         return False
 
     def stop_all_jobs(self):
-        for job_id in list(self.storage.get("jobs").keys()):
-            self.delete_job(job_id)
+        if not self.check_jobs():
+            for job_id in list(self.storage.get("jobs").keys()):
+                self.delete_job(job_id)
 
     def stop_job(self, job):
         thread = job
@@ -82,24 +88,27 @@ class jobs():
         self.job_process.start()
 
     def delete_job(self, job_id):
-        job_id = int(job_id)
-        if job_id in list(self.storage.get("jobs").keys()):
-            try:
-                self.stop_job(self.storage.get("jobs")[job_id]['job_process'])
-            except:
-                pass
-            try:
-                if self.storage.get("jobs")[job_id]['has_end_function']:
-                    if self.storage.get("jobs")[job_id]['has_end_arguments']:
-                        self.storage.get("jobs")[job_id]['end_function'](*self.storage.get("jobs")[job_id]['end_arguments'])
-                    else:
-                        self.storage.get("jobs")[job_id]['end_function']()
-            except:
-                pass
-            self.storage.delete_element("jobs", job_id)
+        if not self.check_jobs():
+            job_id = int(job_id)
+            if job_id in list(self.storage.get("jobs").keys()):
+                try:
+                    self.stop_job(self.storage.get("jobs")[job_id]['job_process'])
+                except:
+                    pass
+                try:
+                    if self.storage.get("jobs")[job_id]['has_end_function']:
+                        if self.storage.get("jobs")[job_id]['has_end_arguments']:
+                            self.storage.get("jobs")[job_id]['end_function'](*self.storage.get("jobs")[job_id]['end_arguments'])
+                        else:
+                            self.storage.get("jobs")[job_id]['end_function']()
+                except:
+                    self.badges.output_error("Failed to stop job!")
+                self.storage.delete_element("jobs", job_id)
+            else:
+                self.badges.output_error("Invalid job id!")
+                raise self.exceptions.GlobalException
         else:
-            self.badges.output_error("Failed to stop job!")
-            raise self.exceptions.GlobalException
+            self.badges.output_error("Invalid job id!")
 
     def create_job(self, job_name, module_name, job_function, job_arguments, end_function=None, end_arguments=None):
         self.start_job(job_function, job_arguments)

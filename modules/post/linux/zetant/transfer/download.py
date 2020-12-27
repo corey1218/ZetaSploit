@@ -55,7 +55,7 @@ class ZetaSploitModule:
             },
             'RPATH': {
                 'Description': "Remote path.",
-                'Value': "",
+                'Value': None,
                 'Required': True
             },
             'SESSION': {

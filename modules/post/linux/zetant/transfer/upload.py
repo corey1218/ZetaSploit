@@ -50,7 +50,7 @@ class ZetaSploitModule:
         self.options = {
             'LPATH': {
                 'Description': "Local path.",
-                'Value': "",
+                'Value': None,
                 'Required': True
             },
             'RPATH': {

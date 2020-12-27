@@ -57,7 +57,7 @@ class ZetaSploitModule:
         self.options = {
             'URL': {
                 'Description': "Target URL.",
-                'Value': "",
+                'Value': None,
                 'Required': True
             }
         }
