@@ -48,10 +48,7 @@ class ZetaSploitCommand:
     def run(self):
         module = self.details['Args'][0]
         modules = self.storage.get("modules")
-        not_found = True
-        for category in modules.keys():
-            if module in modules[category].keys():
-                not_found = False
-                self.modules.show_details(modules[category][module].details)
-        if not_found:
+        if module in modules.keys():
+                self.modules.show_details(modules[module].details)
+        else:
             self.badges.output_error("Invalid module!")

@@ -24,14 +24,22 @@
 # SOFTWARE.
 #
 
+import os
+
 from core.io import io
 from core.badges import badges
-
 
 class modules:
     def __init__(self):
         self.io = io()
         self.badges = badges()
+
+    def get_category(self, name):
+        return name.split('/')[0]
+
+    def get_name(self, details):
+        module_name = details['Name']
+        return os.path.join(*(module_name.split(os.path.sep)[1:]))
 
     def show_details(self, details):
         self.io.output("")

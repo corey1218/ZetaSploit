@@ -44,7 +44,7 @@ class ZetaSploitModule:
         self.dictionary = dictionary()
 
         self.details = {
-            'Name': "web/scanner/php_my_admin_scan",
+            'Name': "auxiliary/web/scanner/php_my_admin_scan",
             'Authors': [
                 'enty8080'
             ],

@@ -122,7 +122,7 @@ class formatter:
         for i in command_names:
             self.io.output("    " + i + " " * (7 - len(i) + bigger) + commands[i]['Description'])
 
-    def format_modules(self, modules, title):
+    def format_modules(self, modules, category):
         all_modules = sorted(modules.keys())
         module_names = []
         for name in all_modules:
@@ -135,8 +135,8 @@ class formatter:
             bigger = bigger - 4
         else:
             bigger = 8
-        self.io.output(title.title() + " Modules")
-        self.io.output("=" * len(title.title() + " Modules"))
+        self.io.output(category.title() + " Modules")
+        self.io.output("=" * len(category.title() + " Modules"))
         self.io.output("")
         self.io.output("    Module" + " " * (bigger) + "Description")
         self.io.output("    ------" + " " * (bigger) + "-----------")
@@ -163,3 +163,34 @@ class formatter:
         self.io.output("    ------" + " " * (bigger) + "-----------")
         for i in plugin_names:
             self.io.output("    " + i + " " * (6 - len(i) + bigger) + plugins[i].details['Description'])
+
+    def format_jobs(self, jobs):
+        ids = []
+        names = []
+        for job_id in jobs.keys():
+            ids.append(job_id)
+            names.append(str(jobs[job_id]['job_name']))
+        bigger_id = len(str(ids[0]))
+        for job_id in ids:
+            if len(str(job_id)) > bigger_id:
+                bigger_id = len(str(job_id))
+        bigger_name = len(names[0])
+        for name in names:
+            if len(name) > bigger_name:
+                bigger_name = len(name)
+        if bigger_id >= 5:
+            bigger_id = bigger_id - 0
+        else:
+            bigger_id = 4
+        if bigger_name >= 7:
+            bigger_name = bigger_name - 2
+        else:
+            bigger_name = 4
+
+        self.io.output("Jobs")
+        self.io.output("====")
+        self.io.output("")
+        self.io.output("    ID" + " " * (bigger_id) + "Name" + " " * (bigger_name) + "Module")
+        self.io.output("    --" + " " * (bigger_id) + "----" + " " * (bigger_name) + "------")
+        for job_id in ids:
+            self.io.output("    " + str(job_id) + " " * (2 - len(str(job_id)) + bigger_id) + str(jobs[job_id]['job_name']) + " " * (4 - len(str(jobs[job_id]['job_name'])) + bigger_name) + str(jobs[job_id]['module_name']))

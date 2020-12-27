@@ -38,7 +38,7 @@ class ZetaSploitModule:
         self.parser = parser()
 
         self.details = {
-            'Name': "net/scanner/network_scanner",
+            'Name': "auxiliary/net/scanner/network_scanner",
             'Authors': [
                 'enty8080'
             ],

@@ -35,6 +35,7 @@ from core.formatter import formatter
 from core.storage import storage
 from core.io import io
 from core.jobs import jobs
+from core.modules import modules
 
 class module:
     def __init__(self):
@@ -44,11 +45,13 @@ class module:
         self.storage = storage()
         self.io = io()
         self.jobs = jobs()
+        self.modules = modules()
 
     def module_menu(self):
         while True:
             try:
-                commands, arguments = self.io.input('(zsf: '+self.storage.get("current_module_category")+': \033[1;31m' + self.storage.get_array("current_module", self.storage.get("pwd")).details['Name'] + '\033[0m)> ')
+                current_module = self.storage.get_array("current_module", self.storage.get("pwd"))
+                commands, arguments = self.io.input('(zsf: ' + self.modules.get_category(current_module.details['Name']) + ': \033[1;31m' + self.modules.get_name(current_module.details) + '\033[0m)> ')
                 if commands == []:
                     continue
                 else:
