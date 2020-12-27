@@ -26,6 +26,7 @@
 
 import os
 import sys
+import readline
 
 from core.storage import storage
 
@@ -37,7 +38,7 @@ class io:
         sys.stdout.write('\033[1K\r' + message + end)
         sys.stdout.flush()
         if self.storage.get("current_prompt") != None and self.storage.get("active_input"):
-            sys.stdout.write('\033[1K\r' + self.storage.get("current_prompt"))
+            sys.stdout.write('\033[1K\r' + self.storage.get("current_prompt") + readline.get_line_buffer())
             sys.stdout.flush()
 
     def input(self, prompt_message):
@@ -48,6 +49,6 @@ class io:
         commands = command.split()
         arguments = ""
         if commands != []:
-            arguments = "".join(command.split(commands[0])).strip()
+            arguments = command.replace(commands[0], "", 1).strip()
         self.storage.set("active_input", False)
         return (commands, arguments)

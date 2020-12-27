@@ -116,7 +116,7 @@ class loader:
                                 module_file = __import__(module_directory)
                                 module_object = self.get_module(module_file, file[:-3], module_directory)
                                 module_object = module_object.ZetaSploitModule()
-                                module_name = module_category + "/" + module_object.details['Name']
+                                module_name = module_object.details['Name']
                                 modules[module_category][module_name] = module_object
                             except Exception as e:
                                 self.badges.output_error("Failed to load module! Reason: " + str(e))

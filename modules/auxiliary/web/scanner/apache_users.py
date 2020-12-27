@@ -44,7 +44,7 @@ class ZetaSploitModule:
         self.dictionary = dictionary()
 
         self.details = {
-            'Name': "web/scanner/apache_users",
+            'Name': "auxiliary/web/scanner/apache_users",
             'Authors': [
                 'enty8080'
             ],
@@ -57,7 +57,7 @@ class ZetaSploitModule:
         self.options = {
             'URL': {
                 'Description': "Target URL.",
-                'Value': "",
+                'Value': None,
                 'Required': True
             }
         }

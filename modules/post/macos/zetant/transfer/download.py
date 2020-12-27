@@ -37,7 +37,7 @@ class ZetaSploitModule:
         self.session = session()
 
         self.details = {
-            'Name': "macos/zetant/transfer/download",
+            'Name': "post/macos/zetant/transfer/download",
             'Authors': [
                 'enty8080'
             ],
@@ -55,7 +55,7 @@ class ZetaSploitModule:
             },
             'RPATH': {
                 'Description': "Remote path.",
-                'Value': "",
+                'Value': None,
                 'Required': True
             },
             'SESSION': {

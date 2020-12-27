@@ -37,7 +37,7 @@ class ZetaSploitModule:
         self.session = session()
 
         self.details = {
-            'Name': "macos/zetant/transfer/upload",
+            'Name': "post/macos/zetant/transfer/upload",
             'Authors': [
                 'enty8080'
             ],
@@ -50,7 +50,7 @@ class ZetaSploitModule:
         self.options = {
             'LPATH': {
                 'Description': "Local path.",
-                'Value': "",
+                'Value': None,
                 'Required': True
             },
             'RPATH': {

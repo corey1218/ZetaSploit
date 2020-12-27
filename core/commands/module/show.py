@@ -54,7 +54,7 @@ class ZetaSploitCommand:
         usage = "Informations: "
         for category in modules.keys():
             usage += category + ", "
-        usage += "plugins, options"
+        usage += "options, plugins, jobs"
         if information in modules.keys():
             self.io.output("")
             self.formatter.format_modules(modules[information], information)
@@ -76,4 +76,12 @@ class ZetaSploitCommand:
                     else:
                         self.badges.output_warning("No plugins available!")
                 else:
-                    self.badges.output_information(usage)
+                    if information == "jobs":
+                        if self.storage.get("jobs"):
+                            self.io.output("")
+                            self.formatter.format_jobs(self.storage.get("jobs"))
+                            self.io.output("")
+                        else:
+                            self.badges.output_warning("No running jobs available!")
+                    else:
+                        self.badges.output_information(usage)

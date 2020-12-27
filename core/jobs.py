@@ -31,26 +31,33 @@ import threading
 import ctypes
 
 from core.exceptions import exceptions
+from core.formatter import formatter
 from core.badges import badges
 from core.storage import storage
 from core.io import io
+from core.modules import modules
 
 class jobs():
     def __init__(self):
         self.exceptions = exceptions()
+        self.formatter = formatter()
         self.badges = badges()
         self.storage = storage()
         self.io = io()
+        self.modules = modules()
 
         self.job_process = None
 
-    def exit_jobs(self):
+    def check_jobs(self):
         if not self.storage.get("jobs"):
             return True
+        return False
+
+    def exit_jobs(self):
+        if self.check_jobs():
+            return True
         else:
-            self.badges.output_warning("You have some running jobs:")
-            for job in self.storage.get("jobs").keys():
-                self.io.output("    " + job)
+            self.badges.output_warning("You have some running jobs.")
             state = self.badges.input_confirm("Exit anyway? [y/N] ").lower()
             if state  == "y" or state == "yes":
                 self.badges.output_process("Stopping all jobs...")
@@ -59,8 +66,9 @@ class jobs():
         return False
 
     def stop_all_jobs(self):
-        for job in list(self.storage.get("jobs").keys()):
-            self.delete_job(job)
+        if not self.check_jobs():
+            for job_id in list(self.storage.get("jobs").keys()):
+                self.delete_job(job_id)
 
     def stop_job(self, job):
         thread = job
@@ -79,24 +87,62 @@ class jobs():
         self.job_process.setDaemon(False)
         self.job_process.start()
 
-    def delete_job(self, job_name):
-        if job_name in list(self.storage.get("jobs").keys()):
-            for module_category in list(self.storage.get("jobs")[job_name].keys()):
-                for module_name in list(self.storage.get("jobs")[job_name][module_category].keys()):
-                    try:
-                        self.stop_job(self.storage.get("jobs")[job_name][module_category][module_name])
-                    except:
-                        pass
-                    if hasattr(self.storage.get("modules")[module_category][module_category + '/' + module_name], "finish"):
-                        self.storage.get("modules")[module_category][module_category + '/' + module_name].finish()
-                    self.storage.delete_element("jobs", job_name)
+    def delete_job(self, job_id):
+        if not self.check_jobs():
+            job_id = int(job_id)
+            if job_id in list(self.storage.get("jobs").keys()):
+                try:
+                    self.stop_job(self.storage.get("jobs")[job_id]['job_process'])
+                except:
+                    pass
+                try:
+                    if self.storage.get("jobs")[job_id]['has_end_function']:
+                        if self.storage.get("jobs")[job_id]['has_end_arguments']:
+                            self.storage.get("jobs")[job_id]['end_function'](*self.storage.get("jobs")[job_id]['end_arguments'])
+                        else:
+                            self.storage.get("jobs")[job_id]['end_function']()
+                except:
+                    self.badges.output_error("Failed to stop job!")
+                self.storage.delete_element("jobs", job_id)
+            else:
+                self.badges.output_error("Invalid job id!")
+                raise self.exceptions.GlobalException
         else:
-            self.badges.output_error("Failed to stop job!")
-            raise self.exceptions.GlobalException
+            self.badges.output_error("Invalid job id!")
 
-    def create_job(self, job_name, job_function, job_arguments, module_category, module_name):
+    def create_job(self, job_name, module_name, job_function, job_arguments, end_function=None, end_arguments=None):
         self.start_job(job_function, job_arguments)
+        job_end_function, job_end_arguments = True, True
+        if not end_function:
+            job_end_function = False
+        if not end_arguments:
+            job_end_arguments = False
         if not self.storage.get("jobs"):
-            self.storage.set("jobs", {job_name:{module_category:{module_name:self.job_process}}})
+            job_id = 0
+            job_data = {
+                job_id: {
+                    'job_name': job_name,
+                    'module_name': module_name,
+                    'job_process': self.job_process,
+                    'has_end_function': job_end_function,
+                    'has_end_arguments': job_end_arguments,
+                    'end_function': end_function,
+                    'end_arguments': end_arguments
+                }
+            }
+            self.storage.set("jobs", job_data)
         else:
-            self.storage.update("jobs", {job_name:{module_category:{module_name:self.job_process}}})
+            job_id = len(self.storage.get("jobs"))
+            job_data = {
+                job_id: {
+                    'job_name': job_name,
+                    'module_name': module_name,
+                    'job_process': self.job_process,
+                    'has_end_function': job_end_function,
+                    'has_end_arguments': job_end_arguments,
+                    'end_function': end_function,
+                    'end_arguments': end_arguments
+                }
+            }
+            self.storage.update("jobs", job_data)
+        return job_id

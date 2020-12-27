@@ -37,7 +37,7 @@ class ZetaSploitModule:
         self.session = session()
 
         self.details = {
-            'Name': "macos/zetant/trolling/say",
+            'Name': "post/macos/zetant/trolling/say",
             'Authors': [
                 'enty8080'
             ],

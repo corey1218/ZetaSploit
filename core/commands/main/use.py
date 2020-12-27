@@ -29,12 +29,14 @@ import os
 from core.menus.module import module
 from core.badges import badges
 from core.storage import storage
+from core.modules import modules
 
 class ZetaSploitCommand:
     def __init__(self):
         self.module = module()
         self.badges = badges()
         self.storage = storage()
+        self.modules = modules()
 
         self.details = {
             'Name': "use",
@@ -48,15 +50,15 @@ class ZetaSploitCommand:
     def run(self):
         module = self.details['Args'][0]
         modules = self.storage.get("modules")
-        not_found = True
-        for category in modules.keys():
+        category = self.modules.get_category(module)
+        if category in modules.keys():
             if module in modules[category].keys():
-                not_found = False
                 self.storage.set("current_module", [])
-                self.storage.set("current_module_category", category)
                 self.storage.set("pwd", 0)
                 self.storage.add_array("current_module", '')
                 self.storage.set_array("current_module", self.storage.get("pwd"), modules[category][module])
                 self.module.module_menu()
-        if not_found:
+            else:
+                self.badges.output_error("Invalid module!")
+        else:
             self.badges.output_error("Invalid module!")
