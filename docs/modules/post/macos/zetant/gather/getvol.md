@@ -6,12 +6,11 @@ This module uses system `osascript` to dump system volume level.
 
 ## Verification Steps
 
-  1. Start ZetaSploit
-  2. Run `exploit/macos/stager/zetant_reverse_tcp` on target
-  3. Do: `use post/macos/zetant/gather/getvol`
-  4. Do: `set SESSION` to your target session
-  5. Do: `run`
-  6. You should see volume level
+1. Start ZetaSploit
+2. Run `exploit/macos/stager/zetant_reverse_tcp` on target
+3. Do: `use post/macos/zetant/gather/getvol`
+4. Do: `set SESSION` to your target session
+5. Do: `run`
 
 ## Options
 
