@@ -39,4 +39,46 @@ class formatter:
             formated_args.append(i.strip('"' and "'"))
         return formated_args
         
-    
+    def format_table(name, headers, *args, **kwargs) -> None:
+        self.io.output(name.title())
+        self.io.output("="*len(name.title()))
+        extra_fill = kwargs.get("extra_fill", 4)
+        header_separator = kwargs.get("header_separator", "-")
+
+        if not all(map(lambda x: len(x) == len(headers), args)):
+            self.io.output("Headers and table rows tuples should be the same length.")
+            return
+
+        def custom_len(x):
+            try:
+                return len(x)
+            except TypeError:
+                return 0
+
+        fill = []
+        headers_line = '    '
+        headers_separator_line = '    '
+        for idx, header in enumerate(headers):
+            column = [custom_len(arg[idx]) for arg in args]
+            column.append(len(header))
+
+            current_line_fill = max(column) + extra_fill
+            fill.append(current_line_fill)
+            headers_line = "".join((headers_line, "{header:<{fill}}".format(header=header, fill=current_line_fill)))
+            headers_separator_line = "".join((
+                headers_separator_line,
+                "{:<{}}".format(header_separator * len(header), current_line_fill)
+            ))
+
+        self.io.output()
+        self.io.output(headers_line)
+        self.io.output(headers_separator_line)
+        for arg in args:
+            content_line = "    "
+            for idx, element in enumerate(arg):
+                content_line = "".join((
+                    content_line,
+                    "{:<{}}".format(element, fill[idx])
+                ))
+            self.io.output(content_line)
+        self.io.output()
