@@ -19,9 +19,14 @@ This module uses system `osascript` to dump system volume level.
 |-----------|---------------|----------|--------------------|
 | `SESSION` | 0             | True     | Session to run on. |
 
+**SESSION**
+
+Variable that contains session id to run post module on it.
+
 ## Scenarios
 
 ```
 (zsf: post: macos/zetant/gather/getvol)> run
+[*] Getting volume level...
 [i] Volume Level: 25
 ```
