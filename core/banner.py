@@ -36,6 +36,17 @@ class banner:
         self.io = io()
         self.badges = badges()
         self.helper = helper()
+        
+        self.commands = {
+            '%green': self.badges.GREEN,
+            '%red': self.badges.RED,
+            '%blue': self.badges.BLUE,
+            '%yellow': self.badges.YELLOW,
+            '%white': self.badges.WHITE,
+
+            '%end': self.badges.END,
+            '%bold': self.badges.BOLD
+        }
 
     def print_random_banner(self):
         banners = []
