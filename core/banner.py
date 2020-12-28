@@ -41,7 +41,7 @@ class banner:
         banners = []
         all_banners = os.listdir(self.helper.banners_path)
         for banner in all_banners:
-            if banner.endswith("logo"):
+            if banner.endswith("banner"):
                 banners.append(banner)
         random_banner = random.randint(0, len(banners) - 1)
         banner = self.badges.parse_logo(self.helper.banners_path + banners[random_banner])
