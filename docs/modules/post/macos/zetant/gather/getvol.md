@@ -28,4 +28,5 @@ Variable that contains session id to run post module on it.
 (zsf: post: macos/zetant/gather/getvol)> run
 [*] Getting device volume level...
 [i] Volume Level: 25
+(zsf: post: macos/zetant/gather/getvol)>
 ```
