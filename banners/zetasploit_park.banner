@@ -21,7 +21,8 @@
 %comment OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 %comment SOFTWARE.
 %comment
-%white
+
+%end
   ZetaSploit Park, System Security Interface
   Version 4.0.5, Alpha E
   Ready...
