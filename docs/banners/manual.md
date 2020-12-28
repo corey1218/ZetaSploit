@@ -17,10 +17,7 @@ This manual written for people who want to write logos for ZetaSploit
 
 ## Example
 
-```shell
-%green
-Hello, %pinkcolors!
-%end
-%red
-Bye, %pinkcolors!
+```c
+%greenHello, %pinkcolors!%end
+%redBye, %pinkcolors!%end
 ```
