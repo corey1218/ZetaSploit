@@ -16,7 +16,7 @@ This module uses system `osascript` to prompt user to type password.
 
 | Option    | Default Value | Required | Description        |
 |-----------|---------------|----------|--------------------|
-| `SESSION` | 0             | True     | Session to run on. |
+| `SESSION` | 0             | yes      | Session to run on. |
 
 **SESSION**
 
