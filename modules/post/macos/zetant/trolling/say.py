@@ -64,6 +64,7 @@ class ZetaSploitModule:
         message, session = self.parser.parse_options(self.options)
         exists, controller = self.session.get_session(session)
         if exists:
+            self.badges.output_process("Sending message to device...")
             status, output = controller.send_command("say", message)
             if status == "error":
                 self.badges.output_error("Failed to say message!")
