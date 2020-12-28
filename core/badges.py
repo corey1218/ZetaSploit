@@ -30,19 +30,32 @@ class badges:
     def __init__(self):
         self.io = io()
 
-        self.RED = '\033[1;31m'
-        self.WHITE = '\033[1;77m'
-        self.BLUE = '\033[1;34m'
-        self.YELLOW = '\033[1;33m'
-        self.GREEN = '\033[1;32m'
-        self.END = '\033[0m'
+        self.GREEN = '\033[32m'
+        self.RED = '\033[31m'
+        self.BLUE = '\033[34m'
+        self.YELLOW = '\033[33m'
+        self.WHITE = '\033[77m'
 
-        self.I = '\033[1;77m[i] \033[0m'
-        self.S = '\033[1;32m[+] \033[0m'
-        self.W = '\033[1;33m[!] \033[0m'
-        self.E = '\033[1;31m[-] \033[0m'
-        self.P = '\033[1;34m[*] \033[0m'
-        self.Q = '\033[1;77m[?] \033[0m'
+        self.END = '\033[0m'
+        self.BOLD = '\033[1m'
+
+        self.I = self.WHITE + self.BOLD + '[i] ' + self.END
+        self.S = self.GREEN + self.BOLD + '[+] ' + self.END
+        self.W = self.YELLOW + self.BOLD + '[!] ' + self.END
+        self.E = self.RED + self.BOLD + '[-] ' + self.END
+        self.P = self.BLUE + self.BOLD + '[*] ' + self.END
+        self.Q = self.WHITE + self.BOLD + '[?] ' + self.END
+
+        self.commands = {
+            '%green': self.GREEN,
+            '%red': self.RED,
+            '%blue': self.BLUE,
+            '%yellow': self.YELLOW,
+            '%white': self.WHITE,
+
+            '%end': self.END,
+            '%bold': self.BOLD
+        }
 
     def output_process(self, message):
         self.io.output(self.P + message)
@@ -61,3 +74,12 @@ class badges:
 
     def input_confirm(self, message):
         return self.io.input(self.Q + message)[0][0]
+
+    def parse_logo(self, path):
+        result = ""
+        with open(path) as file:
+            for line in file:
+                for command in self.commands.keys():
+                    line = line.replace(command, self.commands[command])
+                result += line
+        return result
