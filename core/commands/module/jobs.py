@@ -53,8 +53,13 @@ class ZetaSploitCommand:
         choice = self.details['Args'][0]
         if choice == '-l':
             if self.storage.get("jobs"):
+                jobs_data = []
+                headers = ("ID", "Name", "Module")
+                jobs = self.storage.get("jobs")
+                for job_id in jobs.keys():
+                    jobs_data.append((job_id, jobs[job_id]['job_name'], jobs[job_id]['module_name']))
                 self.io.output("")
-                self.formatter.format_jobs(self.storage.get("jobs"))
+                self.formatter.format_table("Active Jobs", headers, *jobs_data)
                 self.io.output("")
             else:
                 self.badges.output_warning("No running jobs available!")

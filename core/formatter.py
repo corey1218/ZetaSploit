@@ -39,7 +39,7 @@ class formatter:
             formated_args.append(i.strip('"' and "'"))
         return formated_args
         
-    def format_table(name, headers, *args, **kwargs) -> None:
+    def format_table(self, name, headers, *args, **kwargs) -> None:
         extra_fill = kwargs.get("extra_fill", 4)
         header_separator = kwargs.get("header_separator", "-")
 
@@ -81,4 +81,3 @@ class formatter:
                     "{:<{}}".format(element, fill[idx])
                 ))
             self.io.output(content_line)
-        self.io.output()
