@@ -38,10 +38,13 @@ class banner:
         self.helper = helper()
         
         self.commands = {
-            '%green': self.badges.GREEN,
+            '%black': self.badges.BLACK,
             '%red': self.badges.RED,
-            '%blue': self.badges.BLUE,
+            '%green': self.badges.GREEN,
             '%yellow': self.badges.YELLOW,
+            '%blue': self.badges.BLUE,
+            '%purple': self.badges.PURPLE,
+            '%cyan': self.badges.CYAN,
             '%white': self.badges.WHITE,
 
             '%end': self.badges.END,
