@@ -17,7 +17,7 @@ This manual written for people who want to write logos for ZetaSploit
 
 ## Example
 
-```c
+```python
 %greenHello, %pinkcolors!%end
 %redBye, %pinkcolors!%end
 ```
