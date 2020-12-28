@@ -63,12 +63,3 @@ class badges:
 
     def input_confirm(self, message):
         return self.io.input(self.Q + message)[0][0]
-
-    def parse_logo(self, path):
-        result = ""
-        with open(path) as file:
-            for line in file:
-                for command in self.commands.keys():
-                    line = line.replace(command, self.commands[command])
-                result += line
-        return result
