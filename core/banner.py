@@ -52,7 +52,7 @@ class banner:
             '%dark': self.badges.DARK,
             '%bent': self.badges.BENT,
             '%line': self.badges.LINE,
-            '%twink': self.badges.TWINK
+            '%twink': self.badges.TWINK,
         }
 
     def read_banner(self, path):
@@ -60,6 +60,7 @@ class banner:
         with open(path) as file:
             for line in file:
                 for command in self.commands.keys():
+                    line = line.partition('%comment')[0].strip()
                     line = line.replace(command, self.commands[command])
                 result += line
         return result
