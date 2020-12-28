@@ -58,6 +58,7 @@ class ZetaSploitModule:
     def run(self):
         exists, controller = self.session.get_session(self.parser.parse_options(self.options))
         if exists:
+            self.badges.output_process("Getting device volume level...")
             payload = "output volume of (get volume settings)"
             status, output = controller.send_command("osascript", payload)
             if status == "error":
