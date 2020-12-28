@@ -46,17 +46,6 @@ class badges:
         self.P = self.BLUE + self.BOLD + '[*] ' + self.END
         self.Q = self.WHITE + self.BOLD + '[?] ' + self.END
 
-        self.commands = {
-            '%green': self.GREEN,
-            '%red': self.RED,
-            '%blue': self.BLUE,
-            '%yellow': self.YELLOW,
-            '%white': self.WHITE,
-
-            '%end': self.END,
-            '%bold': self.BOLD
-        }
-
     def output_process(self, message):
         self.io.output(self.P + message)
 
