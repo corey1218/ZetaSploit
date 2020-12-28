@@ -48,7 +48,7 @@ class banner:
             '%bold': self.badges.BOLD
         }
 
-    def parse_banner(self, path):
+    def read_banner(self, path):
         result = ""
         with open(path) as file:
             for line in file:
@@ -64,5 +64,5 @@ class banner:
             if banner.endswith("banner"):
                 banners.append(banner)
         random_banner = random.randint(0, len(banners) - 1)
-        banner = self.parse_banner(self.helper.banners_path + banners[random_banner])
+        banner = self.read_banner(self.helper.banners_path + banners[random_banner])
         self.io.output(banner)
