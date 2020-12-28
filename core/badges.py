@@ -30,14 +30,20 @@ class badges:
     def __init__(self):
         self.io = io()
 
-        self.GREEN = '\033[32m'
+        self.BLACK = '\033[30m'
         self.RED = '\033[31m'
-        self.BLUE = '\033[34m'
+        self.GREEN = '\033[32m'
         self.YELLOW = '\033[33m'
+        self.BLUE = '\033[34m'
+        self.PURPLE = '\033[35m'
+        self.CYAN = '\033[36m'
         self.WHITE = '\033[77m'
 
         self.END = '\033[0m'
         self.BOLD = '\033[1m'
+        self.DARK = '\033[2m'
+        self.BENT = '\033[3m'
+        self.LINE = '\033[4m'
 
         self.I = self.WHITE + self.BOLD + '[i] ' + self.END
         self.S = self.GREEN + self.BOLD + '[+] ' + self.END
