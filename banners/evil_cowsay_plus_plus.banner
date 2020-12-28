@@ -21,7 +21,10 @@
 %comment OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 %comment SOFTWARE.
 %comment
+
 %comment original cowsay++ by MetaSploit
+
+%end
  ____________
 < ZetaSploit >
  ------------
@@ -29,3 +32,4 @@
         \  (%redoo%end)____
            (__)    )\
               ||--|| *
+%end
