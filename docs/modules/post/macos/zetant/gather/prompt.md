@@ -1,14 +1,14 @@
-# `post/macos/zetant/gather/getvol`
+# `post/macos/zetant/gather/prompt`
 
 ## Vulnerable Application
 
-This module uses system `osascript` to dump device volume level.
+This module uses system `osascript` to prompt user to type password.
 
 ## Verification Steps
 
 1. Start ZetaSploit
 2. Run `exploit/macos/stager/zetant_reverse_tcp` on target
-3. Do: `use post/macos/zetant/gather/getvol`
+3. Do: `use post/macos/zetant/gather/prompt`
 4. Do: `set SESSION` to your target session
 5. Do: `run`
 
@@ -25,7 +25,8 @@ Variable that contains session id to run post module on it.
 ## Scenarios
 
 ```
-(zsf: post: macos/zetant/gather/getvol)> run
-[*] Getting device volume level...
-[i] Volume Level: 25
+(zsf: post: macos/zetant/gather/prompt)> run
+[*] Waiting for prompt window to appear...
+[*] Waiting for user to type password...
+[i] User entered: mysuperstrongpassword1234
 ```

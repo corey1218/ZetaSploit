@@ -39,158 +39,45 @@ class formatter:
             formated_args.append(i.strip('"' and "'"))
         return formated_args
         
-    def format_options(self, options, title):
-        all_names = sorted(options.keys())
-        names = []
-        values = []
-        required = []
-        for name in all_names:
-            names.append(name)
-            values.append(str(options[name]['Value']))
-            required.append(str(options[name]['Required']))
-        bigger_name = len(names[0])
-        for name in names:
-            if len(name) > bigger_name:
-                bigger_name = len(name)
-        bigger_value = len(values[0])
-        for value in values:
-            if len(value) > bigger_value:
-                bigger_value = len(value)
-        is_no_of_any = False
-        for requ in required:
-            if requ == "False":
-                is_no_of_any = True
-        if bigger_name >= 7:
-            bigger_name = bigger_name - 2
-        else:
-            bigger_name = 4
-        if bigger_value >= 8:
-            bigger_value = bigger_value - 3
-        else:
-            bigger_value = 4
-        if is_no_of_any:
-            bigger_required = 4
-        else:
-            bigger_required = 4
-        self.io.output(title.title() + " Options")
-        self.io.output("="*len(title.title() + " Options"))
-        self.io.output("")
-        self.io.output("    Name" + " " * (bigger_name) + "Value" + " " * (bigger_value) + "Required    Description")
-        self.io.output("    ----" + " " * (bigger_name) + "-----" + " " * (bigger_value) + "--------    -----------")
-        for name in names:
-            self.io.output("    " + name + " " * (4 - len(name) + bigger_name) + str(options[name]['Value']) + " " * (5 - len(str(options[name]['Value'])) + bigger_value) + str(options[name]['Required']) + " " * (8 - len(str(options[name]['Required'])) + bigger_required) + options[name]['Description'])
+    def format_table(self, name, headers, *args, **kwargs) -> None:
+        extra_fill = kwargs.get("extra_fill", 4)
+        header_separator = kwargs.get("header_separator", "-")
 
-    def format_global_commands(self, commands, title):
-        all_commands = sorted(commands.keys())
-        command_names = []
-        for command in all_commands:
-            command_names.append(command)
-        bigger = len(command_names[0])
-        for i in command_names:
-            if len(i) > bigger:
-                bigger = len(i)
-        if bigger >= 14:
-            bigger = bigger - 5
-        else:
-            bigger = 8
-        self.io.output(title.title() + " Commands")
-        self.io.output("=" * len(title.title() + " Commands"))
-        self.io.output("")
-        self.io.output("    Command" + " " * (bigger) + "Description")
-        self.io.output("    -------" + " " * (bigger) + "-----------")
-        for i in command_names:
-            self.io.output("    " + i + " " * (7 - len(i) + bigger) + commands[i].details['Description'])
+        if not all(map(lambda x: len(x) == len(headers), args)):
+            self.io.output("Headers and table rows tuples should be the same length.")
+            return
 
-    def format_local_commands(self, commands, title):
-        all_commands = sorted(commands.keys())
-        command_names = []
-        for command in all_commands:
-            command_names.append(command)
-        bigger = len(command_names[0])
-        for i in command_names:
-            if len(i) > bigger:
-                bigger = len(i)
-        if bigger >= 14:
-            bigger = bigger - 5
-        else:
-            bigger = 8
-        self.io.output(title.title() + " Commands")
-        self.io.output("=" * len(title.title() + " Commands"))
-        self.io.output("")
-        self.io.output("    Command" + " " * (bigger) + "Description")
-        self.io.output("    -------" + " " * (bigger) + "-----------")
-        for i in command_names:
-            self.io.output("    " + i + " " * (7 - len(i) + bigger) + commands[i]['Description'])
+        def custom_len(x):
+            try:
+                return len(x)
+            except TypeError:
+                return 0
 
-    def format_modules(self, modules, category):
-        all_modules = sorted(modules.keys())
-        module_names = []
-        for name in all_modules:
-            module_names.append(name)
-        bigger = len(module_names[0])
-        for i in module_names:
-            if len(i) > bigger:
-                bigger = len(i)
-        if bigger >= 13:
-            bigger = bigger - 4
-        else:
-            bigger = 8
-        self.io.output(category.title() + " Modules")
-        self.io.output("=" * len(category.title() + " Modules"))
-        self.io.output("")
-        self.io.output("    Module" + " " * (bigger) + "Description")
-        self.io.output("    ------" + " " * (bigger) + "-----------")
-        for i in module_names:
-            self.io.output("    " + i + " " * (6 - len(i) + bigger) + modules[i].details['Description'])
+        fill = []
+        headers_line = '    '
+        headers_separator_line = '    '
+        for idx, header in enumerate(headers):
+            column = [custom_len(arg[idx]) for arg in args]
+            column.append(len(header))
 
-    def format_plugins(self, plugins):
-        all_plugins = sorted(plugins.keys())
-        plugin_names = []
-        for name in all_plugins:
-            plugin_names.append(name)
-        bigger = len(plugin_names[0])
-        for i in plugin_names:
-            if len(i) > bigger:
-                bigger = len(i)
-        if bigger >= 13:
-            bigger = bigger - 4
-        else:
-            bigger = 8
-        self.io.output("ZetaSploit Plugins")
-        self.io.output("==================")
-        self.io.output("")
-        self.io.output("    Plugin" + " " * (bigger) + "Description")
-        self.io.output("    ------" + " " * (bigger) + "-----------")
-        for i in plugin_names:
-            self.io.output("    " + i + " " * (6 - len(i) + bigger) + plugins[i].details['Description'])
+            current_line_fill = max(column) + extra_fill
+            fill.append(current_line_fill)
+            headers_line = "".join((headers_line, "{header:<{fill}}".format(header=header, fill=current_line_fill)))
+            headers_separator_line = "".join((
+                headers_separator_line,
+                "{:<{}}".format(header_separator * len(header), current_line_fill)
+            ))
 
-    def format_jobs(self, jobs):
-        ids = []
-        names = []
-        for job_id in jobs.keys():
-            ids.append(job_id)
-            names.append(str(jobs[job_id]['job_name']))
-        bigger_id = len(str(ids[0]))
-        for job_id in ids:
-            if len(str(job_id)) > bigger_id:
-                bigger_id = len(str(job_id))
-        bigger_name = len(names[0])
-        for name in names:
-            if len(name) > bigger_name:
-                bigger_name = len(name)
-        if bigger_id >= 5:
-            bigger_id = bigger_id - 0
-        else:
-            bigger_id = 4
-        if bigger_name >= 7:
-            bigger_name = bigger_name - 2
-        else:
-            bigger_name = 4
-
-        self.io.output("Jobs")
-        self.io.output("====")
+        self.io.output(name.title())
+        self.io.output("="*len(name.title()))
         self.io.output("")
-        self.io.output("    ID" + " " * (bigger_id) + "Name" + " " * (bigger_name) + "Module")
-        self.io.output("    --" + " " * (bigger_id) + "----" + " " * (bigger_name) + "------")
-        for job_id in ids:
-            self.io.output("    " + str(job_id) + " " * (2 - len(str(job_id)) + bigger_id) + str(jobs[job_id]['job_name']) + " " * (4 - len(str(jobs[job_id]['job_name'])) + bigger_name) + str(jobs[job_id]['module_name']))
+        self.io.output(headers_line)
+        self.io.output(headers_separator_line)
+        for arg in args:
+            content_line = "    "
+            for idx, element in enumerate(arg):
+                content_line = "".join((
+                    content_line,
+                    "{:<{}}".format(element, fill[idx])
+                ))
+            self.io.output(content_line)

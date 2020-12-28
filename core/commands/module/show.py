@@ -54,34 +54,44 @@ class ZetaSploitCommand:
         usage = "Informations: "
         for category in modules.keys():
             usage += category + ", "
-        usage += "options, plugins, jobs"
+        usage += "plugins, options"
         if information in modules.keys():
+            modules_data = []
+            headers = ("Name", "Description")
+            modules = modules[information]
+            for module in modules.keys():
+                modules_data.append((module, modules[module].details['Description']))
             self.io.output("")
-            self.formatter.format_modules(modules[information], information)
+            self.formatter.format_table("Modules", headers, *modules_data)
             self.io.output("")
         else:
-            if information == "options":
-                if hasattr(current_module, "options"):
+            if information == "plugins":
+                if self.storage.get("plugins"):
+                    plugins_data = []
+                    headers = ("Name", "Description")
+                    plugins = self.storage.get("plugins")
+                    for plugin in plugins.keys():
+                        plugins_data.append((plugin, plugins[plugin].details['Description']))
                     self.io.output("")
-                    self.formatter.format_options(current_module.options, "Module")
+                    self.formatter.format_table("Plugins", headers, *plugins_data)
                     self.io.output("")
                 else:
-                    self.badges.output_warning("Module does not have options.")
+                    self.badges.output_warning("No plugins available!")
             else:
-                if information == "plugins":
-                    if self.storage.get("plugins"):
+                if information == "options":
+                    if hasattr(current_module, "options"):
+                        options_data = []
+                        headers = ("Option", "Value", "Required", "Description")
+                        options = current_module.options
+                        for option in options.keys():
+                            required = "no"
+                            if options[option]['Required']:
+                                required = "yes"
+                            options_data.append((option, options[option]['Value'], required, options[option]['Description']))
                         self.io.output("")
-                        self.formatter.format_plugins(self.storage.get("plugins"))
+                        self.formatter.format_table("Module Options", headers, *options_data)
                         self.io.output("")
                     else:
-                        self.badges.output_warning("No plugins available!")
+                        self.badges.output_warning("Module does not have options.")
                 else:
-                    if information == "jobs":
-                        if self.storage.get("jobs"):
-                            self.io.output("")
-                            self.formatter.format_jobs(self.storage.get("jobs"))
-                            self.io.output("")
-                        else:
-                            self.badges.output_warning("No running jobs available!")
-                    else:
-                        self.badges.output_information(usage)
+                    self.badges.output_information(usage)

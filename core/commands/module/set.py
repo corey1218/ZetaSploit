@@ -44,7 +44,7 @@ class ZetaSploitCommand:
         }
 
     def run(self):
-        option = self.details['Args'][0]
+        option = self.details['Args'][0].upper()
         value = self.details['Args'][1]
         current_module = self.storage.get_array("current_module", self.storage.get("pwd"))
         if option in current_module.options.keys():

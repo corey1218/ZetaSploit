@@ -27,21 +27,49 @@
 import os
 import random
 
+from core.io import io
 from core.badges import badges
 from core.helper import helper
 
 class banner:
     def __init__(self):
+        self.io = io()
         self.badges = badges()
         self.helper = helper()
+        
+        self.commands = {
+            '%black': self.badges.BLACK,
+            '%red': self.badges.RED,
+            '%green': self.badges.GREEN,
+            '%yellow': self.badges.YELLOW,
+            '%blue': self.badges.BLUE,
+            '%purple': self.badges.PURPLE,
+            '%cyan': self.badges.CYAN,
+            '%white': self.badges.WHITE,
 
+            '%end': self.badges.END,
+            '%bold': self.badges.BOLD,
+            '%dark': self.badges.DARK,
+            '%bent': self.badges.BENT,
+            '%line': self.badges.LINE,
+            '%twink': self.badges.TWINK
+        }
+
+    def read_banner(self, path):
+        result = ""
+        with open(path) as file:
+            for line in file:
+                for command in self.commands.keys():
+                    line = line.replace(command, self.commands[command])
+                result += line
+        return result
+        
     def print_random_banner(self):
         banners = []
         all_banners = os.listdir(self.helper.banners_path)
         for banner in all_banners:
-            if banner.endswith("txt"):
+            if banner.endswith("banner"):
                 banners.append(banner)
         random_banner = random.randint(0, len(banners) - 1)
-        banner = open(self.helper.banners_path + banners[random_banner])
-        print(banner.read())
-        banner.close()
+        banner = self.read_banner(self.helper.banners_path + banners[random_banner])
+        self.io.output(banner)

