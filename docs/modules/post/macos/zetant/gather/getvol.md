@@ -16,7 +16,7 @@ This module uses system `osascript` to dump device volume level.
 
 | Option    | Default Value | Required | Description        |
 |-----------|---------------|----------|--------------------|
-| `SESSION` | 0             | True     | Session to run on. |
+| `SESSION` | 0             | yes      | Session to run on. |
 
 **SESSION**
 
