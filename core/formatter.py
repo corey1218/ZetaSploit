@@ -40,8 +40,6 @@ class formatter:
         return formated_args
         
     def format_table(name, headers, *args, **kwargs) -> None:
-        self.io.output(name.title())
-        self.io.output("="*len(name.title()))
         extra_fill = kwargs.get("extra_fill", 4)
         header_separator = kwargs.get("header_separator", "-")
 
@@ -70,7 +68,9 @@ class formatter:
                 "{:<{}}".format(header_separator * len(header), current_line_fill)
             ))
 
-        self.io.output()
+        self.io.output(name.title())
+        self.io.output("="*len(name.title()))
+        self.io.output("")
         self.io.output(headers_line)
         self.io.output(headers_separator_line)
         for arg in args:
