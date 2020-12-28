@@ -21,6 +21,7 @@ This manual written for people who want to write logos for ZetaSploit
 * **`%twink`** - Twink color.
 
 * **`%comment`** - Add comment.
+* **`%empty`** - Add empty line.
 
 ## Example
 
