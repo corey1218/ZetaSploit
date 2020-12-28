@@ -2,7 +2,7 @@
 
 ## Vulnerable Application
 
-This module uses system `osascript` to dump system volume level.
+This module uses system `osascript` to dump device volume level.
 
 ## Verification Steps
 
@@ -26,6 +26,6 @@ Variable that contains session id to run post module on it.
 
 ```
 (zsf: post: macos/zetant/gather/getvol)> run
-[*] Getting volume level...
+[*] Getting device volume level...
 [i] Volume Level: 25
 ```
