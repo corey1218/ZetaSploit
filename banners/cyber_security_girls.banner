@@ -25,7 +25,7 @@
 %comment I have no girlfriend... so
 %comment write me @enty8080
 
-%white
+%end
 %boldCyber security girls...%end     _
                          .-" `.
                          ;:":  ""--..
@@ -44,4 +44,4 @@
   `.       "-dSS$$SS$$SS:;     :$$SSSP      / 
     `.              "^S^':     '^TSS'      /
                                             %bold...are %purple%boldperfect
-%end
+%empty
