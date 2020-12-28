@@ -21,7 +21,8 @@
 %comment OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 %comment SOFTWARE.
 %comment
-%white
+
+%end
 %red__________%end      __          %blue _________%end      .__         .__  __
 %red\____    /%end_____/  |______   %blue/   _____/%end_____ |  |   ____ |__|/  |_
 %red  /     /%end/ __ \   __\__  \  %blue\_____  \%end\____ \|  |  /  _ \|  \   __\
