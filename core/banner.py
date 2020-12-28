@@ -53,13 +53,15 @@ class banner:
             '%bent': self.badges.BENT,
             '%line': self.badges.LINE,
             '%twink': self.badges.TWINK,
+            
+            '%empty': ""
         }
 
     def read_banner(self, path):
         result = ""
         with open(path) as file:
             for line in file:
-                if line[0:8] != "%comment":
+                if line[0:8] != "%comment" and not line.isspace():
                     for command in self.commands.keys():
                         line = line.partition('%comment')[0]
                         line = line.replace(command, self.commands[command])
