@@ -61,7 +61,7 @@ class banner:
             for line in file:
                 if line[0:8] != "%comment":
                     for command in self.commands.keys():
-                        line = line.partition('%comment')[0].strip()
+                        line = line.partition('%comment')[0]
                         line = line.replace(command, self.commands[command])
                     result += line
         return result
