@@ -48,7 +48,10 @@ class banner:
             '%white': self.badges.WHITE,
 
             '%end': self.badges.END,
-            '%bold': self.badges.BOLD
+            '%bold': self.badges.BOLD,
+            '%dark': self.badges.DARK,
+            '%bent': self.badges.BENT,
+            '%line': self.badges.LINE
         }
 
     def read_banner(self, path):
