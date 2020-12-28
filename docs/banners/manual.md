@@ -20,6 +20,8 @@ This manual written for people who want to write logos for ZetaSploit
 * **`%line`** - Bent color.
 * **`%twink`** - Twink color.
 
+* **`%comment`** - Add comment.
+
 ## Example
 
 ```python
