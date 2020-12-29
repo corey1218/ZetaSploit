@@ -107,8 +107,8 @@ fi
 #export LDFLAGS=-L/opt/local/lib
 #
 #{
-#    pip3 install setuptools
-#    pip3 install -r requirements.txt
+#    sudo python3 -m pip install setuptools
+#    sudo python3 -m pip install -r requirements.txt
 #} &> /dev/null
 
 if [[ ! -d /opt ]]; then
