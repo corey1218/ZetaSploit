@@ -5,3 +5,4 @@ base_paths:
     modules_path: '/opt/zsf/modules/'
     plugins_path: '/opt/zsf/plugins/'
     commands_path: '/opt/zsf/core/commands/'
+    tips_path: '/opt/zsf/core/tips/'
