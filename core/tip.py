@@ -31,7 +31,7 @@ from core.io import io
 from core.parser import parser
 from core.config import config
 
-class banner:
+class tip:
     def __init__(self):
         self.io = io()
         self.parser = parser()
