@@ -76,4 +76,4 @@ class banner:
                 banners.append(banner)
         random_banner = random.randint(0, len(banners) - 1)
         banner = self.read_banner(self.helper.banners_path + banners[random_banner])
-        self.io.output(banner)
+        self.io.output(banner.strip())
