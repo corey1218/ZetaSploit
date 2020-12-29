@@ -70,10 +70,7 @@ class banner:
                         if line_data.isspace():
                             next_line = line
                             line = ""
-                    if next_line:
-                        result += next_line + line
-                    else:
-                        result += line
+                    result += next_line + line
         return result
         
     def print_random_banner(self):
