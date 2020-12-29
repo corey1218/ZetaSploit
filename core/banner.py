@@ -65,7 +65,7 @@ class banner:
                     for command in self.commands.keys():
                         line = line.partition('%comment')[0]
                         line = line.replace(command, self.commands[command])
-                    result += next_line
+                    result += line
         return result
         
     def print_random_banner(self):
