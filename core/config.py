@@ -24,6 +24,11 @@
 # SOFTWARE.
 #
 
+from core.storage import storage
+
 class config:
     def __init__(self):
+        self.storage = storage()
         
+        self.version = self.storage.get("version")
+        self.base_path = self.storage.get("base_paths")
