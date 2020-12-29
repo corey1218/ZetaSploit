@@ -26,17 +26,13 @@
 
 import os
 import socket
+import yaml
 
 class helper:
     def __init__(self):
         self.version = "v1.0"
         
-        self.base_path = '/opt/zsf/'
-        self.data_path = self.base_path + 'data/'
-        self.banners_path = self.base_path + 'banners/'
-        self.modules_path = self.base_path + 'modules/'
-        self.plugins_path = self.base_path + 'plugins/'
-        self.commands_path = self.base_path + 'core/commands/'
+        self.base_paths = yaml.safe_load(open('/opt/zsf/config/boot.yml'))
 
     def getip(self):
         try:
