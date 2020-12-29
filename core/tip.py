@@ -47,7 +47,7 @@ class banner:
             if tips:
                 random_tip = random.randint(0, len(tips) - 1)
                 tip = self.parser.parse_colors(self.config.path_config['base_paths']['tips_path'] + tips[random_tip])
-                self.io.output(tip.strip())
+                self.io.output("ZetaSploit Tip: " + tip.strip())
             else:
                 self.io.output_warning("No banners detected.")
         else:
