@@ -45,7 +45,7 @@ from core.storage import storage
 storage = storage()
 storage.set("path_config", path_config)
 storage.set("main_config", main_config)
-storage.set("version", version_config)
+storage.set("version", version)
 
 ######################## END CONFIG ZONE ########################
 
