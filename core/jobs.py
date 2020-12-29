@@ -48,6 +48,20 @@ class jobs():
 
         self.job_process = None
 
+    def check_alive(self, job_id):
+        if not self.check_jobs():
+            job_id = int(job_id)
+            if job_id in list(self.storage.get("jobs").keys()):
+                if not self.storage.get("jobs")[job_id]['job_process'].is_alive():
+                    return False
+                return True
+            else:
+                self.badges.output_error("Invalid job id!")
+                raise self.exceptions.GlobalException
+        else:
+            self.badges.output_error("Invalid job id!")
+            raise self.exceptions.GlobalException
+        
     def check_jobs(self):
         if not self.storage.get("jobs"):
             return True
@@ -109,6 +123,7 @@ class jobs():
                 raise self.exceptions.GlobalException
         else:
             self.badges.output_error("Invalid job id!")
+            raise self.badges.exceptions.GlobalException
 
     def create_job(self, job_name, module_name, job_function, job_arguments, end_function=None, end_arguments=None):
         self.start_job(job_function, job_arguments)
