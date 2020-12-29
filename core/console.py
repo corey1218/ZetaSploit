@@ -35,7 +35,7 @@ from core.menus.main import main
 
 from core.loader import loader
 from core.io import io
-from core.helper import helper
+from core.config import config
 from core.badges import badges
 from core.banner import banner
 
@@ -46,7 +46,7 @@ class console:
         self.main = main()
         self.loader = loader()
         self.io = io()
-        self.helper = helper()
+        self.config = config()
         self.badges = badges()
         self.banner = banner()
 
@@ -57,7 +57,7 @@ class console:
         return False
     
     def check_install(self):
-        if os.path.exists(self.helper.base_paths['root_path']):
+        if os.path.exists(self.config.base_paths['root_path']):
             return True
         self.badges.output_error("ZetaSploit is not installed!")
         self.badges.output_information("Consider running ./install.sh")
@@ -72,7 +72,7 @@ class console:
     def launch_shell(self):
         os.system("clear")
         self.banner.print_random_banner()
-        self.io.output("ZetaSploit Framework "+self.helper.version)
+        self.io.output("ZetaSploit Framework "+self.config.version)
         self.io.output("-------------------------")
         self.io.output("")
 

@@ -32,13 +32,13 @@ import string
 
 from core.badges import badges
 from core.storage import storage
-from core.helper import helper
+from core.config import config
 
 class loader:
     def __init__(self):
         self.badges = badges()
         self.storage = storage()
-        self.helper = helper()
+        self.config = config()
 
     def get_module(self, mu, name, folderpath):
         folderpath_list = folderpath.split(".")
@@ -53,18 +53,18 @@ class loader:
 
     def import_commands(self):
         commands = dict()
-        command_path = self.helper.base_paths['commands_path']
+        command_path = self.config.base_paths['commands_path']
         for menu in os.listdir(command_path):
             commands[menu] = dict()
         try:
             for command_menu in os.listdir(command_path):
-                command_path = self.helper.base_paths['commands_path'] + command_menu
+                command_path = self.config.base_paths['commands_path'] + command_menu
                 for path, sub, files in os.walk(command_path):
                     for file in files:
                         if file.endswith('py'):
                             command_file_path = path + '/' + file[:-3]
                             try:
-                                command_directory = command_file_path.replace(self.helper.base_paths['root_path'], '', 1)
+                                command_directory = command_file_path.replace(self.config.base_paths['root_path'], '', 1)
                                 command_directory = command_directory.replace("/", ".")
                                 command_file = __import__(command_directory)
                                 command_object = self.get_module(command_file, file[:-3], command_directory)
@@ -79,13 +79,13 @@ class loader:
 
     def import_plugins(self):
         plugins = dict()
-        plugin_path = self.helper.base_paths['plugins_path']
+        plugin_path = self.config.base_paths['plugins_path']
         try:
             for plugin in os.listdir(plugin_path):
                 if plugin.endswith("py"):
                         plugin_file_path = plugin_path + plugin[:-3]
                         try:
-                            plugin_directory = plugin_file_path.replace(self.helper.base_paths['root_path'], '', 1)
+                            plugin_directory = plugin_file_path.replace(self.config.base_paths['root_path'], '', 1)
                             plugin_directory = plugin_directory.replace("/", ".")
                             plugin_file = __import__(plugin_directory)
                             plugin_object = self.get_module(plugin_file, plugin[:-3], plugin_directory)
@@ -100,18 +100,18 @@ class loader:
 
     def import_modules(self):
         modules = dict()
-        module_path = self.helper.base_paths['modules_path']
+        module_path = self.config.base_paths['modules_path']
         for category in os.listdir(module_path):
             modules[category] = dict()
         try:
             for module_category in os.listdir(module_path):
-                module_path = self.helper.base_paths['modules_path'] + module_category
+                module_path = self.config.base_paths['modules_path'] + module_category
                 for path, sub, files in os.walk(module_path):
                     for file in files:
                         if file.endswith('py'):
                             module_file_path = path + '/' + file[:-3]
                             try:
-                                module_directory = module_file_path.replace(self.helper.base_paths['root_path'], '', 1)
+                                module_directory = module_file_path.replace(self.config.base_paths['root_path'], '', 1)
                                 module_directory = module_directory.replace("/", ".")
                                 module_file = __import__(module_directory)
                                 module_object = self.get_module(module_file, file[:-3], module_directory)
