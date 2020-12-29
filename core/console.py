@@ -59,7 +59,7 @@ class console:
         return False
     
     def check_install(self):
-        if os.path.exists(self.config.base_paths['root_path']):
+        if os.path.exists(self.config.path_config['base_paths']['root_path']):
             return True
         self.badges.output_error("ZetaSploit is not installed!")
         self.badges.output_information("Consider running ./install.sh")
@@ -78,7 +78,7 @@ class console:
         if self.config.main_config['console']['banner']:
             self.banner.print_random_banner()
         
-        if self.config.main_config['console']['header']
+        if self.config.main_config['console']['header']:
             plugins_total = len(self.storage.get("plugins"))
             modules_total = 0
             for module_category in self.storage.get("modules").keys():

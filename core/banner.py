@@ -69,15 +69,15 @@ class banner:
         return result
         
     def print_random_banner(self):
-        if os.path.exists(self.config.base_paths['banners_path']):
+        if os.path.exists(self.config.path_config['base_paths']['banners_path']):
             banners = []
-            all_banners = os.listdir(self.config.base_paths['banners_path'])
+            all_banners = os.listdir(self.config.path_config['base_paths']['banners_path'])
             for banner in all_banners:
                 if banner.endswith("banner"):
                     banners.append(banner)
             if banners:
                 random_banner = random.randint(0, len(banners) - 1)
-                banner = self.read_banner(self.config.base_paths['banners_path'] + banners[random_banner])
+                banner = self.read_banner(self.config.path_config['base_paths']['banners_path'] + banners[random_banner])
                 self.io.output(banner.strip())
             else:
                 self.io.output_warning("No banners detected.")
