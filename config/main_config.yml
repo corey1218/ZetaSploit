@@ -2,3 +2,4 @@ console_config:
     tips: yes
     banner: yes
     header: yes
+    clear: yes
