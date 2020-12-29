@@ -1,5 +1,5 @@
 base_paths:
-    base_path: '/opt/zsf'
+    root_path: '/opt/zsf'
     datas_path: '/opt/zsf/data/'
     banners_path: '/opt/zsf/banners/'
     modules_path: '/opt/zsf/modules/'
