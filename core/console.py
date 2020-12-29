@@ -33,22 +33,24 @@ import readline
 
 from core.menus.main import main
 
-from core.loader import loader
 from core.io import io
+from core.loader import loader
 from core.config import config
 from core.badges import badges
 from core.banner import banner
+from core.storage import storage
 
 readline.parse_and_bind("tab: complete")
 
 class console:
     def __init__(self):
         self.main = main()
-        self.loader = loader()
         self.io = io()
+        self.loader = loader()
         self.config = config()
         self.badges = badges()
         self.banner = banner()
+        self.storage = storage()
 
     def check_root(self):
         if os.getuid() == 0:
@@ -72,9 +74,14 @@ class console:
     def launch_shell(self):
         os.system("clear")
         self.banner.print_random_banner()
-        self.io.output("ZetaSploit Framework "+self.config.version)
-        self.io.output("-------------------------")
-        self.io.output("")
+        
+        plugins_total = len(self.storage.get("plugins"))
+        
+        self.io.output(f"""
+            --=( {self.badges.YELLOW}ZetaSploit Framework {self.config.version}{self.badges.END}
+        --==--=( Developed by EntySec ({self.badges.LINE}https://entysec.netlify.app/{self.badges.END})
+            --=(  modules loaded | {plugins_total} plugins available
+        """)
 
     def shell(self):
         self.start_zsf()
