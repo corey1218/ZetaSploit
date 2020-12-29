@@ -31,9 +31,6 @@ import yaml
 class helper:
     def __init__(self):
         self.version = "v1.0"
-        
-        self.base_path = '/opt/zsf/'
-        self.base_paths = yaml.safe_load(open(self.base_path + 'config/boot.yml'))
 
     def getip(self):
         try:
