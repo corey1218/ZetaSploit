@@ -1,4 +1,4 @@
-console_config:
+console:
     clear: yes
     banner: yes
     header: yes
