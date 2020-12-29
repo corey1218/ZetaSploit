@@ -26,11 +26,15 @@
 
 import os
 import socket
-import yaml
+
+from core.storage import storage
 
 class helper:
     def __init__(self):
-        self.version = "v1.0"
+        self.storage = storage()
+        
+        self.version = self.storage.get("version")
+        self.base_paths = self.storage.get("base_paths")
 
     def getip(self):
         try:
