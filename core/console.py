@@ -73,17 +73,19 @@ class console:
 
     def launch_shell(self):
         os.system("clear")
-        self.banner.print_random_banner()
+        if self.config.main_config['console']['banner']:
+            self.banner.print_random_banner()
         
-        plugins_total = len(self.storage.get("plugins"))
-        modules_total = 0
-        for module_category in self.storage.get("modules").keys():
-            modules_total += len(self.storage.get("modules")[module_category])
+        if self.config.main_config['console']['header']
+            plugins_total = len(self.storage.get("plugins"))
+            modules_total = 0
+            for module_category in self.storage.get("modules").keys():
+                modules_total += len(self.storage.get("modules")[module_category])
         
-        self.io.output(f"""    --=( {self.badges.YELLOW}ZetaSploit Framework {self.config.version}{self.badges.END}
+            self.io.output(f"""    --=( {self.badges.YELLOW}ZetaSploit Framework {self.config.version}{self.badges.END}
 --==--=( Developed by EntySec ({self.badges.LINE}https://entysec.netlify.app/{self.badges.END})
     --=( {modules_total} modules loaded | {plugins_total} plugins available
-        """)
+            """)
 
     def shell(self):
         self.start_zsf()
