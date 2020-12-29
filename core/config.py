@@ -31,4 +31,5 @@ class config:
         self.storage = storage()
         
         self.version = self.storage.get("version")
-        self.base_paths = self.storage.get("base_paths")
+        self.path_config = self.storage.get("path_config")
+        self.main_config = self.storage.get("main_config")
