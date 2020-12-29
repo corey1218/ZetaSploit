@@ -22,6 +22,9 @@
 # SOFTWARE.
 #
 
+core:
+    version: "v1.0.0-alpha"
+
 console:
     clear: true
     banner: true
