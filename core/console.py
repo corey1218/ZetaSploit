@@ -72,7 +72,9 @@ class console:
             sys.exit()
 
     def launch_shell(self):
-        os.system("clear")
+        if self.config.main_config['console']['clear']:
+            os.system("clear")
+
         if self.config.main_config['console']['banner']:
             self.banner.print_random_banner()
         
