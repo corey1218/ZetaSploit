@@ -1,3 +1,4 @@
 paramiko
 scapy
 python3-nmap
+pyyaml
