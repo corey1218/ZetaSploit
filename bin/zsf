@@ -34,19 +34,26 @@ sys.path.append(base_path)
 paths_config = yaml.safe_load(open(base_path + "config/paths.yml"))
 version_config = open(base_path + "config/version.txt").read()
 
+###
+#
+# Move all config elements to program by setting global variables.
+#
+##
+
+from core.storage import storage
+storage = storage()
+storage.set("base_paths", paths_config['base_paths'])
+storage.set("version", version_config)
+
 ######################## END CONFIG ZONE ########################
 
 from core.console import console
-from core.storage import storage
 
 class zsf:
     def __init__(self):
         self.console = console()
-        self.storage = storage()
         
     def launch(self):
-        self.storage.set("base_paths", paths_config['base_paths'])
-        self.storage.set("version", version_config)
         if self.console.check_root():
             if self.console.check_install():
                 self.console.shell()
