@@ -23,7 +23,7 @@
 %comment
 
 %end
-%boldLoot is a...
+%boldLoot is a...%end
          __________
         /\____||___\
        | /         /
@@ -32,5 +32,5 @@
         | |---------|
         \ |    ||   |
          \|_________|
-                     ...real %yellow%boldtreasure!
+                     %bold...real %yellow%boldtreasure!
 %end
