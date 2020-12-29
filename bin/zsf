@@ -45,10 +45,10 @@ class zsf:
         self.storage = storage()
         
     def launch(self):
+        self.storage.set("base_paths", paths_config['base_paths'])
+        self.storage.set("version", version_config)
         if self.console.check_root():
             if self.console.check_install():
-                self.storage.set("base_paths", paths_config['base_paths'])
-                self.storage.set("version", version_config)
                 self.console.shell()
                 
 zsf = zsf()
