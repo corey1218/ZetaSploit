@@ -32,7 +32,7 @@ import yaml
 base_path = "/opt/zsf/"
 sys.path.append(base_path)
 path_config = yaml.safe_load(open(base_path + "config/path_config.yml"))
-main_config = yaml.safe_load(open(base_path + "config/main_config"))
+main_config = yaml.safe_load(open(base_path + "config/main_config.yml"))
 version = open(base_path + "config/version.txt").read().strip()
 
 ###
