@@ -84,16 +84,14 @@ class ZetaSploitCommand:
                         headers = ("Option", "Value", "Required", "Description")
                         options = current_module.options
                         for option in options.keys():
-                            value, required, description = options[option]['Value'], options[option]['Required'], options[option]['Description']
+                            value, required = options[option]['Value'], options[option]['Required']
                             if required:
                                 required = "yes"
                             else:
                                 required = "no"
                             if not value:
                                 value = ""
-                            if not description:
-                                description = ""
-                            options_data.append((option, value, required, description))
+                            options_data.append((option, value, required, options[option]['Description']))
                         self.io.output("")
                         self.formatter.format_table("Module Options", headers, *options_data)
                         self.io.output("")
