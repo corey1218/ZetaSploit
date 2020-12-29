@@ -52,9 +52,7 @@ class banner:
             '%dark': self.badges.DARK,
             '%bent': self.badges.BENT,
             '%line': self.badges.LINE,
-            '%twink': self.badges.TWINK,
-            
-            '%empty': ""
+            '%twink': self.badges.TWINK
         }
 
     def read_banner(self, path):
@@ -62,10 +60,20 @@ class banner:
         with open(path) as file:
             for line in file:
                 if line[0:8] != "%comment" and not line.isspace():
+                    next_line = ""
                     for command in self.commands.keys():
                         line = line.partition('%comment')[0]
+                        line_data = line
+                        for command in self.commands.keys():
+                            line_data = line_data.replace(command, " ")
                         line = line.replace(command, self.commands[command])
-                    result += line
+                        if line_data.isspace():
+                            next_line = line
+                            line = ""
+                    if next_line:
+                        result += next_line + line
+                    else:
+                        result += line
         return result
         
     def print_random_banner(self):
