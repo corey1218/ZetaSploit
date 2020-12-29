@@ -34,6 +34,7 @@ import readline
 from core.menus.main import main
 
 from core.io import io
+from core.tip import tip
 from core.loader import loader
 from core.config import config
 from core.badges import badges
@@ -46,6 +47,7 @@ class console:
     def __init__(self):
         self.main = main()
         self.io = io()
+        self.tip = tip()
         self.loader = loader()
         self.config = config()
         self.badges = badges()
@@ -88,6 +90,9 @@ class console:
 --==--=( Developed by EntySec ({self.badges.LINE}https://entysec.netlify.app/{self.badges.END})
     --=( {modules_total} modules loaded | {plugins_total} plugins available
             """)
+            
+        if self.config.main_config['console']['tip']:
+            self.tip.print_random_tip()
 
     def shell(self):
         self.start_zsf()
