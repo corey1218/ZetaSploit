@@ -62,6 +62,11 @@ class jobs():
             self.badges.output_error("Invalid job id!")
             raise self.exceptions.GlobalException
         
+    def remove_dead(self):
+        for job_id in self.storage.get("jobs").keys():
+            if not self.check_alive(job_id):
+                self.storage.delete_element("jobs", job_id)
+        
     def check_jobs(self):
         if not self.storage.get("jobs"):
             return True
