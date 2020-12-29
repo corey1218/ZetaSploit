@@ -28,45 +28,14 @@ import os
 import random
 
 from core.io import io
-from core.badges import badges
+from core.parser import parser
 from core.config import config
 
 class banner:
     def __init__(self):
         self.io = io()
-        self.badges = badges()
+        self.parser = parser()
         self.config = config()
-        
-        self.commands = {
-            '%black': self.badges.BLACK,
-            '%red': self.badges.RED,
-            '%green': self.badges.GREEN,
-            '%yellow': self.badges.YELLOW,
-            '%blue': self.badges.BLUE,
-            '%purple': self.badges.PURPLE,
-            '%cyan': self.badges.CYAN,
-            '%white': self.badges.WHITE,
-
-            '%end': self.badges.END,
-            '%bold': self.badges.BOLD,
-            '%dark': self.badges.DARK,
-            '%bent': self.badges.BENT,
-            '%line': self.badges.LINE,
-            '%twink': self.badges.TWINK,
-            
-            '%empty': ""
-        }
-
-    def read_banner(self, path):
-        result = ""
-        with open(path) as file:
-            for line in file:
-                if line[0:8] != "%comment" and not line.isspace():
-                    for command in self.commands.keys():
-                        line = line.partition('%comment')[0]
-                        line = line.replace(command, self.commands[command])
-                    result += line
-        return result
         
     def print_random_banner(self):
         if os.path.exists(self.config.path_config['base_paths']['banners_path']):
@@ -77,7 +46,7 @@ class banner:
                     banners.append(banner)
             if banners:
                 random_banner = random.randint(0, len(banners) - 1)
-                banner = self.read_banner(self.config.path_config['base_paths']['banners_path'] + banners[random_banner])
+                banner = self.parser.parse_colors(self.config.path_config['base_paths']['banners_path'] + banners[random_banner])
                 self.io.output(banner.strip())
             else:
                 self.io.output_warning("No banners detected.")
