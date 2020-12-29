@@ -23,10 +23,10 @@
 %comment
 
 %end
-%boldIIIIII%end     %reddTb.dTb%end     %yellow%bold~~~~~d88P%end
-%bold  II  %end    %red4'  v  'B%end        %yellow%boldd88P%end
-%bold  II  %end    %red6.     .P%end       %yellow%boldd88P%end
-%bold  II  %end    %red'T;. .;P'%end      %yellow%boldd88P%end
-%bold  II  %end     %red'T; ;P'%end      %yellow%boldd88P%end
-%boldIIIIII%end      %red'YvP'%end      %yellow%boldd88P~~~~~%end
+  %boldIIIIII%end     %reddTb.dTb%end     %yellow%boldZZZZZZZZZ%end
+  %bold  II  %end    %red4'  v  'B%end        %yellow%boldZZZZ%end
+  %bold  II  %end    %red6.     .P%end       %yellow%boldZZZZ%end
+  %bold  II  %end    %red'T;. .;P'%end      %yellow%boldZZZZ%end
+  %bold  II  %end     %red'T; ;P'%end      %yellow%boldZZZZ%end
+  %boldIIIIII%end      %red'YvP'%end      %yellow%boldZZZZZZZZZ%end
 %end
