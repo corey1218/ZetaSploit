@@ -1,0 +1,6 @@
+base_paths:
+    datas_path: '/opt/zsf/data/'
+    banners_path: '/opt/zsf/banners/'
+    modules_path: '/opt/zsf/modules/'
+    plugins_path: '/opt/zsf/plugins/'
+    commands_path: '/opt/zsf/core/commands/'
