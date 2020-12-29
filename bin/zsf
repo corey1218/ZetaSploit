@@ -25,18 +25,28 @@
 #
 
 import sys
+import yaml
 
-sys.path.append("/opt/zsf")
+######################## START CONFIG ZONE ########################
+
+base_path = "/opt/zsf/"
+sys.path.append(base_path)
+paths_config = yaml.safe_load(open(base_path + "config/paths.yml"))
+
+######################## END CONFIG ZONE ########################
 
 from core.console import console
+from core.storage import storage
 
 class zsf:
     def __init__(self):
         self.console = console()
+        self.storage = storage()
         
     def launch(self):
         if self.console.check_root():
             if self.console.check_install():
+                self.storage.set("base_paths", paths_config['base_paths'])
                 self.console.shell()
                 
 zsf = zsf()
