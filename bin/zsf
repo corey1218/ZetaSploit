@@ -32,13 +32,13 @@ import yaml
 base_path = "/opt/zsf/"
 sys.path.append(base_path)
 paths_config = yaml.safe_load(open(base_path + "config/paths.yml"))
-version_config = open(base_path + "config/version.txt").read()
+version_config = open(base_path + "config/version.txt").read().strip()
 
 ###
 #
 # Move all config elements to program by setting global variables.
 #
-##
+###
 
 from core.storage import storage
 storage = storage()
