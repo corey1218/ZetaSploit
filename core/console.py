@@ -76,11 +76,14 @@ class console:
         self.banner.print_random_banner()
         
         plugins_total = len(self.storage.get("plugins"))
+        modules_total = 0
+        for module_category in self.storage.get("modules").keys():
+            modules_total += len(self.storage.get("modules")[module_category])
         
         self.io.output(f"""
             --=( {self.badges.YELLOW}ZetaSploit Framework {self.config.version}{self.badges.END}
         --==--=( Developed by EntySec ({self.badges.LINE}https://entysec.netlify.app/{self.badges.END})
-            --=(  modules loaded | {plugins_total} plugins available
+            --=( {modules_total} modules loaded | {plugins_total} plugins available
         """)
 
     def shell(self):
