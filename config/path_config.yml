@@ -1,8 +1,8 @@
 base_paths:
     root_path: '/opt/zsf/'
     datas_path: '/opt/zsf/data/'
+    tips_path: '/opt/zsf/tips/'
     banners_path: '/opt/zsf/banners/'
     modules_path: '/opt/zsf/modules/'
     plugins_path: '/opt/zsf/plugins/'
     commands_path: '/opt/zsf/core/commands/'
-    tips_path: '/opt/zsf/core/tips/'
