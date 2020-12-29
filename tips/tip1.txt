@@ -1,1 +1,0 @@
-use %greenjobs -k%end to kill broken job manualy
