@@ -24,41 +24,31 @@
 # SOFTWARE.
 #
 
-import sys
-import yaml
+import os
+import random
 
-######################## START CONFIG ZONE ########################
+from core.io import io
+from core.parser import parser
+from core.config import config
 
-base_path = "/opt/zsf/"
-sys.path.append(base_path)
-path_config = yaml.safe_load(open(base_path + "config/path_config.yml"))
-main_config = yaml.safe_load(open(base_path + "config/main_config.yml"))
-version = open(base_path + "config/version.txt").read().strip()
-
-###
-#
-# Move all config elements to program by setting global variables.
-#
-###
-
-from core.storage import storage
-storage = storage()
-storage.set("path_config", path_config)
-storage.set("main_config", main_config)
-storage.set("version", version)
-
-######################## END CONFIG ZONE ########################
-
-from core.console import console
-
-class zsf:
+class tip:
     def __init__(self):
-        self.console = console()
+        self.io = io()
+        self.parser = parser()
+        self.config = config()
         
-    def launch(self):
-        if self.console.check_root():
-            if self.console.check_install():
-                self.console.shell()
-                
-zsf = zsf()
-zsf.launch()
+    def print_random_tip(self):
+        if os.path.exists(self.config.path_config['base_paths']['tips_path']):
+            tips = []
+            all_tips = os.listdir(self.config.path_config['base_paths']['tips_path'])
+            for tip in all_tips:
+                if tip.endswith("tip"):
+                    tips.append(tip)
+            if tips:
+                random_tip = random.randint(0, len(tips) - 1)
+                tip = self.parser.parse_colors(self.config.path_config['base_paths']['tips_path'] + tips[random_tip])
+                self.io.output("ZetaSploit Tip: " + tip.strip())
+            else:
+                self.io.output_warning("No banners detected.")
+        else:
+            self.io.output_warning("No banners detected.")

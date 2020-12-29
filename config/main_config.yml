@@ -1,5 +1,5 @@
-console_config:
-    tips: yes
+console:
+    clear: yes
     banner: yes
     header: yes
-    clear: yes
+    tip: yes
