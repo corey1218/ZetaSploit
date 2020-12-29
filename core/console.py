@@ -93,6 +93,7 @@ class console:
             
         if self.config.main_config['console']['tip']:
             self.tip.print_random_tip()
+            self.io.output("")
 
     def shell(self):
         self.start_zsf()
