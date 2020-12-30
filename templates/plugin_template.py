@@ -41,8 +41,8 @@ class ZetaSploitPlugin:
             'command': {
                 'Description': "",
                 'Usage': "",
-                'ArgsCount': 1,
-                'NeedsArgs': True,
+                'ArgsCount': 0,
+                'NeedsArgs': False,
                 'Args': [],
                 'Run': self.command
             }
