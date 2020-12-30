@@ -24,11 +24,17 @@
 # SOFTWARE.
 #
 
+import os
+
 from core.badges import badges
+from core.loader import loader
+from core.config import config
 
 class modules_test:
     def __init__(self):
         self.badges = badges()
+        self.loader = loader()
+        self.config = config()
         
     def perform_test(self):
         failed = False
