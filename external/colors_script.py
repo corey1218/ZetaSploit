@@ -29,6 +29,7 @@ from core.badges import badges
 class colors_script:
     def __init__(self):
         self.badges = badges()
+        self.script_extension = "colors"
         
         self.commands = {
             '%black': self.badges.BLACK,
@@ -52,11 +53,17 @@ class colors_script:
 
     def parse_colors_script(self, path):
         result = ""
-        with open(path) as file:
-            for line in file:
-                if line[0:8] != "%comment" and not line.isspace():
-                    for command in self.commands.keys():
-                        line = line.partition('%comment')[0]
-                        line = line.replace(command, self.commands[command])
-                    result += line
-        return result
+        if path.endswith(self.script_extension):
+            try:
+                with open(path) as file:
+                    for line in file:
+                        if line[0:8] != "%comment" and not line.isspace():
+                            for command in self.commands.keys():
+                                line = line.partition('%comment')[0]
+                                line = line.replace(command, self.commands[command])
+                            result += line
+                return result
+            except:
+                return None
+        else:
+            return None
