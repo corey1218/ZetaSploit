@@ -46,8 +46,7 @@ class banner:
             banners = []
             all_banners = os.listdir(self.config.path_config['base_paths']['banners_path'])
             for banner in all_banners:
-                if banner.endswith(self.colors_script.script_extension):
-                    banners.append(banner)
+                banners.append(banner)
             if banners:
                 random_banner = random.randint(0, len(banners) - 1)
                 banner = self.colors_script.parse_colors_script(self.config.path_config['base_paths']['banners_path'] + banners[random_banner])
