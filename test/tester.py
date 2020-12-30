@@ -55,6 +55,3 @@ class tester:
             sys.exit(0)
         self.badges.output_error("Not all checks passed!")
         sys.exit(1)
-
-tester = tester()
-tester.perform_tests()
