@@ -51,7 +51,7 @@ class modules_test:
                                 module_directory = module_file_path.replace(self.config.path_config['base_paths']['root_path'], '', 1)
                                 module_directory = module_directory.replace("/", ".")
                                 module_file = __import__(module_directory)
-                                module_object = self.get_module(module_file, file[:-3], module_directory)
+                                module_object = self.loader.get_module(module_file, file[:-3], module_directory)
                                 self.badges.output_success(module_file_path + ": OK!")
                                 module_object = module_object.ZetaSploitModule()
                             except Exception as e:
