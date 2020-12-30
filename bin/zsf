@@ -27,25 +27,10 @@
 import sys
 import yaml
 
-######################## START CONFIG ZONE ########################
+from core.config import config
 
-base_path = "/opt/zsf/"
-sys.path.append(base_path)
-path_config = yaml.safe_load(open(base_path + "config/path_config.yml"))
-core_config = yaml.safe_load(open(base_path + "config/core_config.yml"))
-
-###
-#
-# Move all config elements to program by setting global variables.
-#
-###
-
-from core.storage import storage
-storage = storage()
-storage.set("path_config", path_config)
-storage.set("core_config", core_config)
-
-######################## END CONFIG ZONE ########################
+config = config()
+config.configure()
 
 from core.console import console
 
