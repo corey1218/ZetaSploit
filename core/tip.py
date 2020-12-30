@@ -31,11 +31,15 @@ from core.io import io
 from core.parser import parser
 from core.config import config
 
+from external.colors_script import colors_script
+
 class tip:
     def __init__(self):
         self.io = io()
         self.parser = parser()
         self.config = config()
+        
+        self.colors_script = colors_script
         
     def print_random_tip(self):
         if os.path.exists(self.config.path_config['base_paths']['tips_path']):
@@ -46,9 +50,9 @@ class tip:
                     tips.append(tip)
             if tips:
                 random_tip = random.randint(0, len(tips) - 1)
-                tip = self.parser.parse_colors(self.config.path_config['base_paths']['tips_path'] + tips[random_tip])
+                tip = self.colors_script.parse_colors_script(self.config.path_config['base_paths']['tips_path'] + tips[random_tip])
                 self.io.output("ZetaSploit Tip: " + tip.strip())
             else:
-                self.io.output_warning("No banners detected.")
+                self.io.output_warning("No tips detected.")
         else:
-            self.io.output_warning("No banners detected.")
+            self.io.output_warning("No tips detected.")
