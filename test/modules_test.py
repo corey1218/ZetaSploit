@@ -37,8 +37,10 @@ class modules_test:
         self.config = config()
         
     def perform_test(self):
+        self.config.configure()
         failed = False
         try:
+            module_path = self.config.path_config['base_paths']['modules_path']
             for module_category in os.listdir(module_path):
                 module_path = self.config.path_config['base_paths']['modules_path'] + module_category
                 for path, sub, files in os.walk(module_path):
