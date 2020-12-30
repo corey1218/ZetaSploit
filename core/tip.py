@@ -39,7 +39,7 @@ class tip:
         self.parser = parser()
         self.config = config()
         
-        self.colors_script = colors_script
+        self.colors_script = colors_script()
         
     def print_random_tip(self):
         if os.path.exists(self.config.path_config['base_paths']['tips_path']):
