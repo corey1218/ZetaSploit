@@ -74,24 +74,25 @@ class console:
             sys.exit()
 
     def launch_shell(self):
-        if self.config.main_config['console']['clear']:
+        version = self.config.core_config['details']['version']
+        if self.config.core_config['console']['clear']:
             os.system("clear")
 
-        if self.config.main_config['console']['banner']:
+        if self.config.core_config['console']['banner']:
             self.banner.print_random_banner()
         
-        if self.config.main_config['console']['header']:
+        if self.config.core_config['console']['header']:
             plugins_total = len(self.storage.get("plugins"))
             modules_total = 0
             for module_category in self.storage.get("modules").keys():
                 modules_total += len(self.storage.get("modules")[module_category])
         
-            self.io.output(f"""    --=( {self.badges.YELLOW}ZetaSploit Framework {self.config.main_config['core']['version']}{self.badges.END}
+            self.io.output(f"""    --=( {self.badges.YELLOW}ZetaSploit Framework {version}{self.badges.END}
 --==--=( Developed by EntySec ({self.badges.LINE}https://entysec.netlify.app/{self.badges.END})
     --=( {modules_total} modules loaded | {plugins_total} plugins available
             """)
             
-        if self.config.main_config['console']['tip']:
+        if self.config.core_config['console']['tip']:
             self.tip.print_random_tip()
             self.io.output("")
 
