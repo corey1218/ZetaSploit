@@ -52,14 +52,14 @@ class modules_test:
                                 module_directory = module_directory.replace("/", ".")
                                 module_file = __import__(module_directory)
                                 module_object = self.loader.get_module(module_file, file[:-3], module_directory)
-                                self.badges.output_success(module_file_path + ": OK!")
                                 module_object = module_object.ZetaSploitModule()
-                            except Exception as e:
+                                self.badges.output_success(module_file_path + ": OK!")
+                            except:
                                 self.badges.output_error(module_file_path + ": FAIL!")
                                 failed = True
-        except Exception as e:
+        except:
             self.badges.output_error("Failed to perform modules test!")
-            return False
+            failed = True
         if failed:
             return False
         return True
