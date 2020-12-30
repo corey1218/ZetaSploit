@@ -9,7 +9,7 @@ jobs:
       - name: Install ZetaSploit
         run: bash install.sh
       - name: Run ZetaSploit
-        run: sudo zsf
+        run: echo "exit" | sudo zsf
   macOS:
     runs-on: macos-latest
     steps:
@@ -17,4 +17,4 @@ jobs:
       - name: Install ZetaSploit
         run: bash install.sh
       - name: Run ZetaSploit
-        run: sudo zsf
+        run: echo "exit" | sudo zsf
