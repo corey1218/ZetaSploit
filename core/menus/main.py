@@ -102,6 +102,6 @@ class main:
             except self.exceptions.ExitMenuException:
                 break
             except self.exceptions.GlobalException:
-                self.badges.output_error("Command "+commands[0]+" completed with error!")
+                pass
             except Exception as e:
                 self.badges.output_error("An error occurred: " + str(e) + "!")
