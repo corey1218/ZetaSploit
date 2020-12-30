@@ -38,6 +38,7 @@ class commands_test:
         
     def perform_test(self):
         self.config.configure()
+        command_path = self.config.path_config['base_paths']['commands_path']
         failed = False
         try:
             for command_menu in os.listdir(command_path):
