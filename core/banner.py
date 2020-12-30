@@ -31,11 +31,15 @@ from core.io import io
 from core.parser import parser
 from core.config import config
 
+from external.colors_script import colors_script
+
 class banner:
     def __init__(self):
         self.io = io()
         self.parser = parser()
         self.config = config()
+        
+        self.colors_script = colors_script()
         
     def print_random_banner(self):
         if os.path.exists(self.config.path_config['base_paths']['banners_path']):
@@ -46,7 +50,7 @@ class banner:
                     banners.append(banner)
             if banners:
                 random_banner = random.randint(0, len(banners) - 1)
-                banner = self.parser.parse_colors(self.config.path_config['base_paths']['banners_path'] + banners[random_banner])
+                banner = self.colors_script.parse_colors_script(self.config.path_config['base_paths']['banners_path'] + banners[random_banner])
                 self.io.output(banner.strip())
             else:
                 self.io.output_warning("No banners detected.")
