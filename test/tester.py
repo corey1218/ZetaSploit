@@ -24,6 +24,8 @@
 # SOFTWARE.
 #
 
+import sys
+
 from core.badges import badges
 
 from test.modules_test import modules_test
@@ -53,3 +55,6 @@ class tester:
             sys.exit(0)
         self.badges.output_error("Not all checks passed!")
         sys.exit(1)
+
+tester = tester()
+tester.perform_tests()
