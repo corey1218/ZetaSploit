@@ -39,17 +39,17 @@ done
 echo -e $G"Installing ZetaSploit Framework..."
 
 if [[ $(uname -s) == "Darwin" && $(uname -m) == "x86_64" || $(uname -m) == "arm64" ]]; then
-    if [[ -z $(command -v port) ]]; then
-        echo -e $E"Installation requires Mac Ports!"
-        echo -e $I"Install Mac Ports from here: \033[4;4mhttps://macports.org/install.php\033[0m"
-        exit 1
-    else
-        {
-            sudo port install git python39 openssl
-            sudo port select --set python3 python39
-            sudo python3 -m ensurepip
-        } &> /dev/null
+    if [[ -z $(command -v brew) ]]; then
+        if [[ $(uname -m) == "arm64" ]]; then
+            arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+        else
+            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+        fi
     fi
+    {
+        sudo brew install git python3 openssl
+        sudo python3 -m ensurepip
+    } &> /dev/null
 elif [[ $(uname -s) == "Linux" ]]; then
     if [[ ! -z $(command -v apt-get) ]]; then
         {
@@ -103,13 +103,10 @@ else
     exit 1
 fi
 
-#export CPPFLAGS=-I/opt/local/include/openssl
-#export LDFLAGS=-L/opt/local/lib
-#
-#{
-#    sudo python3 -m pip install setuptools
-#    sudo python3 -m pip install -r requirements.txt
-#} &> /dev/null
+{
+    sudo python3 -m pip install setuptools
+    sudo python3 -m pip install -r deps/requirements.txt
+} &> /dev/null
 
 if [[ ! -d /opt ]]; then
     {
