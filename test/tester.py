@@ -26,6 +26,30 @@
 
 from core.badges import badges
 
+from test.modules_test import modules_test
+from test.plugins_test import plugins_test
+from test.commands_test import commands_test
+
 class tester:
     def __init__(self):
         self.badges = badges()
+
+        self.modules_test = modules_test()
+        self.plugins_test = plugins_test()
+        self.commands_test = commands_test()
+        
+    def perform_tests(self):
+        self.badges.output_process("Performing modules test...")
+        status = self.modules_test.perform_test()
+        
+        self.badges.output_process("Performing plugins test...")
+        status = self.plugins_test.perform_test()
+        
+        self.badges.output_process("Performing commands test...")
+        status = self.commands_test.perform_test()
+        
+        if status:
+            self.badges.output_success("All checks passed!")
+            sys.exit(0)
+        self.badges.output_error("Not all checks passed!")
+        sys.exit(1)
