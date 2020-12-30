@@ -23,3 +23,35 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
+
+from core.badges import badges
+
+class modules_test:
+    def __init__(self):
+        self.badges = badges()
+        
+    def perform_test(self):
+        failed = False
+        try:
+            for module_category in os.listdir(module_path):
+                module_path = self.config.path_config['base_paths']['modules_path'] + module_category
+                for path, sub, files in os.walk(module_path):
+                    for file in files:
+                        if file.endswith('py'):
+                            module_file_path = path + '/' + file[:-3]
+                            try:
+                                module_directory = module_file_path.replace(self.config.path_config['base_paths']['root_path'], '', 1)
+                                module_directory = module_directory.replace("/", ".")
+                                module_file = __import__(module_directory)
+                                module_object = self.get_module(module_file, file[:-3], module_directory)
+                                self.badges.output_success(module_file_path + ": OK!")
+                                module_object = module_object.ZetaSploitModule()
+                            except Exception as e:
+                                self.badges.output_error(module_file_path + ": FAIL!")
+                                failed = True
+        except Exception as e:
+            self.badges.output_error("Failed to perform modules test!")
+            return False
+        if failed:
+            return False
+        return True
