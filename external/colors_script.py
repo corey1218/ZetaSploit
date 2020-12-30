@@ -26,29 +26,26 @@
 
 import os
 
-from core.badges import badges
-
 class colors_script:
     def __init__(self):
-        self.badges = badges()
         self.script_extension = "colors"
         
         self.commands = {
-            '%black': self.badges.BLACK,
-            '%red': self.badges.RED,
-            '%green': self.badges.GREEN,
-            '%yellow': self.badges.YELLOW,
-            '%blue': self.badges.BLUE,
-            '%purple': self.badges.PURPLE,
-            '%cyan': self.badges.CYAN,
-            '%white': self.badges.WHITE,
+            '%black': '\033[30m',
+            '%red': '\033[31m',
+            '%green': '\033[32m',
+            '%yellow': '\033[33m',
+            '%blue': '\033[34m',
+            '%purple': '\033[35m',
+            '%cyan': '\033[36m',
+            '%white': '\033[77m',
 
-            '%end': self.badges.END,
-            '%bold': self.badges.BOLD,
-            '%dark': self.badges.DARK,
-            '%bent': self.badges.BENT,
-            '%line': self.badges.LINE,
-            '%twink': self.badges.TWINK,
+            '%end': '\033[0m',
+            '%bold': '\033[1m',
+            '%dark': '\033[2m',
+            '%bent': '\033[3m',
+            '%line': '\033[4m',
+            '%twink': '\033[5m',
             
             '%empty': ""
         }
