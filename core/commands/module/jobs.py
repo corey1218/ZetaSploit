@@ -64,8 +64,13 @@ class ZetaSploitCommand:
                 self.io.output("")
             else:
                 self.badges.output_warning("No running jobs available!")
-        else:
+        else if choice == '-k':
             if len(self.details['Args']) < 2:
                 self.io.output(self.details['Usage'])
             else:
-                self.jobs.delete_job(self.details['Args'][1])
+                try:
+                    self.jobs.delete_job(self.details['Args'][1])
+                except:
+                    pass
+        else:
+            self.io.output(self.details['Usage'])
