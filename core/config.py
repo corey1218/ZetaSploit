@@ -24,12 +24,29 @@
 # SOFTWARE.
 #
 
+import yaml
+
 from core.storage import storage
 
 class config:
     def __init__(self):
         self.storage = storage()
         
-        self.version = self.storage.get("version")
+        self.base_path = '/opt/zsf/'
+        self.config_path = self.base_path + 'config/'
+        
+        self.path_config_file = self.config_path + 'path_config.yml'
+        self.core_config_file = self.config_path + 'core_config.yml'
+        
         self.path_config = self.storage.get("path_config")
         self.core_config = self.storage.get("core_config")
+
+    def configure(self):
+        path_config = yaml.safe_load(open(self.path_config_file))
+        core_config = yaml.safe_load(open(self.core_config_file))
+
+        self.path_config = path_config
+        self.core_config = core_config
+        
+        self.storage.set("path_config", self.path_config)
+        self.storage.set("core_config", self.core_config)
