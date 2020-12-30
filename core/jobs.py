@@ -129,7 +129,7 @@ class jobs():
                 raise self.exceptions.GlobalException
         else:
             self.badges.output_error("Invalid job id!")
-            raise self.badges.exceptions.GlobalException
+            raise self.exceptions.GlobalException
 
     def create_job(self, job_name, module_name, job_function, job_arguments, end_function=None, end_arguments=None):
         self.start_job(job_function, job_arguments)
