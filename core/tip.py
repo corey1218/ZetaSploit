@@ -46,7 +46,7 @@ class tip:
             tips = []
             all_tips = os.listdir(self.config.path_config['base_paths']['tips_path'])
             for tip in all_tips:
-                if tip.endswith("tip"):
+                if tip.endswith(self.colors_script.script_extension):
                     tips.append(tip)
             if tips:
                 random_tip = random.randint(0, len(tips) - 1)
