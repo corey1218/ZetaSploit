@@ -48,10 +48,11 @@ class banner:
             for banner in all_banners:
                 banners.append(banner)
             if banners:
-                random_banner = random.randint(0, len(banners) - 1)
-                banner = self.colors_script.parse_colors_script(self.config.path_config['base_paths']['banners_path'] + banners[random_banner])
-                if banner:
-                    self.io.output(banner.strip())
+                banner = ""
+                while not banner:
+                    random_banner = random.randint(0, len(banners) - 1)
+                    banner = self.colors_script.parse_colors_script(self.config.path_config['base_paths']['banners_path'] + banners[random_banner])
+                self.io.output(banner.strip())
             else:
                 self.io.output_warning("No banners detected.")
         else:
