@@ -32,4 +32,4 @@ class config:
         
         self.version = self.storage.get("version")
         self.path_config = self.storage.get("path_config")
-        self.main_config = self.storage.get("main_config")
+        self.core_config = self.storage.get("core_config")
