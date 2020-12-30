@@ -127,5 +127,7 @@ class module:
                 self.io.output("")
             except self.exceptions.ExitMenuException:
                 break
+            except self.exceptions.GlobalException:
+                pass
             except Exception as e:
                 self.badges.output_error("An error occurred: " + str(e) + "!")
