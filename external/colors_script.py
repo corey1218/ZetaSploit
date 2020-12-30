@@ -28,6 +28,8 @@ from core.badges import badges
 
 class colors_script:
     def __init__(self):
+        self.badges = badges()
+        
         self.commands = {
             '%black': self.badges.BLACK,
             '%red': self.badges.RED,
