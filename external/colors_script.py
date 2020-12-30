@@ -24,6 +24,8 @@
 # SOFTWARE.
 #
 
+import os
+
 from core.badges import badges
 
 class colors_script:
