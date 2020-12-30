@@ -66,3 +66,10 @@ class colors_script:
                 return None
         else:
             return None
+
+    def compile_colors_script(self, path, outfile='a.out'):
+        result = self.parse_colors_script(path)
+        if result:
+            output = open(outfile, 'wb')
+            output.write(result.encode())
+            output.close()
