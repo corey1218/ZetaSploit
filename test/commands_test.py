@@ -39,7 +39,26 @@ class commands_test:
     def perform_test(self):
         self.config.configure()
         failed = False
-        # todo
+        try:
+            for command_menu in os.listdir(command_path):
+                command_path = self.config.path_config['base_paths']['commands_path'] + command_menu
+                for path, sub, files in os.walk(command_path):
+                    for file in files:
+                        if file.endswith('py'):
+                            command_file_path = path + '/' + file[:-3]
+                            try:
+                                command_directory = command_file_path.replace(self.config.path_config['base_paths']['root_path'], '', 1)
+                                command_directory = command_directory.replace("/", ".")
+                                command_file = __import__(command_directory)
+                                command_object = self.loader.get_module(command_file, file[:-3], command_directory)
+                                command_object = command_object.ZetaSploitCommand()
+                                self.badges.output_success(command_file_path + ": OK!")
+                            except:
+                                self.badges.output_error(command_file_path + ": FAIL!")
+                                failed = True
+        except:
+            self.badges.output_error("Failed to perform commands test")
+            failed = True
         if failed:
             return False
         return True
