@@ -1,5 +1,5 @@
 name: CI
-on: [push, pull_request]
+on: [pull_request]
 
 jobs:
   Linux:
@@ -8,13 +8,13 @@ jobs:
       - uses: actions/checkout@v1
       - name: Install ZetaSploit
         run: bash install.sh
-      - name: Run ZetaSploit
-        run: echo "exit" | sudo zsf
+      - name: Perform tests
+        run: python3 perform_tests.py
   macOS:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v1
       - name: Install ZetaSploit
         run: bash install.sh
-      - name: Run ZetaSploit
-        run: echo "exit" | sudo zsf
+      - name: Perform tests
+        run: python3 perform_tests.py
