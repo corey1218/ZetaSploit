@@ -49,7 +49,7 @@ class ZetaSploitCommand:
         commands_data = []
         headers = ("Command", "Description")
         commands = self.storage.get("commands")['module']
-        for command in commands.keys():
+        for command in sorted(commands.keys()):
             commands_data.append((command, commands[command].details['Description']))
         self.io.output("")
         self.formatter.format_table("Core Commands", headers, *commands_data)
@@ -58,7 +58,7 @@ class ZetaSploitCommand:
         if hasattr(current_module, "commands"):
             commands_data = []
             commands = current_module.commands
-            for command in commands.keys():
+            for command in sorted(commands.keys()):
                 commands_data.append((command, commands[command]['Description']))
             self.formatter.format_table("Module Commands", headers, *commands_data)
             self.io.output("")
@@ -67,7 +67,7 @@ class ZetaSploitCommand:
                 if hasattr(self.storage.get("loaded_plugins")[plugin], "commands"):
                     commands_data = []
                     commands = plugin[plugin].commands
-                    for command in commands.keys():
+                    for command in sorted(commands.keys()):
                         commands_data.append((command, commands[command]['Description']))
                     self.formatter.format_table(plguin + " Commands", headers, *commands_data)
                     self.io.output("")
