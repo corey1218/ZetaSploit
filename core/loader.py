@@ -29,17 +29,22 @@ import time
 import threading
 import os
 import string
+import requests
 
 from core.badges import badges
 from core.importer import importer
+from core.config import config
 
 class loader:
     def __init__(self):
         self.badges = badges()
         self.importer = importer()
+        self.config = config()
 
     def load_update_process(self):
-        pass
+        remote_config = requests.get('https://raw.githubusercontent.com/EntySec/ZetaSploit/main/config/core_config.yml', stream=True)
+        remote_config = remote_config.content
+        
     
     def load_components(self):
         self.importer.import_all()
