@@ -9,7 +9,7 @@ jobs:
       - name: Install ZetaSploit
         run: bash install.sh
       - name: Perform tests
-        run: python3 tester.py
+        run: python3 tester.py; sudo zsf
   macOS:
     runs-on: macos-latest
     steps:
@@ -17,4 +17,4 @@ jobs:
       - name: Install ZetaSploit
         run: bash install.sh
       - name: Perform tests
-        run: python3 tester.py
+        run: python3 tester.py; sudo zsf
