@@ -44,4 +44,4 @@ class ZetaSploitCommand:
 
     def run(self):
         if self.jobs.exit_jobs():
-            sys.exit()
+            sys.exit(0)
