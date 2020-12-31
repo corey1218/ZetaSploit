@@ -24,9 +24,6 @@
 # SOFTWARE.
 #
 
-import sys
-sys.path.append('/opt/zsf/')
-
 from tests.perform_tests import perform_tests
 
 perform_tests = perform_tests()
