@@ -32,7 +32,7 @@ from tests.modules_tests import modules_tests
 from tests.plugins_tests import plugins_tests
 from tests.commands_tests import commands_tests
 
-class tester:
+class perform_tests:
     def __init__(self):
         self.badges = badges()
 
