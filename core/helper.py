@@ -49,3 +49,9 @@ class helper:
 
     def len_line(self, line):
         return str(len(line.encode())) + " bytes"
+
+    def sort_dictionary(self, dictionary):
+        new_dictionary = dict()
+        sorted_keys = sorted(dictionary.keys())
+        for key in sorted_keys:
+            new_dictionary[key] = dictionary[key]
