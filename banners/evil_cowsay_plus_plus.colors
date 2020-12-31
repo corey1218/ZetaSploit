@@ -25,11 +25,11 @@
 %comment original cowsay++ by MetaSploit
 
 %end
- ____________
-< ZetaSploit >
- ------------
-       \   ,__,
-        \  (%redoo%end)____
-           (__)    )\
-              ||--|| *
+  ____________
+ < ZetaSploit >
+  ------------
+        \   ,__,
+         \  (%redoo%end)____
+            (__)    )\
+               ||--|| *
 %end
