@@ -24,6 +24,9 @@
 # SOFTWARE.
 #
 
+import sys
+sys.path.append('/opt/zsf/')
+
 from test.tester import tester
 
 tester = tester()
