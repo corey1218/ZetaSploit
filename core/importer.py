@@ -34,7 +34,7 @@ from core.badges import badges
 from core.storage import storage
 from core.config import config
 
-class loader:
+class importer:
     def __init__(self):
         self.badges = badges()
         self.storage = storage()
