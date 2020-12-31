@@ -27,6 +27,9 @@
 import sys
 import yaml
 
+root_path = '/opt/zsf/'
+sys.path.append(root_path)
+
 from core.config import config
 
 config = config()
