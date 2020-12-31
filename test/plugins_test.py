@@ -27,13 +27,13 @@
 import os
 
 from core.badges import badges
-from core.loader import loader
+from core.importer import importer
 from core.config import config
 
 class plugins_test:
     def __init__(self):
         self.badges = badges()
-        self.loader = loader()
+        self.importer = importer()
         self.config = config()
         
     def perform_test(self):
@@ -48,7 +48,7 @@ class plugins_test:
                             plugin_directory = plugin_file_path.replace(self.config.path_config['base_paths']['root_path'], '', 1)
                             plugin_directory = plugin_directory.replace("/", ".")
                             plugin_file = __import__(plugin_directory)
-                            plugin_object = self.loader.get_module(plugin_file, plugin[:-3], plugin_directory)
+                            plugin_object = self.importer.get_module(plugin_file, plugin[:-3], plugin_directory)
                             plugin_object = plugin_object.ZetaSploitPlugin()
                             self.badges.output_success(plugin_file_path + ": OK!")
                         except:
