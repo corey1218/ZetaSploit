@@ -52,14 +52,14 @@ class ZetaSploitCommand:
         modules = self.storage.get("modules")
         current_module = self.storage.get_array("current_module", self.storage.get("pwd"))
         usage = "Informations: "
-        for category in modules.keys():
+        for category in sorted(modules.keys()):
             usage += category + ", "
         usage += "plugins, options"
         if information in modules.keys():
             modules_data = []
             headers = ("Name", "Description")
             modules = modules[information]
-            for module in modules.keys():
+            for module in sorted(modules.keys()):
                 modules_data.append((module, modules[module].details['Description']))
             self.io.output("")
             self.formatter.format_table("Modules", headers, *modules_data)
@@ -70,7 +70,7 @@ class ZetaSploitCommand:
                     plugins_data = []
                     headers = ("Name", "Description")
                     plugins = self.storage.get("plugins")
-                    for plugin in plugins.keys():
+                    for plugin in sorted(plugins.keys()):
                         plugins_data.append((plugin, plugins[plugin].details['Description']))
                     self.io.output("")
                     self.formatter.format_table("Plugins", headers, *plugins_data)
@@ -83,7 +83,7 @@ class ZetaSploitCommand:
                         options_data = []
                         headers = ("Option", "Value", "Required", "Description")
                         options = current_module.options
-                        for option in options.keys():
+                        for option in sorted(options.keys()):
                             value, required = options[option]['Value'], options[option]['Required']
                             if required:
                                 required = "yes"
