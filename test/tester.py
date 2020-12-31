@@ -41,17 +41,18 @@ class tester:
         self.commands_test = commands_test()
         
     def perform_tests(self):
+        statuses = []
         self.badges.output_process("Performing modules test...")
-        status = self.modules_test.perform_test()
+        statuses.append(self.modules_test.perform_test())
         
         self.badges.output_process("Performing plugins test...")
-        status = self.plugins_test.perform_test()
+        statuses.append(self.plugins_test.perform_test())
         
         self.badges.output_process("Performing commands test...")
-        status = self.commands_test.perform_test()
+        statuses.append(self.commands_test.perform_test())
         
-        if status:
-            self.badges.output_success("All checks passed!")
-            sys.exit(0)
-        self.badges.output_error("Not all checks passed!")
-        sys.exit(1)
+        for status in statuses:
+            if not status:
+                self.badges.output_error("Not all checks passed!")
+                sys.exit(1)
+        self.badges.output_success("All checks passed!")
