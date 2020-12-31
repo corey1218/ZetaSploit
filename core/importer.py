@@ -40,6 +40,17 @@ class loader:
         self.storage = storage()
         self.config = config()
 
+    def get_module(self, mu, name, folderpath):
+        folderpath_list = folderpath.split(".")
+        for i in dir(mu):
+            if i == name:
+                pass
+                return getattr(mu, name)
+            else:
+                if i in folderpath_list:
+                    i = getattr(mu, i)
+                    return self.get_module(i, name, folderpath)
+        
     def import_commands(self):
         commands = dict()
         command_path = self.config.path_config['base_paths']['commands_path']
