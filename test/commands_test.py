@@ -27,13 +27,13 @@
 import os
 
 from core.badges import badges
-from core.loader import loader
+from core.importer import importer
 from core.config import config
 
 class commands_test:
     def __init__(self):
         self.badges = badges()
-        self.loader = loader()
+        self.importer = importer()
         self.config = config()
         
     def perform_test(self):
@@ -51,7 +51,7 @@ class commands_test:
                                 command_directory = command_file_path.replace(self.config.path_config['base_paths']['root_path'], '', 1)
                                 command_directory = command_directory.replace("/", ".")
                                 command_file = __import__(command_directory)
-                                command_object = self.loader.get_module(command_file, file[:-3], command_directory)
+                                command_object = self.importer.get_module(command_file, file[:-3], command_directory)
                                 command_object = command_object.ZetaSploitCommand()
                                 self.badges.output_success(command_file_path + ": OK!")
                             except:
