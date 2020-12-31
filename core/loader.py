@@ -41,7 +41,7 @@ class loader:
     def load_update_process(self):
         pass
     
-    def load_components(self)
+    def load_components(self):
         self.importer.import_all()
     
     def load_everything(self):
