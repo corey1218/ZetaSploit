@@ -24,29 +24,35 @@
 # SOFTWARE.
 #
 
-import yaml
+import sys
 
-from core.storage import storage
+from core.badges import badges
 
-class config:
+from test.modules_test import modules_test
+from test.plugins_test import plugins_test
+from test.commands_test import commands_test
+
+class tester:
     def __init__(self):
-        self.storage = storage()
-        
-        self.base_path = '/opt/zsf/'
-        self.config_path = self.base_path + 'config/'
-        
-        self.path_config_file = self.config_path + 'path_config.yml'
-        self.core_config_file = self.config_path + 'core_config.yml'
-        
-        self.path_config = self.storage.get("path_config")
-        self.core_config = self.storage.get("core_config")
+        self.badges = badges()
 
-    def configure(self):
-        path_config = yaml.safe_load(open(self.path_config_file))
-        core_config = yaml.safe_load(open(self.core_config_file))
-
-        self.path_config = path_config
-        self.core_config = core_config
+        self.modules_test = modules_test()
+        self.plugins_test = plugins_test()
+        self.commands_test = commands_test()
         
-        self.storage.set("path_config", self.path_config)
-        self.storage.set("core_config", self.core_config)
+    def perform_tests(self):
+        statuses = []
+        self.badges.output_process("Performing modules test...")
+        statuses.append(self.modules_test.perform_test())
+        
+        self.badges.output_process("Performing plugins test...")
+        statuses.append(self.plugins_test.perform_test())
+        
+        self.badges.output_process("Performing commands test...")
+        statuses.append(self.commands_test.perform_test())
+        
+        for status in statuses:
+            if not status:
+                self.badges.output_error("Not all checks passed!")
+                sys.exit(1)
+        self.badges.output_success("All checks passed!")
