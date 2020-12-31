@@ -51,7 +51,7 @@ class loader:
     def load_all(self):
         loading_process = threading.Thread(target=self.load_everything)
         loading_process.start()
-        base_line = "Starting the ZetaSploit Framework..."
+        base_line = "Loading the ZetaSploit Framework..."
         cycle = 0
         while loading_process.is_alive():
             for char in "/-\|":
