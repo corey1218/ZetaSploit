@@ -9,7 +9,7 @@ jobs:
       - name: Install ZetaSploit
         run: bash install.sh
       - name: Perform tests
-        run: python3 -c 'from test.tester import tester;tester = tester(); tester.perform_tests()'
+        run: python3 -c 'import sys;sys.path.append("/opt/zsf/");from test.tester import tester;tester = tester();tester.perform_tests()'
   macOS:
     runs-on: macos-latest
     steps:
@@ -17,4 +17,4 @@ jobs:
       - name: Install ZetaSploit
         run: bash install.sh
       - name: Perform tests
-        run: python3 -c 'from test.tester import tester;tester = tester(); tester.perform_tests()'
+        run: python3 -c 'import sys;sys.path.append("/opt/zsf/");from test.tester import tester;tester = tester();tester.perform_tests()'
