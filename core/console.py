@@ -71,7 +71,7 @@ class console:
         try:
             self.loader.load_all()
         except:
-            sys.exit()
+            sys.exit(1)
 
     def launch_shell(self):
         version = self.config.core_config['details']['version']
