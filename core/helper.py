@@ -55,3 +55,4 @@ class helper:
         sorted_keys = sorted(dictionary.keys())
         for key in sorted_keys:
             new_dictionary[key] = dictionary[key]
+        return new_dictionary
