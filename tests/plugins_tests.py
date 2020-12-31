@@ -30,7 +30,7 @@ from core.badges import badges
 from core.importer import importer
 from core.config import config
 
-class plugins_test:
+class plugins_tests:
     def __init__(self):
         self.badges = badges()
         self.importer = importer()
