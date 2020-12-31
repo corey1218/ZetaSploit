@@ -41,9 +41,12 @@ class config:
         self.path_config = self.storage.get("path_config")
         self.core_config = self.storage.get("core_config")
 
+    def get_config_file(self, content):
+        return yaml.safe_load(content)
+        
     def configure(self):
-        path_config = yaml.safe_load(open(self.path_config_file))
-        core_config = yaml.safe_load(open(self.core_config_file))
+        path_config = self.get_config_file(open(self.path_config_file))
+        core_config = self.get_config_file(open(self.core_config_file))
 
         self.path_config = path_config
         self.core_config = core_config
