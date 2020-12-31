@@ -27,7 +27,7 @@
 import sys
 sys.path.append('/opt/zsf/')
 
-from test.tester import tester
+from tests.perform_tests import perform_tests
 
-tester = tester()
-tester.perform_tests()
+perform_tests = perform_tests()
+perform_tests.perform_tests()
