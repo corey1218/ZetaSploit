@@ -28,28 +28,28 @@ import sys
 
 from core.badges import badges
 
-from test.modules_test import modules_test
-from test.plugins_test import plugins_test
-from test.commands_test import commands_test
+from tests.modules_tests import modules_tests
+from tests.plugins_tests import plugins_tests
+from tests.commands_tests import commands_tests
 
 class tester:
     def __init__(self):
         self.badges = badges()
 
-        self.modules_test = modules_test()
-        self.plugins_test = plugins_test()
-        self.commands_test = commands_test()
+        self.modules_tests = modules_tests()
+        self.plugins_tests = plugins_tests()
+        self.commands_tests = commands_tests()
         
     def perform_tests(self):
         statuses = []
         self.badges.output_process("Performing modules test...")
-        statuses.append(self.modules_test.perform_test())
+        statuses.append(self.modules_tests.perform_test())
         
         self.badges.output_process("Performing plugins test...")
-        statuses.append(self.plugins_test.perform_test())
+        statuses.append(self.plugins_tests.perform_test())
         
         self.badges.output_process("Performing commands test...")
-        statuses.append(self.commands_test.perform_test())
+        statuses.append(self.commands_tests.perform_test())
         
         for status in statuses:
             if not status:
