@@ -46,6 +46,7 @@ class colors_script:
             '%bent': '\033[3m',
             '%line': '\033[4m',
             '%twink': '\033[5m',
+            '%back': '\033[7m',
             
             '%empty': ""
         }
