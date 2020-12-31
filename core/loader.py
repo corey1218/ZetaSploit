@@ -44,7 +44,10 @@ class loader:
     def load_update_process(self):
         remote_config = requests.get('https://raw.githubusercontent.com/EntySec/ZetaSploit/main/config/core_config.yml', stream=True)
         remote_config = remote_config.content
-        
+        if self.config.get_config_file(remote_config)['details']['version'] != self.config.core_config['details']['version']:
+            self.badges.output_warning("Your ZetaSploit Framework is out-dated.")
+            self.badges.output_information("Consider running ./update.sh")
+            time.sleep(1)
     
     def load_components(self):
         self.importer.import_all()
