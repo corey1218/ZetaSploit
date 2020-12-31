@@ -32,12 +32,14 @@ import string
 
 from core.badges import badges
 from core.storage import storage
+from core.helper import helper
 from core.config import config
 
 class importer:
     def __init__(self):
         self.badges = badges()
         self.storage = storage()
+        self.helper = helper()
         self.config = config()
 
     def get_module(self, mu, name, folderpath):
@@ -75,7 +77,6 @@ class importer:
                                 self.badges.output_error("Failed to load command! Reason: " + str(e))
         except Exception as e:
             self.badges.output_error("Failed to load some commands! Reason: "+str(e))
-        commands[command_menu] = self.helper.sort_dictionary(commands[command_menu])
         self.storage.set("commands", commands)
 
     def import_plugins(self):
