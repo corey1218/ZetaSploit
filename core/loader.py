@@ -31,13 +31,25 @@ import os
 import string
 
 from core.badges import badges
+from core.importer import importer
 
 class loader:
     def __init__(self):
         self.badges = badges()
+        self.importer = importer()
 
+    def load_update_process(self):
+        pass
+    
+    def load_components(self)
+        self.importer.import_all()
+    
+    def load_everything(self):
+        self.load_update_process()
+        self.load_components()
+        
     def load_all(self):
-        loading_process = threading.Thread(target=self.import_all)
+        loading_process = threading.Thread(target=self.load_everything)
         loading_process.start()
         base_line = "Starting the ZetaSploit Framework..."
         cycle = 0
