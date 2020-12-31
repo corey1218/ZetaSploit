@@ -46,8 +46,18 @@ if [[ $(uname -s) == "Darwin" && $(uname -m) == "x86_64" || $(uname -m) == "arm6
             /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
         fi
     fi
+    if [[ $(uname -m) == "arm64" ]]; then
+        {
+            arch -x86_64 brew install git python3 openssl
+            arch -x86_64 brew link python3
+        } &> /dev/null
+    else
+        {
+            brew install git python3 openssl
+            brew link python3
+        } &> /dev/null
+    fi
     {
-        sudo brew install git python3 openssl
         sudo python3 -m ensurepip
     } &> /dev/null
 elif [[ $(uname -s) == "Linux" ]]; then
