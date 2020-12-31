@@ -45,6 +45,7 @@ class badges:
         self.BENT = '\033[3m'
         self.LINE = '\033[4m'
         self.TWINK = '\033[5m'
+        self.BACK = '\033[7m'
 
         self.I = self.WHITE + self.BOLD + '[i] ' + self.END
         self.S = self.GREEN + self.BOLD + '[+] ' + self.END
