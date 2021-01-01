@@ -44,8 +44,7 @@ class io:
     def input(self, prompt_message):
         self.storage.set("current_prompt", prompt_message)
         self.storage.set("active_input", True)
-        self.output(prompt_message, end='')
-        command = input()
+        command = input('\033[1K\r' + prompt_message)
         commands = command.split()
         arguments = ""
         if commands != []:
