@@ -89,7 +89,7 @@ class ZetaSploitCommand:
                                 required = "yes"
                             else:
                                 required = "no"
-                            if not value:
+                            if not value and value != 0:
                                 value = ""
                             options_data.append((option, value, required, options[option]['Description']))
                         self.io.output("")
