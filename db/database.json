@@ -1,80 +1,80 @@
 {
-    'modules': {
-        'auxiliary': {
-            'iphoneos/checker/jailbroken_or_not': {
-                'Path': "modules/auxiliary/iphoneos/checker/jailbroken_or_not",
-                'Hidden': false
+    "modules": {
+        "auxiliary": {
+            "iphoneos/checker/jailbroken_or_not": {
+                "Path": "modules/auxiliary/iphoneos/checker/jailbroken_or_not",
+                "Hidden": false
             },
-            'net/scanner/network_scanner': {
-                'Path': "modules/auxiliary/net/scanner/network_scanner",
-                'Hidden': false
+            "net/scanner/network_scanner": {
+                "Path": "modules/auxiliary/net/scanner/network_scanner",
+                "Hidden": false
             },
-            'web/scanner/apache_users': {
-                'Path': "modules/auxiliary/web/scanner/apache_users",
-                'Hidden': false
+            "web/scanner/apache_users": {
+                "Path": "modules/auxiliary/web/scanner/apache_users",
+                "Hidden": false
             },
-            'web/scanner/php_my_admin_scan': {
-                'Path': "modules/auxiliary/web/scanner/php_my_admin_scan",
-                'Hidden': false
+            "web/scanner/php_my_admin_scan": {
+                "Path": "modules/auxiliary/web/scanner/php_my_admin_scan",
+                "Hidden": false
             }
         },
-        'exploit': {
-            'iphoneos/safari_app/safari_reaper': {
-                'Path': "modules/exploit/iphoneos/safari_app/safari_reaper",
-                'Hidden': false
+        "exploit": {
+            "iphoneos/safari_app/safari_reaper": {
+                "Path": "modules/exploit/iphoneos/safari_app/safari_reaper",
+                "Hidden": false
             },
-            'iphoneos/ssh/default_password': {
-                'Path': "modules/exploit/iphoneos/ssh/default_password",
-                'Hidden': false
+            "iphoneos/ssh/default_password": {
+                "Path": "modules/exploit/iphoneos/ssh/default_password",
+                "Hidden": false
             },
-            'linux/stager/zetant_reverse_tcp': {
-                'Path': "modules/exploit/linux/stager/zetant_reverse_tcp",
-                'Hidden': false
+            "linux/stager/zetant_reverse_tcp": {
+                "Path": "modules/exploit/linux/stager/zetant_reverse_tcp",
+                "Hidden": false
             },
-            'macos/safari_app/safari_reaper': {
-                'Path': "modules/exploit/macos/safari_app/safari_reaper",
-                'Hidden': false
+            "macos/safari_app/safari_reaper": {
+                "Path": "modules/exploit/macos/safari_app/safari_reaper",
+                "Hidden": false
             },
-            'macos/stager/zetant_reverse_tcp': {
-                'Path': "modules/exploit/macos/stager/zetant_reverse_tcp",
-                'Hidden': false
+            "macos/stager/zetant_reverse_tcp": {
+                "Path": "modules/exploit/macos/stager/zetant_reverse_tcp",
+                "Hidden": false
             }
         },
-        'post': {
-            'linux/zetant/transfer/download': {
-                'Path': "modules/post/linux/zetant/transfer/download",
-                'Hidden': false
+        "post": {
+            "linux/zetant/transfer/download": {
+                "Path": "modules/post/linux/zetant/transfer/download",
+                "Hidden": false
             },
-            'linux/zetant/transfer/upload': {
-                'Path': "modules/post/linux/zetant/transfer/upload",
-                'Hidden': false
+            "linux/zetant/transfer/upload": {
+                "Path": "modules/post/linux/zetant/transfer/upload",
+                "Hidden": false
             },
-            'macos/zetant/gather/getvol': {
-                'Path': "modules/post/macos/zetant/gather/getvol",
-                'Hidden': false
+            "macos/zetant/gather/getvol": {
+                "Path": "modules/post/macos/zetant/gather/getvol",
+                "Hidden": false
             },
-            'macos/zetant/gather/prompt': {
-                'Path': "modules/post/macos/zetant/gather/prompt",
-                'Hidden': false
+            "macos/zetant/gather/prompt": {
+                "Path": "modules/post/macos/zetant/gather/prompt",
+                "Hidden": false
             },
-            'macos/zetant/transfer/download': {
-                'Path': "modules/post/macos/zetant/transfer/download",
-                'Hidden': false
+            "macos/zetant/transfer/download": {
+                "Path": "modules/post/macos/zetant/transfer/download",
+                "Hidden": false
             },
-            'macos/zetant/transfer/upload': {
-                'Path': "modules/post/macos/zetant/transfer/upload",
-                'Hidden': false
+            "macos/zetant/transfer/upload": {
+                "Path": "modules/post/macos/zetant/transfer/upload",
+                "Hidden": false
             },
-            'macos/zetant/trolling/say': {
-                'Path': "modules/post/macos/zetant/trolling/say",
-                'Hidden': false
+            "macos/zetant/trolling/say": {
+                "Path": "modules/post/macos/zetant/trolling/say",
+                "Hidden": false
             }
         }
     },
-    'plugins': {
-        'nmap': {
-            'Path': "plugins/nmap",
-            'Hidden': false
+    "plugins": {
+        "nmap": {
+            "Path": "plugins/nmap",
+            "Hidden": false
         }
     }
 }
