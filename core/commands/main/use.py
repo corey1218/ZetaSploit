@@ -52,11 +52,18 @@ class ZetaSploitCommand:
         modules = self.storage.get("modules")
         category = self.modules.get_category(module)
         if category in modules.keys():
+            module = module.replace(category + '/', '', 1)
             if module in modules[category].keys():
                 self.storage.set("current_module", [])
                 self.storage.set("pwd", 0)
                 self.storage.add_array("current_module", '')
-                self.storage.set_array("current_module", self.storage.get("pwd"), modules[category][module])
+                module_directory = modules[category][module]['Path']
+                module_file = os.path.split(module_directory)[1]
+                module_directory = module_directory.replace('/', '.')
+                module_object = __import__(module_directory.replace('/', '.'))
+                module_object = self.importer.get_module(module_object, module_file, module_directory)
+                module_object = module_object.ZetaSploitModule()
+                self.storage.set_array("current_module", self.storage.get("pwd"), module_object)
                 self.module.module_menu()
             else:
                 self.badges.output_error("Invalid module!")
