@@ -60,7 +60,7 @@ class ZetaSploitCommand:
             headers = ("Name", "Description")
             modules = modules[information]
             for module in sorted(modules.keys()):
-                modules_data.append((module, modules[module].details['Description']))
+                modules_data.append((information + '/' + module, modules[module]['Description']))
             self.io.output("")
             self.formatter.format_table("Modules", headers, *modules_data)
             self.io.output("")
@@ -71,7 +71,7 @@ class ZetaSploitCommand:
                     headers = ("Name", "Description")
                     plugins = self.storage.get("plugins")
                     for plugin in sorted(plugins.keys()):
-                        plugins_data.append((plugin, plugins[plugin].details['Description']))
+                        plugins_data.append((plugin, plugins[plugin]['Description']))
                     self.io.output("")
                     self.formatter.format_table("Plugins", headers, *plugins_data)
                     self.io.output("")
