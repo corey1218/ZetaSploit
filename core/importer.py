@@ -35,6 +35,7 @@ from core.badges import badges
 from core.storage import storage
 from core.helper import helper
 from core.config import config
+from core.modules import modules
 from core.exceptions import exceptions
 
 class importer:
@@ -43,6 +44,7 @@ class importer:
         self.storage = storage()
         self.helper = helper()
         self.config = config()
+        self.modules = modules()
         self.exceptions = exceptions()
 
     def get_module(self, mu, name, folderpath):
