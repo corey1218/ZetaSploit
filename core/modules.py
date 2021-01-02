@@ -37,8 +37,7 @@ class modules:
     def get_category(self, name):
         return name.split('/')[0]
 
-    def get_name(self, details):
-        module_name = details['Name']
+    def get_name(self, name):
         return os.path.join(*(module_name.split(os.path.sep)[1:]))
 
     def show_details(self, details):
