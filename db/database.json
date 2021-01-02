@@ -1,0 +1,170 @@
+{
+    'modules': {
+        'auxiliary': {
+            'iphoneos/checker/jailbroken_or_not': {
+                'Path': "modules/auxiliary/iphoneos/checker/jailbroken_or_not",
+                'Description': "Check if remote iPhone jailbroken.",
+                'Authors': [
+                    'enty8080'
+                ],
+                'Comments': [
+                    ''
+                ]
+            },
+            'net/scanner/network_scanner': {
+                'Path': "modules/auxiliary/net/scanner/network_scanner",
+                'Description': "Scan local network.",
+                'Authors': [
+                    'enty8080'
+                ],
+                'Comments': [
+                    ''
+                ]
+            },
+            'web/scanner/apache_users': {
+                'Path': "modules/auxiliary/web/scanner/apache_users",
+                'Description': "Scan website apache users.",
+                'Authors': [
+                    'enty8080'
+                ],
+                'Comments': [
+                    ''
+                ]
+            },
+            'web/scanner/php_my_admin_scan': {
+                'Path': "modules/auxiliary/web/scanner/php_my_admin_scan",
+                'Description': "Scan website PHP My Admin.",
+                'Authors': [
+                    'enty8080'
+                ],
+                'Comments': [
+                    ''
+                ]
+            }
+        },
+        'exploit': {
+            'iphoneos/safari_app/safari_reaper': {
+                'Path': "modules/exploit/iphoneos/safari_app/safari_reaper",
+                'Description': "iOS Safari.app crash.",
+                'Authors': [
+                    'enty8080'
+                ],
+                'Comments': [
+                    ''
+                ]
+            },
+            'iphoneos/ssh/default_password': {
+                'Path': "modules/exploit/iphoneos/ssh/default_password",
+                'Description': "Bypass iOS OpenSSH using default password.",
+                'Authors': [
+                    'enty8080'
+                ],
+                'Comments': [
+                    ''
+                ]
+            },
+            'linux/stager/zetant_reverse_tcp': {
+                'Path': "modules/exploit/linux/stager/zetant_reverse_tcp",
+                'Description': "Linux reverse TCP shell with full remote functionality.",
+                'Authors': [
+                    'enty8080'
+                ],
+                'Comments': [
+                    ''
+                ]
+            },
+            'macos/safari_app/safari_reaper': {
+                'Path': "modules/exploit/macos/safari_app/safari_reaper",
+                'Description': "macOS Safari.app crash.",
+                'Authors': [
+                    'enty8080'
+                ]
+                'Comments': [
+                    ''
+                ]
+            },
+            'macos/stager/zetant_reverse_tcp': {
+                'Path': "modules/exploit/macos/stager/zetant_reverse_tcp",
+                'Description': "macOS reverse TCP shell with full remote functionality.",
+                'Authors': [
+                    'enty8080'
+                ],
+                'Comments': [
+                    ''
+                ]
+            }
+        },
+        'post': {
+            'linux/zetant/transfer/download': {
+                'Path': "modules/post/linux/zetant/transfer/download",
+                'Description': "Download remote file.",
+                'Authors': [
+                    'enty8080'
+                ],
+                'Comments': [
+                    ''
+                ]
+            },
+            'linux/zetant/transfer/upload': {
+                'Path': "modules/post/linux/zetant/transfer/upload",
+                'Description': "Upload local file.",
+                'Authors': [
+                    'enty8080'
+                ],
+                'Comments': [
+                    ''
+                ]
+            },
+            'macos/zetant/gather/getvol': {
+                'Path': "modules/post/macos/zetant/gather/getvol",
+                'Description': "Get device volume level.",
+                'Authors': [
+                    'enty8080'
+                ],
+                'Comments': [
+                    ''
+                ]
+            },
+            'macos/zetant/gather/prompt': {
+                'Path': "modules/post/macos/zetant/gather/prompt",
+                'Description': "Prompt user to type password.",
+                'Authors': [
+                    'enty8080'
+                ],
+                'Comments': [
+                    ''
+                ]
+            },
+            'macos/zetant/transfer/download': {
+                'Path': "modules/post/macos/zetant/transfer/download",
+                'Description': "Download remote file.",
+                'Authors': [
+                    'enty8080'
+                ],
+                'Comments': [
+                    ''
+                ]
+            },
+            'macos/zetant/transfer/upload': {
+                'Path': "modules/post/macos/zetant/transfer/upload",
+                'Description': "Upload local file.",
+                'Authors': [
+                    'enty8080'
+                ],
+                'Comments': [
+                    ''
+                ]
+            },
+            'macos/zetant/trolling/say': {
+                'Path': "modules/post/macos/zetant/trolling/say",
+                'Description': "Say text message on device.",
+                'Authors': [
+                    'enty8080'
+                ],
+                'Comments': [
+                    ''
+                ]
+            }
+        }
+    }
+}
