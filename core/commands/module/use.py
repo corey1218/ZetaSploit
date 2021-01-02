@@ -26,12 +26,16 @@
 
 import os
 
+from core.menus.module import module
+from core.importer import importer
 from core.badges import badges
 from core.storage import storage
 from core.modules import modules
 
 class ZetaSploitCommand:
     def __init__(self):
+        self.module = module()
+        self.importer = importer()
         self.badges = badges()
         self.storage = storage()
         self.modules = modules()
@@ -48,13 +52,21 @@ class ZetaSploitCommand:
     def run(self):
         module = self.details['Args'][0]
         modules = self.storage.get("modules")
+        category = self.modules.get_category(module)
         if module != self.storage.get_array("current_module", self.storage.get("pwd")).details['Name']:
-            category = self.modules.get_category(module)
             if category in modules.keys():
+                module = self.modules.get_name(module)
                 if module in modules[category].keys():
+                    module_directory = modules[category][module]['Path']
+                    module_file = os.path.split(module_directory)[1]
+                    module_directory = module_directory.replace('/', '.')
+                    module_object = __import__(module_directory.replace('/', '.'))
+                    module_object = self.importer.get_module(module_object, module_file, module_directory)
+                    module_object = module_object.ZetaSploitModule()
+                
                     self.storage.add_array("current_module", '')
                     self.storage.set("pwd", self.storage.get("pwd") + 1)
-                    self.storage.set_array("current_module", self.storage.get("pwd"), modules[category][module])
+                    self.storage.set_array("current_module", self.storage.get("pwd"), module_object)
                 else:
                     self.badges.output_error("Invalid module!")
             else:
