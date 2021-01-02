@@ -70,5 +70,11 @@
                 'Hidden': false
             }
         }
+    },
+    'plugins': {
+        'nmap': {
+            'Path': "plugins/nmap",
+            'Hidden': false
+        }
     }
 }
