@@ -35,6 +35,7 @@ from core.badges import badges
 from core.storage import storage
 from core.helper import helper
 from core.config import config
+from core.exceptions import exceptions
 
 class importer:
     def __init__(self):
@@ -42,6 +43,7 @@ class importer:
         self.storage = storage()
         self.helper = helper()
         self.config = config()
+        self.exceptions = exceptions()
 
     def get_module(self, mu, name, folderpath):
         folderpath_list = folderpath.split(".")
@@ -55,12 +57,16 @@ class importer:
                     return self.get_module(i, name, folderpath)
         
     def import_module(self, module_path):
-        module_directory = module_path
-        module_file = os.path.split(module_directory)[1]
-        module_directory = module_directory.replace('/', '.')
-        module_object = __import__(module_directory.replace('/', '.'))
-        module_object = self.get_module(module_object, module_file, module_directory)
-        module_object = module_object.ZetaSploitModule()
+        try:
+            module_directory = module_path
+            module_file = os.path.split(module_directory)[1]
+            module_directory = module_directory.replace('/', '.')
+            module_object = __import__(module_directory.replace('/', '.'))
+            module_object = self.get_module(module_object, module_file, module_directory)
+            module_object = module_object.ZetaSploitModule()
+        except:
+            self.badges.output_error("Failed to import " + self.modules.get_name(module_path) + "!")
+            raise self.exceptions.GlobalException
         return module_object
         
     def import_commands(self):
