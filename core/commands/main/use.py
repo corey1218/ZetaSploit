@@ -56,10 +56,6 @@ class ZetaSploitCommand:
         if category in modules.keys():
             module = self.modules.get_name(module)
             if module in modules[category].keys():
-                self.storage.set("current_module", [])
-                self.storage.set("pwd", 0)
-                self.storage.add_array("current_module", '')
-                
                 module_directory = modules[category][module]['Path']
                 module_file = os.path.split(module_directory)[1]
                 module_directory = module_directory.replace('/', '.')
@@ -67,6 +63,9 @@ class ZetaSploitCommand:
                 module_object = self.importer.get_module(module_object, module_file, module_directory)
                 module_object = module_object.ZetaSploitModule()
                 
+                self.storage.set("current_module", [])
+                self.storage.set("pwd", 0)
+                self.storage.add_array("current_module", '')
                 self.storage.set_array("current_module", self.storage.get("pwd"), module_object)
                 self.module.module_menu()
             else:
