@@ -24,6 +24,7 @@
 
 base_paths:
     root_path: '/opt/zsf/'
+    dbs_path: '/opt/zsf/db/'
     datas_path: '/opt/zsf/data/'
     tips_path: '/opt/zsf/tips/'
     banners_path: '/opt/zsf/banners/'
