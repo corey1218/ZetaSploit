@@ -54,6 +54,15 @@ class importer:
                     i = getattr(mu, i)
                     return self.get_module(i, name, folderpath)
         
+    def import_module(self, module_path):
+        module_directory = module_path
+        module_file = os.path.split(module_directory)[1]
+        module_directory = module_directory.replace('/', '.')
+        module_object = __import__(module_directory.replace('/', '.'))
+        module_object = self.get_module(module_object, module_file, module_directory)
+        module_object = module_object.ZetaSploitModule()
+        return module_object
+        
     def import_commands(self):
         commands = dict()
         command_path = self.config.path_config['base_paths']['commands_path']
@@ -68,10 +77,7 @@ class importer:
                             command_file_path = path + '/' + file[:-3]
                             try:
                                 command_directory = command_file_path.replace(self.config.path_config['base_paths']['root_path'], '', 1)
-                                command_directory = command_directory.replace("/", ".")
-                                command_file = __import__(command_directory)
-                                command_object = self.get_module(command_file, file[:-3], command_directory)
-                                command_object = command_object.ZetaSploitCommand()
+                                command_object = self.import_module(command_directory)
                                 command_name = command_object.details['Name']
                                 commands[command_menu][command_name] = command_object
                             except Exception as e:
