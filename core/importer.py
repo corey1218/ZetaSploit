@@ -81,11 +81,11 @@ class importer:
         self.storage.set("commands", commands)
 
     def import_plugins(self):
-        plugins = json.load(open(self.config.path_config['dbs_path'] + 'database.json'))['plugins']
+        plugins = json.load(open(self.config.path_config['base_paths']['dbs_path'] + 'database.json'))['plugins']
         self.storage.set("plugins", plugins)
 
     def import_modules(self):
-        modules = json.load(open(self.config.path_config['dbs_path'] + 'database.json'))['modules']
+        modules = json.load(open(self.config.path_config['base_paths']['dbs_path'] + 'database.json'))['modules']
         self.storage.set("modules", modules)
 
     def import_all(self):
