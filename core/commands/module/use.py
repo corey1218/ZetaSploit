@@ -57,13 +57,11 @@ class ZetaSploitCommand:
             if category in modules.keys():
                 module = self.modules.get_name(module)
                 if module in modules[category].keys():
-                    module_directory = modules[category][module]['Path']
-                    module_file = os.path.split(module_directory)[1]
-                    module_directory = module_directory.replace('/', '.')
-                    module_object = __import__(module_directory.replace('/', '.'))
-                    module_object = self.importer.get_module(module_object, module_file, module_directory)
-                    module_object = module_object.ZetaSploitModule()
-                
+                    try:
+                        module_object = self.importer.import_module(modules[category][module]['Path'])
+                    except:
+                        self.badges.output_error("Failed to import module!")
+                        return
                     self.storage.add_array("current_module", '')
                     self.storage.set("pwd", self.storage.get("pwd") + 1)
                     self.storage.set_array("current_module", self.storage.get("pwd"), module_object)
