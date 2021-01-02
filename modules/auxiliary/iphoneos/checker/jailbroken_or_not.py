@@ -38,7 +38,7 @@ class ZetaSploitModule:
         self.parser = parser()
 
         self.details = {
-            'Name': "auxiliary/ios/checker/jailbroken_or_not",
+            'Name': "auxiliary/iphoneos/checker/jailbroken_or_not",
             'Authors': [
                 'enty8080'
             ],
