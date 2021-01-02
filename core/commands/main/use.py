@@ -59,7 +59,6 @@ class ZetaSploitCommand:
                 try:
                     module_object = self.importer.import_module(modules[category][module]['Path'])
                 except:
-                    self.badges.output_error("Failed to import module!")
                     return
                 self.storage.set("current_module", [])
                 self.storage.set("pwd", 0)
