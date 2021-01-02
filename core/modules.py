@@ -38,7 +38,7 @@ class modules:
         return name.split('/')[0]
 
     def get_name(self, name):
-        return os.path.join(*(module_name.split(os.path.sep)[1:]))
+        return os.path.join(*(name.split(os.path.sep)[1:]))
 
     def show_details(self, details):
         self.io.output("")
