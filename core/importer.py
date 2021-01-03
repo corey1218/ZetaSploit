@@ -57,6 +57,12 @@ class importer:
                 if i in folderpath_list:
                     i = getattr(mu, i)
                     return self.get_module(i, name, folderpath)
+    def import_check(self, module_name):
+        try:
+            __import__(module_name)
+        except:
+            return False
+        return True
         
     def import_module(self, module_path):
         try:
