@@ -31,6 +31,7 @@ import threading
 import os
 import string
 
+from core.db import db
 from core.badges import badges
 from core.storage import storage
 from core.helper import helper
@@ -40,6 +41,7 @@ from core.exceptions import exceptions
 
 class importer:
     def __init__(self):
+        self.db = db()
         self.badges = badges()
         self.storage = storage()
         self.helper = helper()
@@ -100,15 +102,7 @@ class importer:
             self.badges.output_error("Failed to load some commands! Reason: "+str(e))
         self.storage.set("commands", commands)
 
-    def import_plugins(self):
-        plugins = json.load(open(self.config.path_config['base_paths']['dbs_path'] + 'database.json'))['plugins']
-        self.storage.set("plugins", plugins)
-
-    def import_modules(self):
-        modules = json.load(open(self.config.path_config['base_paths']['dbs_path'] + 'database.json'))['modules']
-        self.storage.set("modules", modules)
-
     def import_all(self):
         self.import_commands()
-        self.import_plugins()
-        self.import_modules()
+        self.db.add_plugins()
+        self.db.add_modules()
