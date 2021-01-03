@@ -124,7 +124,7 @@
             "Description": "Nmap scan plugin for ZetaSploit.",
             "Path": "plugins/nmap",
             "Dependencies": [
-                "python3-nmap"
+                "nmap3"
             ]
         }
     }
