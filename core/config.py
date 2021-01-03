@@ -47,11 +47,14 @@ class config:
         return yaml.safe_load(content)
         
     def configure(self):
+        db_config = self.get_config_file(open(self.db_config_file))
         path_config = self.get_config_file(open(self.path_config_file))
         core_config = self.get_config_file(open(self.core_config_file))
 
+        self.db_config = db_config
         self.path_config = path_config
         self.core_config = core_config
         
+        self.storage.set("db_config", self.db_config)
         self.storage.set("path_config", self.path_config)
         self.storage.set("core_config", self.core_config)
