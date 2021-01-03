@@ -50,32 +50,36 @@ class ZetaSploitCommand:
             'NeedsArgs': True,
             'Args': list()
         }
+        
+    def add_module(self, module):
+        modules = self.storage.get("modules")
+        not_installed = list()
+        for dependence in modules[category][module]['Dependencies']:
+            if not self.importer.import_check(dependence):
+                not_installed.append(dependence)
+        if not not_installed:
+            try:
+                module_object = self.importer.import_module(modules[category][module]['Path'])
+             except:
+                return
+             self.storage.set("current_module", [])
+             self.storage.set("pwd", 0)
+             self.storage.add_array("current_module", '')
+             self.storage.set_array("current_module", self.storage.get("pwd"), module_object)
+             self.module.module_menu()
+         else:
+             self.badges.output_error("Module depends this dependencies which is not installed:")
+             for dependence in not_installed:
+                 self.io.output("    " + dependence)
 
     def run(self):
         module = self.details['Args'][0]
         modules = self.storage.get("modules")
         category = self.modules.get_category(module)
-        if category in modules.keys():
+        if category in self.storage.get("modules").keys():
             module = self.modules.get_name(module)
-            if module in modules[category].keys():
-                not_installed = list()
-                for dependence in modules[category][module]['Dependencies']:
-                    if not self.importer.import_check(dependence):
-                        not_installed.append(dependence)
-                if not not_installed:
-                    try:
-                        module_object = self.importer.import_module(modules[category][module]['Path'])
-                    except:
-                        return
-                    self.storage.set("current_module", [])
-                    self.storage.set("pwd", 0)
-                    self.storage.add_array("current_module", '')
-                    self.storage.set_array("current_module", self.storage.get("pwd"), module_object)
-                    self.module.module_menu()
-                else:
-                    self.badges.output_error("Module depends this dependencies which is not installed:")
-                    for dependence in not_installed:
-                        self.io.output("    " + dependence)
+            if module in self.storage.get("modules")[category].keys():
+                self.add_module(module)
             else:
                 self.badges.output_error("Invalid module!")
         else:
