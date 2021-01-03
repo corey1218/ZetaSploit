@@ -47,16 +47,23 @@ class ZetaSploitCommand:
             'Args': list()
         }
 
+    def import_plugin(self, plugin):
+        plugins = self.storage.get("plugins")
+        try:
+            plugins[plugin] = self.importer.import_plugin(plugins[plugin]['Path'])
+        except:
+            return False
+        return True
+        
     def add_plugin(self, plugin):
-        plugins = dict()
+        plugins = self.storage.get("plugins")
+        loaded_plugins = dict()
         not_installed = list()
-        for dependence in self.storage.get("plugins")[plugin]['Dependencies']:
+        for dependence in plugins[plugin]['Dependencies']:
             if not self.importer.import_check(dependence):
                 not_installed.append(dependence)
         if not not_installed:
-            try:
-                plugins[plugin] = self.importer.import_plugin(self.storage.get("plugins")[plugin]['Path'])
-            except:
+            if self.import_plugin(plugin):
                 return
             if self.storage.get("loaded_plugins"):
                 self.storage.update("loaded_plugins", plugins)
@@ -71,18 +78,19 @@ class ZetaSploitCommand:
         
     def run(self):
         plugin = self.details['Args'][0]
+        plugins = self.storage.get("plugins")
         self.badges.output_process("Loading " + plugin + " plugin...")
-        if self.storage.get("plugins"):
+        if plugins:
             if self.storage.get("loaded_plugins"):
                 if plugin in self.storage.get("loaded_plugins").keys():
                     self.badges.output_error("Already loaded!")
                 else:
-                    if plugin in self.storage.get("plugins").keys():
+                    if plugin in plugins.keys():
                         self.add_plugin(plugin)
                     else:
                         self.badges.output_error("Failed to load " + plugin + " plugin!")
             else:
-                if plugin in self.storage.get("plugins").keys():
+                if plugin in plugins.keys():
                     self.add_plugin(plugin)
                 else:
                     self.badges.output_error("Failed to load " + plugin + " plugin!")
