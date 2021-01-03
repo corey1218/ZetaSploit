@@ -60,11 +60,12 @@ class importer:
                     i = getattr(mu, i)
                     return self.get_module(i, name, folderpath)
     def import_check(self, module_name):
-        if not module_name or module_name.isspace():
-            try:
-                __import__(module_name)
-            except :
-                return False
+        try:
+            __import__(module_name)
+        except ModuleNotFoundError:
+            return False
+        except:
+            return True
         return True
         
     def import_command(self, command_path):
