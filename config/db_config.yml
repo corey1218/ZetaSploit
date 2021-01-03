@@ -23,4 +23,4 @@
 #
 
 db_base:
-    main_database = "database.json"
+    main_database: "database.json"
