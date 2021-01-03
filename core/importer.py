@@ -74,8 +74,8 @@ class importer:
             module_object = __import__(module_directory.replace('/', '.'))
             module_object = self.get_module(module_object, module_file, module_directory)
             module_object = module_object.ZetaSploitModule()
-        except:
-            self.badges.output_error("Failed to import " + self.modules.get_name(module_path) + "!")
+        except Exception as e:
+            self.badges.output_error("Failed to import " + self.modules.get_name(module_path) + "!" + str(e))
             raise self.exceptions.GlobalException
         return module_object
         
@@ -104,5 +104,5 @@ class importer:
 
     def import_all(self):
         self.import_commands()
-        self.db.add_plugins(self.config.path_config['base_pats']['dbs_path'] + self.config.db_config['base_dbs']['main_database'])
-        self.db.add_modules(self.config.path_config['base_pats']['dbs_path'] + self.config.db_config['base_dbs']['main_database'])
+        self.db.add_plugins(self.config.path_config['base_paths']['dbs_path'] + self.config.db_config['base_dbs']['main_database'])
+        self.db.add_modules(self.config.path_config['base_paths']['dbs_path'] + self.config.db_config['base_dbs']['main_database'])
