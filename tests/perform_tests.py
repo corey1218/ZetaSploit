@@ -47,7 +47,7 @@ class perform_tests:
         statuses.append(self.plugins_tests.perform_test())
         
         for status in statuses:
-            if not status:
-                self.badges.output_error("Not all checks passed!")
+            if status:
+                self.badges.output_error("Not all tests passed!")
                 sys.exit(1)
-        self.badges.output_success("All checks passed!")
+        self.badges.output_success("All tests passed!")
