@@ -35,9 +35,11 @@ class config:
         self.base_path = '/opt/zsf/'
         self.config_path = self.base_path + 'config/'
         
+        self.db_config_file = self.config_path + 'db_config.yml'
         self.path_config_file = self.config_path + 'path_config.yml'
         self.core_config_file = self.config_path + 'core_config.yml'
         
+        self.db_config = self.storage.get("db_config")
         self.path_config = self.storage.get("path_config")
         self.core_config = self.storage.get("core_config")
 
