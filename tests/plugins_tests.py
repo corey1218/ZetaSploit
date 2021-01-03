@@ -37,26 +37,4 @@ class plugins_tests:
         self.config = config()
         
     def perform_test(self):
-        self.config.configure()
-        failed = False
-        plugin_path = self.config.path_config['base_paths']['plugins_path']
-        try:
-            for plugin in os.listdir(plugin_path):
-                if plugin.endswith("py"):
-                        plugin_file_path = plugin_path + plugin[:-3]
-                        try:
-                            plugin_directory = plugin_file_path.replace(self.config.path_config['base_paths']['root_path'], '', 1)
-                            plugin_directory = plugin_directory.replace("/", ".")
-                            plugin_file = __import__(plugin_directory)
-                            plugin_object = self.importer.get_module(plugin_file, plugin[:-3], plugin_directory)
-                            plugin_object = plugin_object.ZetaSploitPlugin()
-                            self.badges.output_success(plugin_file_path + ": OK!")
-                        except:
-                            self.badges.output_error(plugin_file_path + ": FAIL!")
-                            failed = True
-        except:
-            self.badges.output_error("Failed to perform plugins test!")
-            failed = True
-        if failed:
-            return False
-        return True
+        pass
