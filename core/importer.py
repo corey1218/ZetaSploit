@@ -124,10 +124,12 @@ class importer:
                                 command_object = self.import_command(command_directory)
                                 command_name = command_object.details['Name']
                                 commands[command_menu][command_name] = command_object
-                            except Exception as e:
-                                self.badges.output_error("Failed to load command! Reason: " + str(e))
-        except Exception as e:
-            self.badges.output_error("Failed to load some commands! Reason: "+str(e))
+                            except:
+                                self.badges.output_error("Failed to load " + file[:-3] + " command!")
+                                sys.exit(1)
+        except:
+            self.badges.output_error("Failed to load console commands!")
+            sys.exit(1)
         self.storage.set("commands", commands)
 
     def import_all(self):
