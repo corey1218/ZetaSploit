@@ -47,6 +47,14 @@ class ZetaSploitCommand:
             'Args': list()
         }
 
+    def import_plugin(self, plugin):
+        plugins = self.storage.get("plugins")
+        try:
+            plugins[plugin] = self.importer.import_plugin(plugins[plugin]['Path'])
+        except:
+            return False
+        return True
+        
     def add_plugin(self, plugin):
         plugins = self.storage.get("plugins")
         loaded_plugins = dict()
@@ -55,9 +63,7 @@ class ZetaSploitCommand:
             if not self.importer.import_check(dependence):
                 not_installed.append(dependence)
         if not not_installed:
-            try:
-                plugins[plugin] = self.importer.import_plugin(plugins[plugin]['Path'])
-            except:
+            if self.import_plugin(plugin):
                 return
             if self.storage.get("loaded_plugins"):
                 self.storage.update("loaded_plugins", plugins)
