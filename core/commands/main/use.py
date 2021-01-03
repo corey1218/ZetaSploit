@@ -48,7 +48,7 @@ class ZetaSploitCommand:
             'Usage': "use <module>",
             'ArgsCount': 1,
             'NeedsArgs': True,
-            'Args': []
+            'Args': list()
         }
 
     def run(self):
@@ -58,7 +58,7 @@ class ZetaSploitCommand:
         if category in modules.keys():
             module = self.modules.get_name(module)
             if module in modules[category].keys():
-                not_installed = []
+                not_installed = list()
                 for dependence in module[category][module]['Dependencies']:
                     if not self.importer.import_check(dependence):
                         not_installed.append(dependence)

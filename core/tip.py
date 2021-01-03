@@ -43,7 +43,7 @@ class tip:
         
     def print_random_tip(self):
         if os.path.exists(self.config.path_config['base_paths']['tips_path']):
-            tips = []
+            tips = list()
             all_tips = os.listdir(self.config.path_config['base_paths']['tips_path'])
             for tip in all_tips:
                 tips.append(tip)

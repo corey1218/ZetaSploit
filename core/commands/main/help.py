@@ -42,11 +42,11 @@ class ZetaSploitCommand:
             'Usage': "help",
             'ArgsCount': 0,
             'NeedsArgs': False,
-            'Args': []
+            'Args': list()
         }
 
     def run(self):
-        commands_data = []
+        commands_data = list()
         headers = ("Command", "Description")
         commands = self.storage.get("commands")['main']
         for command in sorted(commands.keys()):
@@ -57,7 +57,7 @@ class ZetaSploitCommand:
         if self.storage.get("loaded_plugins"):
             for plugin in self.storage.get("loaded_plugins").keys():
                 if hasattr(self.storage.get("loaded_plugins")[plugin], "commands"):
-                    commands_data = []
+                    commands_data = list()
                     commands = plugin[plugin].commands
                     for command in sorted(commands.keys()):
                         commands_data.append((command, commands[command]['Description']))

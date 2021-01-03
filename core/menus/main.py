@@ -48,7 +48,7 @@ class main:
         while True:
             try:
                 commands, arguments = self.io.input('(zsf)> ')
-                if commands == []:
+                if commands == list():
                     continue
                 else:
                     if commands[0] in self.storage.get("commands")['main'].keys():

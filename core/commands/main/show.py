@@ -44,7 +44,7 @@ class ZetaSploitCommand:
             'Usage': "show <information>",
             'ArgsCount': 1,
             'NeedsArgs': True,
-            'Args': []
+            'Args': list()
         }
 
     def run(self):
@@ -55,7 +55,7 @@ class ZetaSploitCommand:
             usage += category + ", "
         usage += "plugins"
         if information in modules.keys():
-            modules_data = []
+            modules_data = list()
             headers = ("Name", "Description")
             modules = modules[information]
             for module in sorted(modules.keys()):
@@ -66,7 +66,7 @@ class ZetaSploitCommand:
         else:
             if information == "plugins":
                 if self.storage.get("plugins"):
-                    plugins_data = []
+                    plugins_data = list()
                     headers = ("Name", "Description")
                     plugins = self.storage.get("plugins")
                     for plugin in sorted(plugins.keys()):

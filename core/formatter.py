@@ -34,7 +34,7 @@ class formatter:
 
     def format_arguments(self, arguments):
         arguments = re.split(''' (?=(?:[^'"]|'[^']*'|"[^"]*")*$)''', arguments)
-        formated_args = []
+        formated_args = list()
         for i in arguments:
             formated_args.append(i.strip('"' and "'"))
         return formated_args
@@ -53,7 +53,7 @@ class formatter:
             except TypeError:
                 return 0
 
-        fill = []
+        fill = list()
         headers_line = '    '
         headers_separator_line = '    '
         for idx, header in enumerate(headers):
