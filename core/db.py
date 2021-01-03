@@ -43,5 +43,5 @@ class db:
     def add_plugins(self, path):
         if not self.storage.get("plugins"):
             self.storage.set("plugins", dict())['plugins']
-        modules = json.load(open(path))
-        self.storage.update("plugins", modules)
+        plugins = json.load(open(path))
+        self.storage.update("plugins", plugins)
