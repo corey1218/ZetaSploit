@@ -60,7 +60,7 @@ class ZetaSploitCommand:
                 module = self.modules.get_name(module)
                 if module in modules[category].keys():
                     not_installed = list()
-                    for dependence in module[category][module]['Dependencies']:
+                    for dependence in modules[category][module]['Dependencies']:
                         if not self.importer.import_check(dependence):
                             not_installed.append(dependence)
                     if not not_installed:
