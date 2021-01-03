@@ -59,6 +59,7 @@ class importer:
                 if i in folderpath_list:
                     i = getattr(mu, i)
                     return self.get_module(i, name, folderpath)
+
     def import_check(self, module_name):
         try:
             __import__(module_name)
@@ -77,7 +78,6 @@ class importer:
             command_object = self.get_module(command_object, command_file, command_directory)
             command_object = command_object.ZetaSploitCommand()
         except:
-            self.badges.output_error("Failed to import " + self.modules.get_name(command_path) + "!")
             raise self.exceptions.GlobalException
         return command_object
         
@@ -90,7 +90,6 @@ class importer:
             module_object = self.get_module(module_object, module_file, module_directory)
             module_object = module_object.ZetaSploitModule()
         except:
-            self.badges.output_error("Failed to import " + self.modules.get_name(module_path) + "!")
             raise self.exceptions.GlobalException
         return module_object
     
@@ -103,7 +102,6 @@ class importer:
             plugin_object = self.get_module(plugin_object, plugin_file, plugin_directory)
             plugin_object = plugin_object.ZetaSploitPlugin()
         except:
-            self.badges.output_error("Failed to import " + self.modules.get_name(plugin_path) + "!")
             raise self.exceptions.GlobalException
         return plugin_object
         
