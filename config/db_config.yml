@@ -22,5 +22,5 @@
 # SOFTWARE.
 #
 
-db_base:
+dbs_base:
     main_database: "database.json"
