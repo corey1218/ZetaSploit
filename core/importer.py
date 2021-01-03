@@ -71,7 +71,7 @@ class importer:
             module_directory = module_path
             module_file = os.path.split(module_directory)[1]
             module_directory = module_directory.replace('/', '.')
-            module_object = __import__(module_directory.replace('/', '.'))
+            module_object = __import__(module_directory)
             module_object = self.get_module(module_object, module_file, module_directory)
             module_object = module_object.ZetaSploitModule()
         except Exception as e:
