@@ -28,11 +28,13 @@ import os
 
 from core.badges import badges
 from core.storage import storage
+from core.importer import importer
 
 class ZetaSploitCommand:
     def __init__(self):
         self.badges = badges()
         self.storage = storage()
+        self.importer = importer()
 
         self.details = {
             'Name': "load",
