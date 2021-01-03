@@ -26,13 +26,17 @@
 
 import os
 
+from core.io import io
 from core.badges import badges
 from core.storage import storage
+from core.importer import importer
 
 class ZetaSploitCommand:
     def __init__(self):
+        self.io = io()
         self.badges = badges()
         self.storage = storage()
+        self.importer = importer()
 
         self.details = {
             'Name': "load",
@@ -53,7 +57,38 @@ class ZetaSploitCommand:
                     self.badges.output_error("Already loaded!")
                 else:
                     if plugin in self.storage.get("plugins").keys():
-                        plugins[plugin] = self.storage.get("plugins")[plugin]
+                        not_installed = list()
+                        for dependence in self.storage.get("plugins")[plugin]['Dependencies']:
+                            if not self.importer.import_check(dependence):
+                                not_installed.append(dependence)
+                        if not not_installed:
+                            try:
+                                plugins[plugin] = self.importer.import_plugin(self.storage.get("plugins")[plugin]['Path'])
+                            except:
+                                return
+                            if self.storage.get("loaded_plugins"):
+                                self.storage.update("loaded_plugins", plugins)
+                            else:
+                                self.storage.set("loaded_plugins", plugins)
+                            self.storage.get("loaded_plugins")[plugin].run()
+                            self.badges.output_success("Successfully loaded " + plugin + " plugin!")
+                        else:
+                            self.badges.output_error("Plugin depends this dependencies which is not installed:")
+                            for dependence in not_installed:
+                                self.io.output("    " + dependence)
+                    else:
+                        self.badges.output_error("Failed to load " + plugin + " plugin!")
+            else:
+                if plugin in self.storage.get("plugins").keys():
+                    not_installed = list()
+                    for dependence in self.storage.get("plugins")[plugin]['Dependencies']:
+                        if not self.importer.import_check(dependence):
+                            not_installed.append(dependence)
+                    if not not_installed:
+                        try:
+                            plugins[plugin] = self.importer.import_plugin(self.storage.get("plugins")[plugin]['Path'])
+                        except:
+                            return
                         if self.storage.get("loaded_plugins"):
                             self.storage.update("loaded_plugins", plugins)
                         else:
@@ -61,16 +96,9 @@ class ZetaSploitCommand:
                         self.storage.get("loaded_plugins")[plugin].run()
                         self.badges.output_success("Successfully loaded " + plugin + " plugin!")
                     else:
-                        self.badges.output_error("Failed to load " + plugin + " plugin!")
-            else:
-                if plugin in self.storage.get("plugins").keys():
-                    plugins[plugin] = self.storage.get("plugins")[plugin]
-                    if self.storage.get("loaded_plugins"):
-                        self.storage.update("loaded_plugins", plugins)
-                    else:
-                        self.storage.set("loaded_plugins", plugins)
-                    self.storage.get("loaded_plugins")[plugin].run()
-                    self.badges.output_success("Successfully loaded " + plugin + " plugin!")
+                        self.badges.output_error("Plugin depends this dependencies which is not installed:")
+                        for dependence in not_installed:
+                            self.io.output("    " + dependence)
                 else:
                     self.badges.output_error("Failed to load " + plugin + " plugin!")
         else:
