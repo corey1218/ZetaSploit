@@ -38,7 +38,6 @@ class perform_tests:
 
         self.modules_tests = modules_tests()
         self.plugins_tests = plugins_tests()
-        self.commands_tests = commands_tests()
         
     def perform_tests(self):
         statuses = list()
@@ -47,9 +46,6 @@ class perform_tests:
         
         self.badges.output_process("Performing plugins test...")
         statuses.append(self.plugins_tests.perform_test())
-        
-        self.badges.output_process("Performing commands test...")
-        statuses.append(self.commands_tests.perform_test())
         
         for status in statuses:
             if not status:
