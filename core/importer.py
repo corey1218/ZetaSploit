@@ -66,6 +66,19 @@ class importer:
             return False
         return True
         
+    def import_command(self, command_path):
+        try:
+            command_directory = command_path
+            command_file = os.path.split(command_directory)[1]
+            command_directory = command_directory.replace('/', '.')
+            command_object = __import__(command_directory)
+            command_object = self.get_module(command_object, command_file, command_directory)
+            command_object = command_object.ZetaSploitCommand()
+        except:
+            self.badges.output_error("Failed to import " + self.modules.get_name(command_path) + "!")
+            raise self.exceptions.GlobalException
+        return command_object
+        
     def import_module(self, module_path):
         try:
             module_directory = module_path
@@ -74,10 +87,23 @@ class importer:
             module_object = __import__(module_directory)
             module_object = self.get_module(module_object, module_file, module_directory)
             module_object = module_object.ZetaSploitModule()
-        except Exception as e:
-            self.badges.output_error("Failed to import " + self.modules.get_name(module_path) + "!" + str(e))
+        except:
+            self.badges.output_error("Failed to import " + self.modules.get_name(module_path) + "!")
             raise self.exceptions.GlobalException
         return module_object
+    
+    def import_plugin(self, plugin_path):
+        try:
+            plugin_directory = plugin_path
+            plugin_file = os.path.split(plugin_directory)[1]
+            plugin_directory = plugin_directory.replace('/', '.')
+            plugin_object = __import__(plugin_directory)
+            plugin_object = self.get_module(plugin_object, plugin_file, plugin_directory)
+            plugin_object = plugin_object.ZetaSploitPlugin()
+        except:
+            self.badges.output_error("Failed to import " + self.modules.get_name(plugin_path) + "!")
+            raise self.exceptions.GlobalException
+        return plugin_object
         
     def import_commands(self):
         commands = dict()
@@ -93,7 +119,7 @@ class importer:
                             command_file_path = path + '/' + file[:-3]
                             try:
                                 command_directory = command_file_path.replace(self.config.path_config['base_paths']['root_path'], '', 1)
-                                command_object = self.import_module(command_directory)
+                                command_object = self.import_command(command_directory)
                                 command_name = command_object.details['Name']
                                 commands[command_menu][command_name] = command_object
                             except Exception as e:
