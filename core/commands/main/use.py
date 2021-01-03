@@ -26,6 +26,7 @@
 
 import os
 
+from core.io import io
 from core.menus.module import module
 from core.importer import importer
 from core.badges import badges
@@ -34,6 +35,7 @@ from core.modules import modules
 
 class ZetaSploitCommand:
     def __init__(self):
+        self.io = io()
         self.module = module()
         self.importer = importer()
         self.badges = badges()
@@ -56,15 +58,24 @@ class ZetaSploitCommand:
         if category in modules.keys():
             module = self.modules.get_name(module)
             if module in modules[category].keys():
-                try:
-                    module_object = self.importer.import_module(modules[category][module]['Path'])
-                except:
-                    return
-                self.storage.set("current_module", [])
-                self.storage.set("pwd", 0)
-                self.storage.add_array("current_module", '')
-                self.storage.set_array("current_module", self.storage.get("pwd"), module_object)
-                self.module.module_menu()
+                not_installed = []
+                for dependence in module[category][module]['Dependencies']:
+                    if not self.importer.import_check(dependence):
+                        not_installed.append(dependence)
+                if not not_installed:
+                    try:
+                        module_object = self.importer.import_module(modules[category][module]['Path'])
+                    except:
+                        return
+                    self.storage.set("current_module", [])
+                    self.storage.set("pwd", 0)
+                    self.storage.add_array("current_module", '')
+                    self.storage.set_array("current_module", self.storage.get("pwd"), module_object)
+                    self.module.module_menu()
+                else:
+                    self.badges.output_error("Module depends this dependencies which is not installed:")
+                    for dependence in not_installed:
+                        self.io.output("    " + dependence)
             else:
                 self.badges.output_error("Invalid module!")
         else:
