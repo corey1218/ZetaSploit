@@ -27,13 +27,21 @@
 import json
 
 from core.badges import badges
+from core.storage import storage
 
 class db:
     def __init__(self):
         self.badges = badges()
+        self.storage = storage()
         
-    def add_modules(self):
-        pass
+    def add_modules(self, path):
+        if not self.storage.get("modules"):
+            self.storage.set("modules", dict())['modules']
+        modules = json.load(open(path))
+        self.storage.update("modules", modules)
       
-    def add_plugins(self):
-        pass
+    def add_plugins(self, path):
+        if not self.storage.get("plugins"):
+            self.storage.set("plugins", dict())['plugins']
+        modules = json.load(open(path))
+        self.storage.update("plugins", modules)
