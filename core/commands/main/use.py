@@ -51,7 +51,7 @@ class ZetaSploitCommand:
             'Args': list()
         }
         
-    def import_module(self, module):
+    def import_module(self, category, module):
         modules = self.storage.get("modules")
         try:
             module_object = self.importer.import_module(modules[category][module]['Path'])
@@ -62,7 +62,7 @@ class ZetaSploitCommand:
             return False
         return True
         
-    def add_module(self, module):
+    def add_module(self, category, module):
         modules = self.storage.get("modules")
         not_installed = list()
         for dependence in modules[category][module]['Dependencies']:
@@ -71,7 +71,7 @@ class ZetaSploitCommand:
         if not not_installed:
             imported_modules = self.storage.get("imported_modules")
             if not imported_modules or module not in imported_modules:
-                if not self.import_module(module):
+                if not self.import_module(category, module):
                     return
             self.storage.set("current_module", [])
             self.storage.set("pwd", 0)
@@ -90,7 +90,7 @@ class ZetaSploitCommand:
         if category in modules.keys():
             module = self.modules.get_name(module)
             if module in modules[category].keys():
-                self.add_module(module)
+                self.add_module(category, module)
             else:
                 self.badges.output_error("Invalid module!")
         else:
