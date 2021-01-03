@@ -26,15 +26,28 @@
 
 import os
 
+from core.db import db
 from core.badges import badges
 from core.importer import importer
 from core.config import config
 
 class modules_tests:
     def __init__(self):
+        self.db = db()
         self.badges = badges()
         self.importer = importer()
         self.config = config()
         
     def perform_test(self):
-        pass
+        fail = False
+        self.db.add_modules(self.config.path_config['base_paths']['dbs_path'] + self.config.db_config['base_dbs']['main_database'])
+        modules = self.storage.get("modules")
+        for category in modules.keys():
+            for module in modules[category].keys():
+                try:
+                    _ = self.importer.import_module(modules[category][module]['Path'])
+                    self.badges.output_success(category + '/' + module + ': OK')
+                except:
+                    self.badges.output_error(category + '/' + module + ': FAIL')
+                    fail = True
+        return fail
