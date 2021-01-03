@@ -41,7 +41,7 @@ class perform_tests:
         self.commands_tests = commands_tests()
         
     def perform_tests(self):
-        statuses = []
+        statuses = list()
         self.badges.output_process("Performing modules test...")
         statuses.append(self.modules_tests.perform_test())
         
