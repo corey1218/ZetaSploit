@@ -29,6 +29,7 @@ import os
 from core.db import db
 from core.badges import badges
 from core.importer import importer
+from core.storage import storage
 from core.config import config
 
 class modules_tests:
@@ -36,6 +37,7 @@ class modules_tests:
         self.db = db()
         self.badges = badges()
         self.importer = importer()
+        self.storage = storage()
         self.config = config()
         
     def perform_test(self):
