@@ -48,27 +48,28 @@ class ZetaSploitCommand:
         }
 
     def import_plugin(self, plugin):
+        loaded_plugins = dict()
         plugins = self.storage.get("plugins")
         try:
-            plugins[plugin] = self.importer.import_plugin(plugins[plugin]['Path'])
+            loaded_plugins[plugin] = self.importer.import_plugin(plugins[plugin]['Path'])
         except:
-            return False
-        return True
+            return loaded_plugins
+        return loaded_plugins
         
     def add_plugin(self, plugin):
         plugins = self.storage.get("plugins")
-        loaded_plugins = dict()
         not_installed = list()
         for dependence in plugins[plugin]['Dependencies']:
             if not self.importer.import_check(dependence):
                 not_installed.append(dependence)
         if not not_installed:
-            if self.import_plugin(plugin):
+            loaded_plugins = self.import_plugin(plugin)
+            if not loaded_plugins:
                 return
             if self.storage.get("loaded_plugins"):
-                self.storage.update("loaded_plugins", plugins)
+                self.storage.update("loaded_plugins", loaded_plugins)
             else:
-                self.storage.set("loaded_plugins", plugins)
+                self.storage.set("loaded_plugins", loaded_plugins)
                 self.storage.get("loaded_plugins")[plugin].run()
                 self.badges.output_success("Successfully loaded " + plugin + " plugin!")
         else:
