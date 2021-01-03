@@ -24,6 +24,11 @@
 # SOFTWARE.
 #
 
+from core.config import config
+
+config = config()
+config.configure()
+
 from tests.perform_tests import perform_tests
 
 perform_tests = perform_tests()
