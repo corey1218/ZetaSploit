@@ -69,6 +69,12 @@ class importer:
             return True
         return True
         
+    def has_imported(self, path):
+        path = path.replace('/', '.')
+        if path in sys.modules:
+            return True
+        return False
+        
     def import_command(self, command_path):
         try:
             command_directory = command_path
