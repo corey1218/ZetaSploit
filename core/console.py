@@ -82,10 +82,13 @@ class console:
             self.banner.print_random_banner()
         
         if self.config.core_config['console']['header']:
-            plugins_total = len(self.storage.get("plugins"))
+            plugins_total = 0
             modules_total = 0
-            for module_category in self.storage.get("modules").keys():
-                modules_total += len(self.storage.get("modules")[module_category])
+            if self.storage.get("plugins"):
+                plugins_total = len(self.storage.get("plugins"))
+            if self.storage.get("modules"):
+                for module_category in self.storage.get("modules").keys():
+                    modules_total += len(self.storage.get("modules")[module_category])
         
             self.io.output(f"""    --=( {self.badges.YELLOW}ZetaSploit Framework {version}{self.badges.END}
 --==--=( Developed by EntySec ({self.badges.LINE}https://entysec.netlify.app/{self.badges.END})
