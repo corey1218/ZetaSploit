@@ -27,12 +27,10 @@
 import json
 
 from core.badges import badges
-from core.config import config
 
 class db:
     def __init__(self):
         self.badges = badges()
-        self.config = config()
         
     def add_modules(self):
         pass
