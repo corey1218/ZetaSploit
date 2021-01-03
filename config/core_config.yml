@@ -23,7 +23,7 @@
 #
 
 details:
-    version: "v2.0.0-beta"
+    version: "v3.0.0-beta"
 
 console:
     clear: true
