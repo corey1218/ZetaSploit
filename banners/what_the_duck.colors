@@ -22,7 +22,7 @@
 %comment SOFTWARE.
 %comment
 
-%space
+%newline
 %end
     %boldWhat the %yellow%boldduck?%end
 %yellow          _      _      _
