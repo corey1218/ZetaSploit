@@ -79,7 +79,7 @@ class colors_script:
                         buffer_commands = ""
                         for command in self.commands.keys():
                             line = line.partition('%comment')[0]
-                            line = line.replace('%empty', "")
+                            line = line.replace('%empty', "\n")
                             line = line.replace(command, self.commands[command])
                         result += line
                 return result
