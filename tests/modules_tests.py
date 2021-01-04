@@ -31,6 +31,7 @@ from core.badges import badges
 from core.importer import importer
 from core.storage import storage
 from core.config import config
+from core.module import module
 
 class modules_tests:
     def __init__(self):
@@ -39,6 +40,7 @@ class modules_tests:
         self.importer = importer()
         self.storage = storage()
         self.config = config()
+        self.module = module()
         
     def perform_test(self):
         fail = False
