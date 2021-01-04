@@ -54,7 +54,7 @@ class colors_script:
         lines = list()
         with open(path) as file:
             for line in file:
-                if line[0:8] != "%comment" and not line.isspace() and not line:
+                if line and line[0:8] != "%comment" and not line.isspace():
                     lines.append(line)
         last_commands = ""
         last_line = lines[-1]
