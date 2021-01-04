@@ -56,15 +56,15 @@ class colors_script:
             for line in file:
                 if line[0:8] != "%comment" and not line.isspace() and not line:
                     lines.append(line)
-        last_command = ""
+        last_commands = ""
         last_line = lines[-1]
         for command in self.commands.keys():
             if command in last_line:
-                last_command += command
                 last_line = last_line.replace(command, " ")
         if last_line.isspace():
+            last_commands += lines[-1]
             lines.pop()
-            lines[-1] = last_command + lines[-1]
+            lines[-1] = lines[-1] + last_commands
         if path.endswith(self.script_extension):
             try:
                 buffer_commands = ""
