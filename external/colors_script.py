@@ -56,7 +56,7 @@ class colors_script:
         
     def parse_colors_script(self, path):
         result = ""
-        lines = _read_file_lines(path)
+        lines = self._read_file_lines(path)
         last_command += command
         last_line = lines[-1]
         for command in self.commands.keys():
