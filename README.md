@@ -8,6 +8,10 @@
     <br>with targets, exploiting common vulnerabilities and etc.
     <br>
     <br>
+    <b>TODO</b><br>
+    Optimize code, clean up messy code
+    <br>
+    <br>
     <b>Useful links:</b><br>
     <p align="center"><a href="">Getting Started</a> | <a href="">Using ZetaSploit</a> | <a href="">Developing ZetaSploit</a></p>
 </p>
