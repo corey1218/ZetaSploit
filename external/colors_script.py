@@ -63,7 +63,7 @@ class colors_script:
                 last_line = last_line.replace(command, " ")
         if last_line.isspace():
             last_commands += lines.pop()
-            lines[-1] = lines[-1] + last_commands
+            lines[-1] = lines[-1] + last_commands.strip()
         if path.endswith(self.script_extension):
             try:
                 buffer_commands = ""
@@ -75,7 +75,7 @@ class colors_script:
                     if buffer_line.isspace():
                         buffer_commands += line
                     else:
-                        line = buffer_commands + line
+                        line = buffer_commands.strip() + line
                         buffer_commands = ""
                         for command in self.commands.keys():
                             line = line.partition('%comment')[0]
