@@ -90,11 +90,11 @@ class console:
                 for module_category in self.storage.get("modules").keys():
                     modules_total += len(self.storage.get("modules")[module_category])
 
-            self.io.output(f"""
+            self.io.output(f"""{self.badges.END}
     --=( {self.badges.YELLOW}ZetaSploit Framework {version}{self.badges.END}
 --==--=( Developed by EntySec ({self.badges.LINE}https://entysec.netlify.app/{self.badges.END})
     --=( {modules_total} modules loaded | {plugins_total} plugins available
-            """)
+            {self.badges.END}""")
             
         if self.config.core_config['console']['tip']:
             self.tip.print_random_tip()
