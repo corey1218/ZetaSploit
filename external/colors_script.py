@@ -66,6 +66,7 @@ class colors_script:
             lines[-1] = last_command + lines[-1]
         if path.endswith(self.script_extension):
             try:
+                buffer_commands = ""
                 for line in lines:
                     if line[0:8] != "%comment" and not line.isspace():
                         buffer_line = line
