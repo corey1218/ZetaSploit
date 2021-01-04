@@ -50,8 +50,10 @@ class colors_script:
         }
 
     def _read_file_lines(self, path):
-        with open(path, 'r') as f:
-            lines = f.read().splitlines()
+        lines = list()
+        with open(path) as file:
+            for line in file:
+                lines.append(line)
         return lines
         
     def parse_colors_script(self, path):
