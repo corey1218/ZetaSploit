@@ -65,7 +65,7 @@ class colors_script:
                 last_line = last_line.replace(command, " ")
         if last_line.isspace():
             last_commands += lines.pop()
-            lines[-1] = lines[-1] + last_commands.strip()
+            lines[-1] = lines[-1].strip() + last_commands.strip()
         if path.endswith(self.script_extension):
             try:
                 buffer_commands = ""
