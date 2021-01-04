@@ -49,7 +49,7 @@ class colors_script:
             '%back': '\033[7m'
         }
 
-    def _read_file_lines(self, path):
+    def read_file_lines(self, path):
         lines = list()
         with open(path) as file:
             for line in file:
@@ -58,7 +58,7 @@ class colors_script:
         
     def parse_colors_script(self, path):
         result = ""
-        lines = self._read_file_lines(path)
+        lines = self.read_file_lines(path)
         last_command = ""
         last_line = lines[-1]
         for command in self.commands.keys():
