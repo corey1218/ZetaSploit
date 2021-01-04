@@ -40,6 +40,9 @@ class modules:
     def get_name(self, name):
         return os.path.join(*(name.split(os.path.sep)[1:]))
 
+    def get_full_name(self, name, category):
+        return category + '/' + name
+    
     def show_details(self, details):
         self.io.output("")
         self.badges.output_information("Name:")
