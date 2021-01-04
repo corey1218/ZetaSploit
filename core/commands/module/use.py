@@ -50,32 +50,49 @@ class ZetaSploitCommand:
             'NeedsArgs': True,
             'Args': list()
         }
+        
+    def import_module(self, category, module):
+        modules = self.storage.get("modules")
+        try:
+            module_object = self.importer.import_module(modules[category][module]['Path'])
+            if not self.storage.get("imported_modules"):
+                self.storage.set("imported_modules", dict())
+            self.storage.update("imported_modules", {category + '/' + module: module_object})
+        except:
+            return None
+        return module_object
+        
+    def add_module(self, category, module):
+        modules = self.storage.get("modules")
+        not_installed = list()
+        for dependence in modules[category][module]['Dependencies']:
+            if not self.importer.import_check(dependence):
+                not_installed.append(dependence)
+        if not not_installed:
+            imported_modules = self.storage.get("imported_modules")
+            if not imported_modules or category + '/' + module not in imported_modules:
+                module_object = self.import_module(category, module)
+                if not module_object:
+                    return
+            else:
+                module_object = imported_modules[category + '/' + module]
+            self.storage.add_array("current_module", '')
+            self.storage.set("pwd", self.storage.get("pwd") + 1)
+            self.storage.set_array("current_module", self.storage.get("pwd"), module_object)
+        else:
+            self.badges.output_error("Module depends this dependencies which is not installed:")
+            for dependence in not_installed:
+                self.io.output("    " + dependence)
 
     def run(self):
         module = self.details['Args'][0]
         modules = self.storage.get("modules")
         category = self.modules.get_category(module)
-        if module != self.storage.get_array("current_module", self.storage.get("pwd")).details['Name']:
-            if category in modules.keys():
-                module = self.modules.get_name(module)
-                if module in modules[category].keys():
-                    not_installed = list()
-                    for dependence in modules[category][module]['Dependencies']:
-                        if not self.importer.import_check(dependence):
-                            not_installed.append(dependence)
-                    if not not_installed:
-                        try:
-                            module_object = self.importer.import_module(modules[category][module]['Path'])
-                        except:
-                            return
-                        self.storage.add_array("current_module", '')
-                        self.storage.set("pwd", self.storage.get("pwd") + 1)
-                        self.storage.set_array("current_module", self.storage.get("pwd"), module_object)
-                    else:
-                        self.badges.output_error("Module depends this dependencies which is not installed:")
-                        for dependence in not_installed:
-                            self.io.output("    " + dependence)
-                else:
-                    self.badges.output_error("Invalid module!")
+        if category in modules.keys():
+            module = self.modules.get_name(module)
+            if module in modules[category].keys():
+                self.add_module(category, module)
             else:
                 self.badges.output_error("Invalid module!")
+        else:
+            self.badges.output_error("Invalid module!")
