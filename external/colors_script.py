@@ -54,7 +54,8 @@ class colors_script:
         lines = list()
         with open(path) as file:
             for line in file:
-                lines.append(line)
+                if line[0:8] != "%comment" and not line.isspace() and not line:
+                    lines.append(line)
         last_command = ""
         last_line = lines[-1]
         for command in self.commands.keys():
@@ -68,23 +69,20 @@ class colors_script:
             try:
                 buffer_commands = ""
                 for line in lines:
-                    if line[0:8] != "%comment" and not line.isspace():
-                        buffer_line = line
-                        temp_buffer = ""
+                    buffer_line = line
+                    for command in self.commands.keys():
+                        if command in buffer_line:
+                            buffer_line = buffer_line.replace(command, " ")
+                    if buffer_line.isspace():
+                        buffer_commands += line
+                    else:
+                        line = buffer_commands + line
+                        buffer_commands = ""
                         for command in self.commands.keys():
-                            if command in buffer_line:
-                                temp_buffer += command
-                                buffer_line = buffer_line.replace(command, " ")
-                        if buffer_line.isspace():
-                            buffer_commands += temp_buffer
-                        if not buffer_line.isspace():
-                            line = buffer_commands + line
-                            buffer_commands = ""
-                            for command in self.commands.keys():
-                                line = line.partition('%comment')[0]
-                                line = line.replace('%empty', "")
-                                line = line.replace(command, self.commands[command])
-                            result += line
+                            line = line.partition('%comment')[0]
+                            line = line.replace('%empty', "")
+                            line = line.replace(command, self.commands[command])
+                        result += line
                 return result
             except:
                 return None
