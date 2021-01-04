@@ -49,7 +49,8 @@ class ZetaSploitCommand:
         count = 0
         if hasattr(current_module, "options"):
             for option in current_module.options.keys():
-                if not current_module.options[option]['Value'] and current_module.options[option]['Required']:
+                current_option = current_module.options[option]
+                if not current_option['Value'] and current_option['Value'] != 0 and current_option['Required']:
                     count += 1
             if count > 0:
                 self.badges.output_error("Missed some required options!")
