@@ -61,7 +61,6 @@ class colors_script:
                         if line[0:8] != "%comment" and not line.isspace():
                             buffer_line = line
                             temp_buffer = ""
-                            print("line: ", line)
                             for command in self.commands.keys():
                                 if command in buffer_line:
                                     temp_buffer += command
@@ -69,7 +68,6 @@ class colors_script:
                             if buffer_line.isspace():
                                 buffer_commands += temp_buffer
                             if not buffer_line.isspace():
-                                print("buf: ", buffer_commands)
                                 line = buffer_commands + line
                                 buffer_commands = ""
                                 for command in self.commands.keys():
