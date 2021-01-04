@@ -30,5 +30,4 @@
   P          I      N   NN
   P       IIIIIII   N    N
 %empty
-  %boldStrike a key when ready ...
-%end
+  %boldStrike a key when ready ...%end
