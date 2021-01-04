@@ -62,8 +62,7 @@ class colors_script:
             if command in last_line:
                 last_line = last_line.replace(command, " ")
         if last_line.isspace():
-            last_commands += lines[-1]
-            lines.pop()
+            last_commands += lines.pop()
             lines[-1] = lines[-1] + last_commands
         if path.endswith(self.script_extension):
             try:
