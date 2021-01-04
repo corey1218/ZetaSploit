@@ -46,7 +46,9 @@ class colors_script:
             '%bent': '\033[3m',
             '%line': '\033[4m',
             '%twink': '\033[5m',
-            '%back': '\033[7m'
+            '%back': '\033[7m',
+            
+            '%newline': '\n'
         }
         
     def parse_colors_script(self, path):
@@ -79,7 +81,6 @@ class colors_script:
                         buffer_commands = ""
                         for command in self.commands.keys():
                             line = line.partition('%comment')[0]
-                            line = line.replace('%newline', "\n")
                             line = line.replace(command, self.commands[command])
                         result += line
                 return result
