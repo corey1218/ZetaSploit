@@ -48,8 +48,8 @@ class modules_tests:
             for module in modules[category].keys():
                 try:
                     _ = self.importer.import_module(modules[category][module]['Path'])
-                    self.badges.output_success(category + '/' + module + ': OK')
+                    self.badges.output_success(self.module.get_full_name(category, module) + ': OK')
                 except:
-                    self.badges.output_error(category + '/' + module + ': FAIL')
+                    self.badges.output_error(self.module.get_full_name(category, module) + ': FAIL')
                     fail = True
         return fail
