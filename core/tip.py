@@ -52,7 +52,7 @@ class tip:
                 while not tip:
                     random_tip = random.randint(0, len(tips) - 1)
                     tip = self.colors_script.parse_colors_script(self.config.path_config['base_paths']['tips_path'] + tips[random_tip])
-                self.io.output("ZetaSploit Tip: " + tip.strip())
+                self.io.output("ZetaSploit Tip: " + tip)
             else:
                 self.io.output_warning("No tips detected.")
         else:
