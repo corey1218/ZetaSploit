@@ -49,30 +49,43 @@ class colors_script:
             '%back': '\033[7m'
         }
 
+    def _read_file_lines(self, path):
+        with open('output.txt', 'r') as f:
+            lines = f.read().splitlines()
+        return lines
+        
     def parse_colors_script(self, path):
         result = ""
+        lines = _read_file_lines(path)
+        last_command += command
+        last_line = lines[-1]
+        for command in self.commands.keys():
+            if command in last_line:
+                last_command += command
+                last_line = last_line.replace(command, " ")
+        if last_line.isspace():
+            lines.pop()
+            lines[-1] = last_command + lines[-1]
         if path.endswith(self.script_extension):
             try:
-                with open(path) as file:
-                    buffer_commands = ""
-                    for line in file:
-                        if line[0:8] != "%comment" and not line.isspace():
-                            buffer_line = line
-                            temp_buffer = ""
+                for line in lines:
+                    if line[0:8] != "%comment" and not line.isspace():
+                        buffer_line = line
+                        temp_buffer = ""
+                        for command in self.commands.keys():
+                            if command in buffer_line:
+                                temp_buffer += command
+                                buffer_line = buffer_line.replace(command, " ")
+                        if buffer_line.isspace():
+                            buffer_commands += temp_buffer
+                        if not buffer_line.isspace():
+                            line = buffer_commands + line
+                            buffer_commands = ""
                             for command in self.commands.keys():
-                                if command in buffer_line:
-                                    temp_buffer += command
-                                    buffer_line = buffer_line.replace(command, " ")
-                            if buffer_line.isspace():
-                                buffer_commands += temp_buffer
-                            if not buffer_line.isspace():
-                                line = buffer_commands + line
-                                buffer_commands = ""
-                                for command in self.commands.keys():
-                                    line = line.partition('%comment')[0]
-                                    line = line.replace('%empty', "")
-                                    line = line.replace(command, self.commands[command])
-                                result += line
+                                line = line.partition('%comment')[0]
+                                line = line.replace('%empty', "")
+                                line = line.replace(command, self.commands[command])
+                            result += line
                 return result
             except:
                 return None
