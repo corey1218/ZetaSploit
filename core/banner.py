@@ -30,6 +30,7 @@ import random
 from core.io import io
 from core.parser import parser
 from core.config import config
+from core.badges import badges
 
 from external.colors_script import colors_script
 
@@ -38,6 +39,7 @@ class banner:
         self.io = io()
         self.parser = parser()
         self.config = config()
+        self.badges = badges()
         
         self.colors_script = colors_script()
         
