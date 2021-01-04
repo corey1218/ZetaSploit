@@ -50,7 +50,7 @@ class colors_script:
         }
 
     def _read_file_lines(self, path):
-        with open('output.txt', 'r') as f:
+        with open(path, 'r') as f:
             lines = f.read().splitlines()
         return lines
         
