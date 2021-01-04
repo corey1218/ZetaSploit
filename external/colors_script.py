@@ -75,9 +75,9 @@ class colors_script:
                         if command in buffer_line:
                             buffer_line = buffer_line.replace(command, " ")
                     if buffer_line.isspace():
-                        buffer_commands += line
+                        buffer_commands += line.strip()
                     else:
-                        line = buffer_commands.strip() + line
+                        line = buffer_commands + line
                         buffer_commands = ""
                         for command in self.commands.keys():
                             line = line.partition('%comment')[0]
