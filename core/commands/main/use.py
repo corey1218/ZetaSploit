@@ -56,11 +56,11 @@ class ZetaSploitCommand:
         try:
             module_object = self.importer.import_module(modules[category][module]['Path'])
             if not self.storage.get("imported_modules"):
-                self.storage.set("imported_modules", list())
-            self.storage.append("imported_modules", module)
+                self.storage.set("imported_modules", dict())
+            self.storage.update("imported_modules", {category + '/' + module: module_object})
         except:
-            return False
-        return True
+            return None
+        return module_object
         
     def add_module(self, category, module):
         modules = self.storage.get("modules")
@@ -70,9 +70,12 @@ class ZetaSploitCommand:
                 not_installed.append(dependence)
         if not not_installed:
             imported_modules = self.storage.get("imported_modules")
-            if not imported_modules or module not in imported_modules:
-                if not self.import_module(category, module):
+            if not imported_modules or category + '/' + module not in imported_modules:
+                module_object = self.import_module(category, module)
+                if not module_object:
                     return
+            else:
+                module_object = imported_modules[category + '/' + module]
             self.storage.set("current_module", [])
             self.storage.set("pwd", 0)
             self.storage.add_array("current_module", '')
