@@ -22,7 +22,7 @@
 %comment SOFTWARE.
 %comment
 
-%empty
+%space
 %end
 %green
                      ..
@@ -52,6 +52,6 @@
          FNL1NB@@@@:   ;OBX
            rLu2ZB@B@@XqG7
               %end%green. rJuv::%end
-  %empty
+  %space
   %boldDown right to TOR!
 %end

@@ -22,7 +22,7 @@
 %comment SOFTWARE.
 %comment
 
-%empty
+%space
 %end
   %boldIIIIII%end     %reddTb.dTb%end     %yellow%boldZZZZZZZZZ%end
   %bold  II  %end    %red4'  v  'B%end        %yellow%boldZZZZ%end

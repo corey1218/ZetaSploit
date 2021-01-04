@@ -22,7 +22,7 @@
 %comment SOFTWARE.
 %comment
 
-%empty
+%space
 %end
 %bold
               %blue%bold.%end%bold

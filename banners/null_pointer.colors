@@ -22,7 +22,7 @@
 %comment SOFTWARE.
 %comment
 
-%empty
+%space
 %end
 Unable to handle kernel NULL pointer dereference at virtual address 0xd34db33f
 EFLAGS: 00010046
@@ -30,7 +30,7 @@ eax: 00000001 ebx: f77c8c00 ecx: 00000000 edx: f77f0001
 esi: 803bf014 edi: 8023c755 ebp: 80237f84 esp: 80237f60
 ds: 0018   es: 0018  ss: 0018
 Process Swapper (Pid: 0, process nr: 0, stackpage=80377000)
-%empty
+%space
 %boldStack: 90909090990909090990909090
        99090909909...............
        ....90900990090...........
@@ -53,7 +53,7 @@ Process Swapper (Pid: 0, process nr: 0, stackpage=80377000)
        ffffffff..................
        ffffffff..................
        ffffffff..................%end
-%empty
+%space
 %yellowCode: 00 00 00 00 Z3 T4 SP L0 1T FR 4M 3W OR K! V3 R5 I0 N1 00 00 00 00%end
 Aiee, Killing Interrupt handler
 %redKernel panic: Attempted to kill the idle task!

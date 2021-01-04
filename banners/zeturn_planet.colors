@@ -22,7 +22,7 @@
 %comment SOFTWARE.
 %comment
 
-%empty
+%space
 %end
               %bold+%end
 
@@ -35,7 +35,7 @@
             .   %yellow%bold'=.__.=' `='%end      %blue%bold*%end
    %bold+%end                         %bold+%end
         O      %blue%bold*%end        .       .
-%empty
+%space
  [ Destination: %boldZero-Day Galaxy, Zeturn%end ]
  [ Coordinates: %yellow%bold00FE:09AA:8080:0000%end     ]
 %end
