@@ -52,7 +52,7 @@ class banner:
                 while not banner:
                     random_banner = random.randint(0, len(banners) - 1)
                     banner = self.colors_script.parse_colors_script(self.config.path_config['base_paths']['banners_path'] + banners[random_banner])
-                self.io.output(banner)
+                self.io.output(self.badges.END + banner + self.badges.END)
             else:
                 self.io.output_warning("No banners detected.")
         else:
