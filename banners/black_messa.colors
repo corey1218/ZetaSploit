@@ -22,7 +22,8 @@
 %comment SOFTWARE.
 %comment
 
-%empty%end%bold
+%empty
+%end%bold
                      .-;+$XHHHHHHX$+;-.
                   ,;X@@X%/;=----=:/%X@@X/,
                 =$@@%=.              .=+H@X:
@@ -42,4 +43,5 @@
               =X@@@@@@@@@@@@@@@@@@@@@@@@@@@@X=
                 :$@@@@@@@@@@@@@@@@@@@M@@@@$:
                   ,;$@@@@@@@@@@@@@@@@@@X/-
-                     .-;+$XXHHHHHX$+;-.%end
+                     .-;+$XXHHHHHX$+;-.
+%end
