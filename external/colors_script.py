@@ -48,17 +48,13 @@ class colors_script:
             '%twink': '\033[5m',
             '%back': '\033[7m'
         }
-
-    def read_file_lines(self, path):
+        
+    def parse_colors_script(self, path):
+        result = ""
         lines = list()
         with open(path) as file:
             for line in file:
                 lines.append(line)
-        return lines
-        
-    def parse_colors_script(self, path):
-        result = ""
-        lines = self.read_file_lines(path)
         last_command = ""
         last_line = lines[-1]
         for command in self.commands.keys():
