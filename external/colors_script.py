@@ -51,21 +51,42 @@ class colors_script:
             '%newline': '\n'
         }
         
-    def parse_colors_script(self, path):
-        result = ""
+   def _read_file_lines(self, path):
+       lines = list()
+       with open(path) as file:
+           for line in file:
+               if line and line[0:8] != "%comment" and not line.isspace():
+                   lines.append(line)
+       return lines
+
+    def _reverse_read_lines(self, path):
         lines = list()
         with open(path) as file:
-            for line in file:
-                if line and line[0:8] != "%comment" and not line.isspace():
-                    lines.append(line)
-        last_commands = ""
-        last_line = lines[-1]
-        for command in self.commands.keys():
-            if command in last_line:
-                last_line = last_line.replace(command, " ")
-        if last_line.isspace():
-            last_commands += lines.pop()
-            lines[-1] = lines[-1].strip('\n') + last_commands.strip()
+            for line in reversed(list(file)):
+                lines.append(line)
+        return lines
+
+    def _find_last_commands(self, lines):
+        buffer_commands = ""
+        line_id = -1
+        for line in lines:
+            buffer_line = line
+            for command in self.commands.keys():
+                if command in buffer_line:
+                    buffer_line = buffer_line.replace(command, " ")
+            if buffer_line.isspace():
+                buffer_commands += line.strip()
+                lines.remove(lines_id+1)
+            else:
+                break
+        return buffer_commands
+        
+    def parse_colors_script(self, path):
+        result = ""
+        lines = self._read_file_lines(path)
+        reversed_lines = self._reverse_read_lines(path)
+        last_commands = self._find_last_commands(reversed_lines)
+        lines[-1] = lines[-1] + last_commands
         if path.endswith(self.script_extension):
             try:
                 buffer_commands = ""
