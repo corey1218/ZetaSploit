@@ -76,7 +76,7 @@ class colors_script:
                     buffer_line = buffer_line.replace(command, " ")
             if buffer_line.isspace():
                 buffer_commands += line.strip()
-                lines.remove(line_id+1)
+                lines.pop(line_id+1)
             else:
                 break
         return buffer_commands
