@@ -81,15 +81,14 @@ class colors_script:
         return buffer_commands
         
     def _reversed_remove_empty_lines(self, lines):
-        for line in lines:
+        line_id = -1
+        for _ in range(len(lines)):
+            buffer_line = lines[line_id]
             for command in self.commands.keys():
-                if command in line:
-                    line = line.replace(command, " ")
-            if line.isspace():
-                lines.pop(0)
-            else:
-                break
-        lines.reverse()
+                if command in buffer_line:
+                    buffer_line = buffer_line.replace(command, " ")
+            if buffer_line.isspace():
+                lines.pop(line_id)
         return lines
 
     def parse_colors_script(self, path):
@@ -98,7 +97,7 @@ class colors_script:
         reversed_lines = self._reverse_read_lines(path)
         last_commands = self._reversed_find_last_commands(reversed_lines)
         last_commands = "".join(map(str, last_commands))
-        lines = self._reversed_remove_empty_lines(reversed_lines)
+        lines = self._reversed_remove_empty_lines(lines)
         lines[-1] = lines[-1].strip('\n') + last_commands
         if path.endswith(self.script_extension):
             try:
