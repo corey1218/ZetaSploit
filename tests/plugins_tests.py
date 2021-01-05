@@ -42,7 +42,7 @@ class plugins_tests:
         
     def perform_test(self):
         fail = False
-        self.db.add_plugins(self.config.path_config['base_paths']['dbs_path'] + self.config.db_config['base_dbs']['main_database'])
+        self.db.add_plugins(self.config.path_config['base_paths']['db_path'] + self.config.db_config['base_dbs']['main_database'])
         plugins = self.storage.get("plugins")
         for plugin in plugins.keys():
             try:

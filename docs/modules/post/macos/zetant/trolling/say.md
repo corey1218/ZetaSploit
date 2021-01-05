@@ -1,6 +1,6 @@
 # `post/macos/zetant/trolling/say`
 
-## Vulnerable Application
+## Description
 
 This module uses system `say` command to say message.
 
