@@ -51,35 +51,35 @@ class colors_script:
             '%newline': '\n'
         }
         
-   def _read_file_lines(self, path):
-       lines = list()
-       with open(path) as file:
-           for line in file:
-               if line and line[0:8] != "%comment" and not line.isspace():
-                   lines.append(line)
-       return lines
+    def _read_file_lines(self, path):
+        lines = list()
+        with open(path) as file:
+            for line in file:
+                if line and line[0:8] != "%comment" and not line.isspace():
+                    lines.append(line)
+        return lines
 
-   def _reverse_read_lines(self, path):
-       lines = list()
-       with open(path) as file:
-           for line in reversed(list(file)):
-               lines.append(line)
-       return lines
+    def _reverse_read_lines(self, path):
+        lines = list()
+        with open(path) as file:
+            for line in reversed(list(file)):
+                lines.append(line)
+        return lines
 
-   def _find_last_commands(self, lines):
-       buffer_commands = ""
-       line_id = -1
-       for line in lines:
-           buffer_line = line
-           for command in self.commands.keys():
-               if command in buffer_line:
-                   buffer_line = buffer_line.replace(command, " ")
-           if buffer_line.isspace():
-               buffer_commands += line.strip()
-               lines.remove(lines_id+1)
-           else:
-               break
-       return buffer_commands
+    def _find_last_commands(self, lines):
+        buffer_commands = ""
+        line_id = -1
+        for line in lines:
+            buffer_line = line
+            for command in self.commands.keys():
+                if command in buffer_line:
+                    buffer_line = buffer_line.replace(command, " ")
+            if buffer_line.isspace():
+                buffer_commands += line.strip()
+                lines.remove(lines_id+1)
+            else:
+                break
+        return buffer_commands
         
     def parse_colors_script(self, path):
         result = ""
