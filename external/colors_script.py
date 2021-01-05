@@ -98,7 +98,6 @@ class colors_script:
         last_commands = self._reversed_find_last_commands(reversed_lines)
         lines = self._reversed_remove_empty_lines(reversed_lines)
         lines[-1] = lines[-1].strip('\n') + last_commands
-        print(lines[-1])
         if path.endswith(self.script_extension):
             try:
                 buffer_commands = ""
