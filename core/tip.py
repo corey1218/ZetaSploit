@@ -30,6 +30,7 @@ import random
 from core.io import io
 from core.parser import parser
 from core.config import config
+from core.badges import badges
 
 from external.colors_script import colors_script
 
@@ -38,12 +39,13 @@ class tip:
         self.io = io()
         self.parser = parser()
         self.config = config()
+        self.badges = badges()
         
         self.colors_script = colors_script()
         
     def print_random_tip(self):
         if os.path.exists(self.config.path_config['base_paths']['tips_path']):
-            tips = []
+            tips = list()
             all_tips = os.listdir(self.config.path_config['base_paths']['tips_path'])
             for tip in all_tips:
                 tips.append(tip)
@@ -52,7 +54,7 @@ class tip:
                 while not tip:
                     random_tip = random.randint(0, len(tips) - 1)
                     tip = self.colors_script.parse_colors_script(self.config.path_config['base_paths']['tips_path'] + tips[random_tip])
-                self.io.output("ZetaSploit Tip: " + tip.strip())
+                self.io.output(self.badges.END + "ZetaSploit Tip: " + tip + self.badges.END)
             else:
                 self.io.output_warning("No tips detected.")
         else:

@@ -1,6 +1,6 @@
 # `post/macos/zetant/gather/getvol`
 
-## Vulnerable Application
+## Description
 
 This module uses system `osascript` to dump device volume level.
 

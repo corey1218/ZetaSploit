@@ -23,7 +23,8 @@
 #
 
 details:
-    version: "v2.0.0-beta"
+    codename: "MATE"
+    version: "v4.0.0-beta"
 
 console:
     clear: true

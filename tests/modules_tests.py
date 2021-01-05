@@ -26,40 +26,32 @@
 
 import os
 
+from core.db import db
 from core.badges import badges
 from core.importer import importer
+from core.storage import storage
 from core.config import config
+from core.module import module
 
 class modules_tests:
     def __init__(self):
+        self.db = db()
         self.badges = badges()
         self.importer = importer()
+        self.storage = storage()
         self.config = config()
+        self.module = module()
         
     def perform_test(self):
-        self.config.configure()
-        failed = False
-        try:
-            module_path = self.config.path_config['base_paths']['modules_path']
-            for module_category in os.listdir(module_path):
-                module_path = self.config.path_config['base_paths']['modules_path'] + module_category
-                for path, sub, files in os.walk(module_path):
-                    for file in files:
-                        if file.endswith('py'):
-                            module_file_path = path + '/' + file[:-3]
-                            try:
-                                module_directory = module_file_path.replace(self.config.path_config['base_paths']['root_path'], '', 1)
-                                module_directory = module_directory.replace("/", ".")
-                                module_file = __import__(module_directory)
-                                module_object = self.importer.get_module(module_file, file[:-3], module_directory)
-                                module_object = module_object.ZetaSploitModule()
-                                self.badges.output_success(module_file_path + ": OK!")
-                            except:
-                                self.badges.output_error(module_file_path + ": FAIL!")
-                                failed = True
-        except:
-            self.badges.output_error("Failed to perform modules test!")
-            failed = True
-        if failed:
-            return False
-        return True
+        fail = False
+        self.db.add_modules(self.config.path_config['base_paths']['db_path'] + self.config.db_config['base_dbs']['main_database'])
+        modules = self.storage.get("modules")
+        for category in modules.keys():
+            for module in modules[category].keys():
+                try:
+                    _ = self.importer.import_module(modules[category][module]['Path'])
+                    self.badges.output_success(self.module.get_full_name(category, module) + ': OK')
+                except:
+                    self.badges.output_error(self.module.get_full_name(category, module) + ': FAIL')
+                    fail = True
+        return fail

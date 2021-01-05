@@ -1,6 +1,6 @@
 # `post/macos/zetant/gather/prompt`
 
-## Vulnerable Application
+## Description
 
 This module uses system `osascript` to prompt user to type password.
 

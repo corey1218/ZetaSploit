@@ -46,7 +46,7 @@ class ZetaSploitCommand:
             'Usage': "jobs [-l|-k <id>]",
             'ArgsCount': 1,
             'NeedsArgs': True,
-            'Args': []
+            'Args': list()
         }
 
     def run(self):
@@ -54,7 +54,7 @@ class ZetaSploitCommand:
         self.jobs.remove_dead()
         if choice == '-l':
             if self.storage.get("jobs"):
-                jobs_data = []
+                jobs_data = list()
                 headers = ("ID", "Name", "Module")
                 jobs = self.storage.get("jobs")
                 for job_id in jobs.keys():

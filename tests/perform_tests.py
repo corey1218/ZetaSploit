@@ -30,7 +30,6 @@ from core.badges import badges
 
 from tests.modules_tests import modules_tests
 from tests.plugins_tests import plugins_tests
-from tests.commands_tests import commands_tests
 
 class perform_tests:
     def __init__(self):
@@ -38,21 +37,17 @@ class perform_tests:
 
         self.modules_tests = modules_tests()
         self.plugins_tests = plugins_tests()
-        self.commands_tests = commands_tests()
         
     def perform_tests(self):
-        statuses = []
+        statuses = list()
         self.badges.output_process("Performing modules test...")
         statuses.append(self.modules_tests.perform_test())
         
         self.badges.output_process("Performing plugins test...")
         statuses.append(self.plugins_tests.perform_test())
         
-        self.badges.output_process("Performing commands test...")
-        statuses.append(self.commands_tests.perform_test())
-        
         for status in statuses:
-            if not status:
-                self.badges.output_error("Not all checks passed!")
+            if status:
+                self.badges.output_error("Not all tests passed!")
                 sys.exit(1)
-        self.badges.output_success("All checks passed!")
+        self.badges.output_success("All tests passed!")

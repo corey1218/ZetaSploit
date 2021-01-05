@@ -22,4 +22,6 @@
 %comment SOFTWARE.
 %comment
 
+%end
 run %greenexec%end to execute system commands
+%end

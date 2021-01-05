@@ -51,7 +51,7 @@ class ZetaSploitModule:
                 'Usage': "",
                 'ArgsCount': 0,
                 'NeedsArgs': False,
-                'Args': [],
+                'Args': list(),
                 'Run': self.command
             }
         }

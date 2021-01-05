@@ -30,6 +30,7 @@ import random
 from core.io import io
 from core.parser import parser
 from core.config import config
+from core.badges import badges
 
 from external.colors_script import colors_script
 
@@ -38,12 +39,13 @@ class banner:
         self.io = io()
         self.parser = parser()
         self.config = config()
+        self.badges = badges()
         
         self.colors_script = colors_script()
         
     def print_random_banner(self):
         if os.path.exists(self.config.path_config['base_paths']['banners_path']):
-            banners = []
+            banners = list()
             all_banners = os.listdir(self.config.path_config['base_paths']['banners_path'])
             for banner in all_banners:
                 banners.append(banner)
@@ -52,7 +54,7 @@ class banner:
                 while not banner:
                     random_banner = random.randint(0, len(banners) - 1)
                     banner = self.colors_script.parse_colors_script(self.config.path_config['base_paths']['banners_path'] + banners[random_banner])
-                self.io.output(banner.strip())
+                self.io.output(self.badges.END + banner + self.badges.END)
             else:
                 self.io.output_warning("No banners detected.")
         else:

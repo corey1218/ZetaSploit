@@ -24,31 +24,24 @@
 # SOFTWARE.
 #
 
-import os
+import json
 
 from core.badges import badges
 from core.storage import storage
-from core.modules import modules
 
-class ZetaSploitCommand:
+class db:
     def __init__(self):
         self.badges = badges()
         self.storage = storage()
-        self.modules = modules()
-
-        self.details = {
-            'Name': "details",
-            'Description': "Show specified module details.",
-            'Usage': "details <module>",
-            'ArgsCount': 1,
-            'NeedsArgs': True,
-            'Args': []
-        }
-
-    def run(self):
-        module = self.details['Args'][0]
-        modules = self.storage.get("modules")
-        if module in modules.keys():
-                self.modules.show_details(modules[module].details)
-        else:
-            self.badges.output_error("Invalid module!")
+        
+    def add_modules(self, path):
+        if not self.storage.get("modules"):
+            self.storage.set("modules", dict())
+        modules = json.load(open(path))['modules']
+        self.storage.update("modules", modules)
+      
+    def add_plugins(self, path):
+        if not self.storage.get("plugins"):
+            self.storage.set("plugins", dict())
+        plugins = json.load(open(path))['plugins']
+        self.storage.update("plugins", plugins)

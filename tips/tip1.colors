@@ -22,4 +22,6 @@
 %comment SOFTWARE.
 %comment
 
+%end
 use %greenjobs -k%end to kill broken job manualy
+%end

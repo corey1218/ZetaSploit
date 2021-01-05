@@ -75,6 +75,7 @@ class console:
 
     def launch_shell(self):
         version = self.config.core_config['details']['version']
+        codename = self.config.core_config['details']['codename']
         if self.config.core_config['console']['clear']:
             os.system("clear")
 
@@ -82,15 +83,24 @@ class console:
             self.banner.print_random_banner()
         
         if self.config.core_config['console']['header']:
-            plugins_total = len(self.storage.get("plugins"))
+            plugins_total = 0
             modules_total = 0
-            for module_category in self.storage.get("modules").keys():
-                modules_total += len(self.storage.get("modules")[module_category])
-        
-            self.io.output(f"""    --=( {self.badges.YELLOW}ZetaSploit Framework {version}{self.badges.END}
---==--=( Developed by EntySec ({self.badges.LINE}https://entysec.netlify.app/{self.badges.END})
-    --=( {modules_total} modules loaded | {plugins_total} plugins available
-            """)
+            if self.storage.get("plugins"):
+                plugins_total = len(self.storage.get("plugins"))
+            if self.storage.get("modules"):
+                for module_category in self.storage.get("modules").keys():
+                    modules_total += len(self.storage.get("modules")[module_category])
+
+            header = ""
+            header += f"{self.badges.END}"
+            if codename and not codename.isspace():
+                header += f"    --=( {self.badges.YELLOW}ZetaSploit Framework {codename} {version}{self.badges.END}"
+            else:
+                header += f"    --=( {self.badges.YELLOW}ZetaSploit Framework {version}{self.badges.END}"
+            header += f"--==--=( Developed by EntySec ({self.badges.LINE}https://entysec.netlify.app/{self.badges.END})"
+            header += f"    --=( {modules_total} modules loaded | {plugins_total} plugins available"
+            header += f"{self.badges.END}"
+            self.io.output(header)
             
         if self.config.core_config['console']['tip']:
             self.tip.print_random_tip()

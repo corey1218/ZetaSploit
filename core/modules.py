@@ -37,10 +37,12 @@ class modules:
     def get_category(self, name):
         return name.split('/')[0]
 
-    def get_name(self, details):
-        module_name = details['Name']
-        return os.path.join(*(module_name.split(os.path.sep)[1:]))
+    def get_name(self, name):
+        return os.path.join(*(name.split(os.path.sep)[1:]))
 
+    def get_full_name(self, category, name):
+        return category + '/' + name
+    
     def show_details(self, details):
         self.io.output("")
         self.badges.output_information("Name:")

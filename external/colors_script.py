@@ -48,20 +48,74 @@ class colors_script:
             '%twink': '\033[5m',
             '%back': '\033[7m',
             
-            '%empty': ""
+            '%newline': '\n'
         }
+        
+    def _read_file_lines(self, path):
+        lines = list()
+        with open(path) as file:
+            for line in file:
+                if line and line[0:8] != "%comment" and not line.isspace():
+                    lines.append(line)
+        return lines
+
+    def _reverse_read_lines(self, path):
+        lines = list()
+        with open(path) as file:
+            for line in reversed(list(file)):
+                lines.append(line)
+        return lines
+
+    def _reversed_find_last_commands(self, lines):
+        buffer_commands = list()
+        for line in lines:
+            buffer_line = line
+            for command in self.commands.keys():
+                if command in buffer_line:
+                    buffer_line = buffer_line.replace(command, " ")
+            if buffer_line.isspace():
+                buffer_commands.append(line.strip())
+            else:
+                break
+        buffer_commands.reverse()
+        return buffer_commands
+        
+    def _remove_empty_lines(self, lines):
+        line_id = -1
+        for _ in range(len(lines)):
+            buffer_line = lines[line_id]
+            for command in self.commands.keys():
+                if command in buffer_line:
+                    buffer_line = buffer_line.replace(command, " ")
+            if buffer_line.isspace():
+                lines.pop(line_id)
+        return lines
 
     def parse_colors_script(self, path):
         result = ""
+        lines = self._read_file_lines(path)
+        reversed_lines = self._reverse_read_lines(path)
+        last_commands = self._reversed_find_last_commands(reversed_lines)
+        last_commands = "".join(map(str, last_commands))
+        lines = self._remove_empty_lines(lines)
+        lines[-1] = lines[-1].strip('\n') + last_commands
         if path.endswith(self.script_extension):
             try:
-                with open(path) as file:
-                    for line in file:
-                        if line[0:8] != "%comment" and not line.isspace():
-                            for command in self.commands.keys():
-                                line = line.partition('%comment')[0]
-                                line = line.replace(command, self.commands[command])
-                            result += line
+                buffer_commands = ""
+                for line in lines:
+                    buffer_line = line
+                    for command in self.commands.keys():
+                        if command in buffer_line:
+                            buffer_line = buffer_line.replace(command, " ")
+                    if buffer_line.isspace():
+                        buffer_commands += line.strip()
+                    else:
+                        line = buffer_commands + line
+                        buffer_commands = ""
+                        for command in self.commands.keys():
+                            line = line.partition('%comment')[0]
+                            line = line.replace(command, self.commands[command])
+                        result += line
                 return result
             except:
                 return None

@@ -44,7 +44,7 @@ class ZetaSploitCommand:
             'Usage': "show <information>",
             'ArgsCount': 1,
             'NeedsArgs': True,
-            'Args': []
+            'Args': list()
         }
 
     def run(self):
@@ -56,22 +56,22 @@ class ZetaSploitCommand:
             usage += category + ", "
         usage += "plugins, options"
         if information in modules.keys():
-            modules_data = []
+            modules_data = list()
             headers = ("Name", "Description")
             modules = modules[information]
             for module in sorted(modules.keys()):
-                modules_data.append((module, modules[module].details['Description']))
+                modules_data.append((information + '/' + module, modules[module]['Description']))
             self.io.output("")
             self.formatter.format_table("Modules", headers, *modules_data)
             self.io.output("")
         else:
             if information == "plugins":
                 if self.storage.get("plugins"):
-                    plugins_data = []
+                    plugins_data = list()
                     headers = ("Name", "Description")
                     plugins = self.storage.get("plugins")
                     for plugin in sorted(plugins.keys()):
-                        plugins_data.append((plugin, plugins[plugin].details['Description']))
+                        plugins_data.append((plugin, plugins[plugin]['Description']))
                     self.io.output("")
                     self.formatter.format_table("Plugins", headers, *plugins_data)
                     self.io.output("")
@@ -80,7 +80,7 @@ class ZetaSploitCommand:
             else:
                 if information == "options":
                     if hasattr(current_module, "options"):
-                        options_data = []
+                        options_data = list()
                         headers = ("Option", "Value", "Required", "Description")
                         options = current_module.options
                         for option in sorted(options.keys()):
@@ -89,7 +89,7 @@ class ZetaSploitCommand:
                                 required = "yes"
                             else:
                                 required = "no"
-                            if not value:
+                            if not value and value != 0:
                                 value = ""
                             options_data.append((option, value, required, options[option]['Description']))
                         self.io.output("")

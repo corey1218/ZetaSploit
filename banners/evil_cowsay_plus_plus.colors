@@ -24,6 +24,7 @@
 
 %comment original cowsay++ by MetaSploit
 
+%newline
 %end
   ____________
  < ZetaSploit >

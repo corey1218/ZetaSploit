@@ -1,0 +1,131 @@
+{
+    "modules": {
+        "auxiliary": {
+            "iphoneos/checker/jailbroken_or_not": {
+                "Description": "Check if remote iPhone jailbroken.",
+                "Path": "modules/auxiliary/iphoneos/checker/jailbroken_or_not",
+                "Dependencies": [
+                    ""
+                ]
+            },
+            "net/scanner/network_scanner": {
+                "Description": "Scan local network.",
+                "Path": "modules/auxiliary/net/scanner/network_scanner",
+                "Dependencies": [
+                    "scapy"
+                ]
+            },
+            "web/scanner/apache_users": {
+                "Description": "Scan website apache users.",
+                "Path": "modules/auxiliary/web/scanner/apache_users",
+                "Dependencies": [
+                    ""
+                ]
+            },
+            "web/scanner/php_my_admin_scan": {
+                "Description": "Scan website PHP My Admin.",
+                "Path": "modules/auxiliary/web/scanner/php_my_admin_scan",
+                "Dependencies": [
+                    ""
+                ]
+            }
+        },
+        "exploit": {
+            "iphoneos/safari_app/safari_reaper": {
+                "Description": "iOS Safari.app crash.",
+                "Path": "modules/exploit/iphoneos/safari_app/safari_reaper",
+                "Dependencies": [
+                    ""
+                ]
+            },
+            "iphoneos/ssh/default_password": {
+                "Description": "Bypass iOS OpenSSH using default password.",
+                "Path": "modules/exploit/iphoneos/ssh/default_password",
+                "Dependencies": [
+                    "paramiko"
+                ]
+            },
+            "linux/stager/zetant_reverse_tcp": {
+                "Description": "Linux reverse TCP shell with full remote functionality.",
+                "Path": "modules/exploit/linux/stager/zetant_reverse_tcp",
+                "Dependencies": [
+                    ""
+                ]
+            },
+            "macos/safari_app/safari_reaper": {
+                "Description": "macOS Safari.app crash.",
+                "Path": "modules/exploit/macos/safari_app/safari_reaper",
+                "Dependencies": [
+                    ""
+                ]
+            },
+            "macos/stager/zetant_reverse_tcp": {
+                "Description": "macOS reverse TCP shell with full remote functionality.",
+                "Path": "modules/exploit/macos/stager/zetant_reverse_tcp",
+                "Dependencies": [
+                    ""
+                ]
+            }
+        },
+        "post": {
+            "linux/zetant/transfer/download": {
+                "Description": "Download remote file.",
+                "Path": "modules/post/linux/zetant/transfer/download",
+                "Dependencies": [
+                    ""
+                ]
+            },
+            "linux/zetant/transfer/upload": {
+                "Description": "Upload local file.",
+                "Path": "modules/post/linux/zetant/transfer/upload",
+                "Dependencies": [
+                    ""
+                ]
+            },
+            "macos/zetant/gather/getvol": {
+                "Description": "Get device volume level.",
+                "Path": "modules/post/macos/zetant/gather/getvol",
+                "Dependencies": [
+                    ""
+                ]
+            },
+            "macos/zetant/gather/prompt": {
+                "Description": "Prompt user to type password.",
+                "Path": "modules/post/macos/zetant/gather/prompt",
+                "Dependencies": [
+                    ""
+                ]
+            },
+            "macos/zetant/transfer/download": {
+                "Description": "Download remote file.",
+                "Path": "modules/post/macos/zetant/transfer/download",
+                "Dependencies": [
+                    ""
+                ]
+            },
+            "macos/zetant/transfer/upload": {
+                "Description": "Upload local file.",
+                "Path": "modules/post/macos/zetant/transfer/upload",
+                "Dependencies": [
+                    ""
+                ]
+            },
+            "macos/zetant/trolling/say": {
+                "Description": "Say text message on device.",
+                "Path": "modules/post/macos/zetant/trolling/say",
+                "Dependencies": [
+                    ""
+                ]
+            }
+        }
+    },
+    "plugins": {
+        "nmap": {
+            "Description": "Nmap scan plugin for ZetaSploit.",
+            "Path": "plugins/nmap",
+            "Dependencies": [
+                "nmap3"
+            ]
+        }
+    }
+}

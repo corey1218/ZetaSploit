@@ -26,13 +26,17 @@
 
 import os
 
+from core.io import io
 from core.badges import badges
 from core.storage import storage
+from core.importer import importer
 
 class ZetaSploitCommand:
     def __init__(self):
+        self.io = io()
         self.badges = badges()
         self.storage = storage()
+        self.importer = importer()
 
         self.details = {
             'Name': "load",
@@ -40,37 +44,55 @@ class ZetaSploitCommand:
             'Usage': "load <plugin>",
             'ArgsCount': 1,
             'NeedsArgs': True,
-            'Args': []
+            'Args': list()
         }
 
+    def import_plugin(self, plugin):
+        loaded_plugins = dict()
+        plugins = self.storage.get("plugins")
+        try:
+            loaded_plugins[plugin] = self.importer.import_plugin(plugins[plugin]['Path'])
+        except:
+            return loaded_plugins
+        return loaded_plugins
+        
+    def add_plugin(self, plugin):
+        plugins = self.storage.get("plugins")
+        not_installed = list()
+        for dependence in plugins[plugin]['Dependencies']:
+            if not self.importer.import_check(dependence):
+                not_installed.append(dependence)
+        if not not_installed:
+            loaded_plugins = self.import_plugin(plugin)
+            if not loaded_plugins:
+                return
+            if self.storage.get("loaded_plugins"):
+                self.storage.update("loaded_plugins", loaded_plugins)
+            else:
+                self.storage.set("loaded_plugins", loaded_plugins)
+                self.storage.get("loaded_plugins")[plugin].run()
+                self.badges.output_success("Successfully loaded " + plugin + " plugin!")
+        else:
+            self.badges.output_error("Plugin depends this dependencies which is not installed:")
+            for dependence in not_installed:
+                self.io.output("    " + dependence)
+        
     def run(self):
-        plugins = dict()
         plugin = self.details['Args'][0]
+        plugins = self.storage.get("plugins")
         self.badges.output_process("Loading " + plugin + " plugin...")
-        if self.storage.get("plugins"):
+        if plugins:
             if self.storage.get("loaded_plugins"):
                 if plugin in self.storage.get("loaded_plugins").keys():
                     self.badges.output_error("Already loaded!")
                 else:
-                    if plugin in self.storage.get("plugins").keys():
-                        plugins[plugin] = self.storage.get("plugins")[plugin]
-                        if self.storage.get("loaded_plugins"):
-                            self.storage.update("loaded_plugins", plugins)
-                        else:
-                            self.storage.set("loaded_plugins", plugins)
-                        self.storage.get("loaded_plugins")[plugin].run()
-                        self.badges.output_success("Successfully loaded " + plugin + " plugin!")
+                    if plugin in plugins.keys():
+                        self.add_plugin(plugin)
                     else:
                         self.badges.output_error("Failed to load " + plugin + " plugin!")
             else:
-                if plugin in self.storage.get("plugins").keys():
-                    plugins[plugin] = self.storage.get("plugins")[plugin]
-                    if self.storage.get("loaded_plugins"):
-                        self.storage.update("loaded_plugins", plugins)
-                    else:
-                        self.storage.set("loaded_plugins", plugins)
-                    self.storage.get("loaded_plugins")[plugin].run()
-                    self.badges.output_success("Successfully loaded " + plugin + " plugin!")
+                if plugin in plugins.keys():
+                    self.add_plugin(plugin)
                 else:
                     self.badges.output_error("Failed to load " + plugin + " plugin!")
         else:

@@ -39,7 +39,7 @@ class ZetaSploitCommand:
             'Usage': "exit",
             'ArgsCount': 0,
             'NeedsArgs': False,
-            'Args': []
+            'Args': list()
         }
 
     def run(self):

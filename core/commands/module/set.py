@@ -40,7 +40,7 @@ class ZetaSploitCommand:
             'Usage': "set <option> <value>",
             'ArgsCount': 2,
             'NeedsArgs': True,
-            'Args': []
+            'Args': list()
         }
 
     def run(self):

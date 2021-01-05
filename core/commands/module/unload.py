@@ -40,7 +40,7 @@ class ZetaSploitCommand:
             'Usage': "unload <plugin>",
             'ArgsCount': 1,
             'NeedsArgs': True,
-            'Args': []
+            'Args': list()
         }
 
     def run(self):

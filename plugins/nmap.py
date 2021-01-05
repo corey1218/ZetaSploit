@@ -54,7 +54,7 @@ class ZetaSploitPlugin:
                 'Usage': "port_scan <host>",
                 'ArgsCount': 1,
                 'NeedsArgs': True,
-                'Args': [],
+                'Args': list(),
                 'Run': self.port_scan
             }
         }
