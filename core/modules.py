@@ -37,6 +37,9 @@ class modules:
     def get_category(self, name):
         return name.split('/')[0]
 
+    def get_platform(self, name):
+        return name.split('/')[1]
+    
     def get_name(self, name):
         return os.path.join(*(name.split(os.path.sep)[1:]))
 
