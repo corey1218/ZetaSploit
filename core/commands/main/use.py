@@ -51,31 +51,32 @@ class ZetaSploitCommand:
             'Args': list()
         }
         
-    def import_module(self, category, module):
+    def import_module(self, category, platform, module):
         modules = self.storage.get("modules")
         try:
-            module_object = self.importer.import_module(modules[category][module]['Path'])
+            module_object = self.importer.import_module(modules[category][platform][module]['Path'])
             if not self.storage.get("imported_modules"):
                 self.storage.set("imported_modules", dict())
-            self.storage.update("imported_modules", {category + '/' + module: module_object})
+            self.storage.update("imported_modules", {self.modules.get_full_name(category, platform, module): module_object})
         except:
             return None
         return module_object
         
-    def add_module(self, category, module):
+    def add_module(self, category, platform, module):
         modules = self.storage.get("modules")
         not_installed = list()
-        for dependence in modules[category][module]['Dependencies']:
+        for dependence in modules[category][platform][module]['Dependencies']:
             if not self.importer.import_check(dependence):
                 not_installed.append(dependence)
         if not not_installed:
             imported_modules = self.storage.get("imported_modules")
-            if not imported_modules or category + '/' + module not in imported_modules:
-                module_object = self.import_module(category, module)
+            full_name = self.modules.get_full_name(category, platform, module)
+            if not imported_modules or full_name not in imported_modules:
+                module_object = self.import_module(category, platform, module)
                 if not module_object:
                     return
             else:
-                module_object = imported_modules[category + '/' + module]
+                module_object = imported_modules[full_name]
             self.storage.set("current_module", [])
             self.storage.set("pwd", 0)
             self.storage.add_array("current_module", '')
@@ -89,11 +90,17 @@ class ZetaSploitCommand:
     def run(self):
         module = self.details['Args'][0]
         modules = self.storage.get("modules")
+        
         category = self.modules.get_category(module)
+        platform = self.modules.get_platform(module)
+        
         if category in modules.keys():
-            module = self.modules.get_name(module)
-            if module in modules[category].keys():
-                self.add_module(category, module)
+            if platform in modules[category].keys():
+                module = self.modules.get_name(module)
+                if module in modules[category][platform].keys():
+                    self.add_module(category, platform, module)
+                else:
+                    self.badges.output_error("Invalid module!")
             else:
                 self.badges.output_error("Invalid module!")
         else:
