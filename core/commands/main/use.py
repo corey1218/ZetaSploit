@@ -59,6 +59,7 @@ class ZetaSploitCommand:
                 self.storage.set("imported_modules", dict())
             self.storage.update("imported_modules", {self.modules.get_full_name(category, platform, module): module_object})
         except:
+            self.badges.output_error("Failed to select module from database!")
             return None
         return module_object
         
