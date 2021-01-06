@@ -29,6 +29,7 @@ import os
 from core.io import io
 from core.badges import badges
 from core.storage import storage
+from core.modules import modules
 from core.formatter import formatter
 
 class ZetaSploitCommand:
@@ -36,6 +37,7 @@ class ZetaSploitCommand:
         self.io = io()
         self.badges = badges()
         self.storage = storage()
+        self.modules = modules()
         self.formatter = formatter()
 
         self.details = {
@@ -58,8 +60,10 @@ class ZetaSploitCommand:
             modules_data = list()
             headers = ("Name", "Description")
             modules = modules[information]
-            for module in sorted(modules.keys()):
-                modules_data.append((information + '/' + module, modules[module]['Description']))
+            for platform in sorted(modules.keys()):
+                for module in sorted(modules[platform].keys()):
+                    full_name = self.modules.get_full_name(information, platform, module)
+                    modules_data.append((full_name, modules[platform][module]['Description']))
             self.io.output("")
             self.formatter.format_table("Modules", headers, *modules_data)
             self.io.output("")
