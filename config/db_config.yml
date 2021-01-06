@@ -23,4 +23,5 @@
 #
 
 base_dbs:
-    main_database: "database.json"
+    modules_database: "modules.json"
+    plugins_database: "plugins.json"
