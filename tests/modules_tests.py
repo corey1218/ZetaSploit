@@ -31,7 +31,7 @@ from core.badges import badges
 from core.importer import importer
 from core.storage import storage
 from core.config import config
-from core.module import module
+from core.modules import modules
 
 class modules_tests:
     def __init__(self):
@@ -40,18 +40,19 @@ class modules_tests:
         self.importer = importer()
         self.storage = storage()
         self.config = config()
-        self.module = module()
+        self.modules = modules()
         
     def perform_test(self):
         fail = False
         self.db.add_modules(self.config.path_config['base_paths']['db_path'] + self.config.db_config['base_dbs']['main_database'])
         modules = self.storage.get("modules")
         for category in modules.keys():
-            for module in modules[category].keys():
-                try:
-                    _ = self.importer.import_module(modules[category][module]['Path'])
-                    self.badges.output_success(self.module.get_full_name(category, module) + ': OK')
-                except:
-                    self.badges.output_error(self.module.get_full_name(category, module) + ': FAIL')
-                    fail = True
+            for platform in modules[category].keys():
+                for module in modules[category][platform].keys():
+                    try:
+                        _ = self.importer.import_module(modules[category][platform][module]['Path'])
+                        self.badges.output_success(self.modules.get_full_name(category, platform, module) + ': OK')
+                    except:
+                        self.badges.output_error(self.modules.get_full_name(category, platform, module) + ': FAIL')
+                        fail = True
         return fail
