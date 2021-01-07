@@ -91,7 +91,7 @@ class console:
                 modules = self.storage.get("modules")
                 for module_category in modules.keys():
                     for module_platform in modules[module_category].keys()
-                        modules_total += len(self.storage.get("modules")[module_category][module_platform])
+                        modules_total += len(modules[module_category][module_platform])
 
             header = ""
             header += f"{self.badges.END}\n"
