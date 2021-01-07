@@ -101,7 +101,7 @@ class console:
                 header += f"    --=( {self.badges.YELLOW}ZetaSploit Framework {version}{self.badges.END}\n"
             header += f"--==--=( Developed by EntySec ({self.badges.LINE}https://entysec.netlify.app/{self.badges.END})\n"
             header += f"    --=( {modules_total} modules loaded | {plugins_total} plugins available\n"
-            header += f"{self.badges.END}\n"
+            header += f"{self.badges.END}"
             self.io.output(header)
             
         if self.config.core_config['console']['tip']:
