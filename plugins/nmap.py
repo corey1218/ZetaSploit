@@ -49,13 +49,15 @@ class ZetaSploitPlugin:
         }
 
         self.commands = {
-            'port_scan': {
-                'Description': "Run port scan on host.",
-                'Usage': "port_scan <host>",
-                'ArgsCount': 1,
-                'NeedsArgs': True,
-                'Args': list(),
-                'Run': self.port_scan
+            'scanner': {
+                'port_scan': {
+                    'Description': "Run port scan on host.",
+                    'Usage': "port_scan <host>",
+                    'ArgsCount': 1,
+                    'NeedsArgs': True,
+                    'Args': list(),
+                    'Run': self.port_scan
+                }
             }
         }
 
