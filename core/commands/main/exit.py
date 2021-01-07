@@ -34,6 +34,7 @@ class ZetaSploitCommand:
         self.jobs = jobs()
 
         self.details = {
+            'Label': "core",
             'Name': "exit",
             'Description': "Exit ZetaSploit Framework.",
             'Usage': "exit",
