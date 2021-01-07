@@ -44,7 +44,7 @@ class modules_tests:
         
     def perform_test(self):
         fail = False
-        self.db.add_modules(self.config.path_config['base_paths']['db_path'] + self.config.db_config['base_dbs']['main_database'])
+        self.db.add_modules(self.config.path_config['base_paths']['db_path'] + self.config.db_config['base_dbs']['modules_database'])
         modules = self.storage.get("modules")
         for category in modules.keys():
             for platform in modules[category].keys():
