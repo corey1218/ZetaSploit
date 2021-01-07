@@ -6,15 +6,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+      - name: Upload ZetaSploit
+        run: sudo mkdir /opt/zsf; sudo cp -r * /opt/zsf
       - name: Install ZetaSploit
-        run: bash install.sh
+        run: cd /opt/zsf; bash install.sh
       - name: Perform tests
-        run: python3 tester.py; echo 'exit' | sudo zsf
+        run: cd /opt/zsf; python3 tester.py; echo 'exit' | sudo zsf
   macOS:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v1
+      - name: Upload ZetaSploit
+        run: sudo mkdir /opt/zsf; sudo cp -r * /opt/zsf
       - name: Install ZetaSploit
-        run: bash install.sh
+        run: cd /opt/zsf; bash install.sh
       - name: Perform tests
-        run: python3 tester.py; echo 'exit' | sudo zsf
+        run: cd /opt/zsf; python3 tester.py; echo 'exit' | sudo zsf

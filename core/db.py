@@ -37,11 +37,11 @@ class db:
     def add_modules(self, path):
         if not self.storage.get("modules"):
             self.storage.set("modules", dict())
-        modules = json.load(open(path))['modules']
+        modules = json.load(open(path))
         self.storage.update("modules", modules)
       
     def add_plugins(self, path):
         if not self.storage.get("plugins"):
             self.storage.set("plugins", dict())
-        plugins = json.load(open(path))['plugins']
+        plugins = json.load(open(path))
         self.storage.update("plugins", plugins)

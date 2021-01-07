@@ -37,25 +37,11 @@ class modules:
     def get_category(self, name):
         return name.split('/')[0]
 
-    def get_name(self, name):
-        return os.path.join(*(name.split(os.path.sep)[1:]))
-
-    def get_full_name(self, category, name):
-        return category + '/' + name
+    def get_platform(self, name):
+        return name.split('/')[1]
     
-    def show_details(self, details):
-        self.io.output("")
-        self.badges.output_information("Name:")
-        self.io.output("    " + details['Name'])
-        self.io.output("")
-        self.badges.output_information("Authors:")
-        for author in details['Authors']:
-            self.io.output("    " + author)
-        self.io.output("")
-        self.badges.output_information("Description:")
-        self.io.output("    " + details['Description'])
-        self.io.output("")
-        self.badges.output_information("Comments:")
-        for line in details['Comments']:
-            self.io.output("    " + line)
-        self.io.output("")
+    def get_name(self, name):
+        return os.path.join(*(name.split(os.path.sep)[2:]))
+
+    def get_full_name(self, category, platform, name):
+        return category + '/' + platform + '/' + name

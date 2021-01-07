@@ -88,18 +88,20 @@ class console:
             if self.storage.get("plugins"):
                 plugins_total = len(self.storage.get("plugins"))
             if self.storage.get("modules"):
-                for module_category in self.storage.get("modules").keys():
-                    modules_total += len(self.storage.get("modules")[module_category])
+                modules = self.storage.get("modules")
+                for module_category in modules.keys():
+                    for module_platform in modules[module_category].keys():
+                        modules_total += len(modules[module_category][module_platform])
 
             header = ""
-            header += f"{self.badges.END}"
+            header += f"{self.badges.END}\n"
             if codename and not codename.isspace():
-                header += f"    --=( {self.badges.YELLOW}ZetaSploit Framework {codename} {version}{self.badges.END}"
+                header += f"    --=( {self.badges.YELLOW}ZetaSploit Framework {codename} {version}{self.badges.END}\n"
             else:
-                header += f"    --=( {self.badges.YELLOW}ZetaSploit Framework {version}{self.badges.END}"
-            header += f"--==--=( Developed by EntySec ({self.badges.LINE}https://entysec.netlify.app/{self.badges.END})"
-            header += f"    --=( {modules_total} modules loaded | {plugins_total} plugins available"
-            header += f"{self.badges.END}"
+                header += f"    --=( {self.badges.YELLOW}ZetaSploit Framework {version}{self.badges.END}\n"
+            header += f"--==--=( Developed by EntySec ({self.badges.LINE}https://entysec.netlify.app/{self.badges.END})\n"
+            header += f"    --=( {modules_total} modules loaded | {plugins_total} plugins available\n"
+            header += f"{self.badges.END}\n"
             self.io.output(header)
             
         if self.config.core_config['console']['tip']:
