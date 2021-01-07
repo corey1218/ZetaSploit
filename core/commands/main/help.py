@@ -37,6 +37,7 @@ class ZetaSploitCommand:
         self.storage = storage()
 
         self.details = {
+            'Label': "core",
             'Name': "help",
             'Description': "Show available commands.",
             'Usage': "help",
