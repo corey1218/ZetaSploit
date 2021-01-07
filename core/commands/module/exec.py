@@ -35,6 +35,7 @@ class ZetaSploitCommand:
         self.io = io()
 
         self.details = {
+            'Label': "core",
             'Name': "exec",
             'Description': "Execute local system command.",
             'Usage': "exec <command>",
