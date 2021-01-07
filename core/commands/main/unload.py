@@ -35,6 +35,7 @@ class ZetaSploitCommand:
         self.storage = storage()
 
         self.details = {
+            'Label': "plugin",
             'Name': "unload",
             'Description': "Unload specified loaded plugin.",
             'Usage': "unload <plugin>",
