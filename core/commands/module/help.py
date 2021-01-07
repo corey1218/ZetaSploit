@@ -61,7 +61,7 @@ class ZetaSploitCommand:
             commands = current_module.commands
             for command in sorted(commands.keys()):
                 commands_data.append((command, commands[command]['Description']))
-            self.formatter.format_table("Module Commands", headers, *commands_data)
+            self.formatter.format_table("Custom Commands", headers, *commands_data)
             self.io.output("")
         if self.storage.get("loaded_plugins"):
             for plugin in self.storage.get("loaded_plugins").keys():
@@ -70,5 +70,5 @@ class ZetaSploitCommand:
                     commands = self.storage.get("loaded_plugins")[plugin].commands
                     for command in sorted(commands.keys()):
                         commands_data.append((command, commands[command]['Description']))
-                    self.formatter.format_table(plugin + " Commands", headers, *commands_data)
+                    self.formatter.format_table(plugin.title() + " Commands", headers, *commands_data)
                     self.io.output("")
