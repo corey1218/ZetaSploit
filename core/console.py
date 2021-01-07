@@ -90,7 +90,7 @@ class console:
             if self.storage.get("modules"):
                 modules = self.storage.get("modules")
                 for module_category in modules.keys():
-                    for module_platform in modules[module_category].keys()
+                    for module_platform in modules[module_category].keys():
                         modules_total += len(modules[module_category][module_platform])
 
             header = ""
