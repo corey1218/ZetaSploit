@@ -1,4 +1,4 @@
-<h3 align="center"><img src="https://github.com/enty8080/ZetaSploit/blob/main/logo/logo.png" alt="logo" height="250px"></h3>
+<h3 align="center"><img src="https://github.com/EntySec/ZetaSploit/blob/main/logo/logo.png" alt="logo" height="250px"></h3>
 
 <p align="center">
     <b>ZetaSploit Framework</b><br>
