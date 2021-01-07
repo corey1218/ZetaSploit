@@ -88,8 +88,10 @@ class console:
             if self.storage.get("plugins"):
                 plugins_total = len(self.storage.get("plugins"))
             if self.storage.get("modules"):
-                for module_category in self.storage.get("modules").keys():
-                    modules_total += len(self.storage.get("modules")[module_category])
+                modules = self.storage.get("modules")
+                for module_category in modules.keys():
+                    for module_platform in modules[module_category].keys()
+                        modules_total += len(self.storage.get("modules")[module_category][module_platform])
 
             header = ""
             header += f"{self.badges.END}\n"
