@@ -64,20 +64,7 @@ class module:
                         if hasattr(self.storage.get_array("current_module", self.storage.get("pwd")), "commands"):
                             if commands[0] in self.storage.get_array("current_module", self.storage.get("pwd")).commands.keys():
                                 command = self.storage.get_array("current_module", self.storage.get("pwd")).commands[commands[0]]
-                                if command['NeedsArgs']:
-                                    if (len(commands) - 1) < command['ArgsCount']:
-                                        self.io.output("Usage: " + command['Usage'])
-                                    else:
-                                        command['Args'] = self.formatter.format_arguments(arguments)
-                                        try:
-                                            command['Run']()
-                                        except (KeyboardInterrupt, EOFError):
-                                            self.io.output("")
-                                else:
-                                    try:
-                                        command['Run']()
-                                    except (KeyboardInterrupt, EOFError):
-                                        self.io.output("")
+                                self.execute.execute_command(command)
                             else:
                                 found = False
                         else:
@@ -89,20 +76,7 @@ class module:
                                     if hasattr(self.storage.get("loaded_plugins")[plugin], "commands"):
                                         if commands[0] in self.storage.get("loaded_plugins")[plugin].commands.keys():
                                             command = self.storage.get("loaded_plugins")[plugin].commands[commands[0]]
-                                            if command['NeedsArgs']:
-                                                if (len(commands) - 1) < command['ArgsCount']:
-                                                    self.io.output("Usage: " + command['Usage'])
-                                                else:
-                                                    command['Args'] = self.formatter.format_arguments(arguments)
-                                                    try:
-                                                        command['Run']()
-                                                    except (KeyboardInterrupt, EOFError):
-                                                        self.io.output("")
-                                            else:
-                                                try:
-                                                    command['Run']()
-                                                except (KeyboardInterrupt, EOFError):
-                                                    self.io.output("")
+                                            self.execute.execute_command(command)
                                         else:
                                             found = False
                                     else:
