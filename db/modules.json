@@ -89,7 +89,7 @@
                 "Description": "Remote Code Execution in F5 BIG-IP Traffic Management User Interface (TMUI).",
                 "Path": "modules/exploit/web/f5_big_ip_tmui/cve_2020_5902",
                 "Dependencies": [
-                    ""
+                    "requests"
                 ]
             }
         }
