@@ -30,6 +30,7 @@ import re
 import readline
 
 from core.badges import badges
+from core.execute import execute
 from core.exceptions import exceptions
 from core.formatter import formatter
 from core.storage import storage
@@ -40,6 +41,7 @@ from core.modules import modules
 class module:
     def __init__(self):
         self.badges = badges()
+        self.execute = execute()
         self.exceptions = exceptions()
         self.formatter = formatter()
         self.storage = storage()
@@ -56,21 +58,7 @@ class module:
                     continue
                 else:
                     if commands[0] in self.storage.get("commands")['module'].keys():
-                        command = self.storage.get("commands")['module'][commands[0]]
-                        if command.details['NeedsArgs']:
-                            if (len(commands) - 1) < command.details['ArgsCount']:
-                                self.io.output("Usage: " + command.details['Usage'])
-                            else:
-                                command.details['Args'] = self.formatter.format_arguments(arguments)
-                                try:
-                                    command.run()
-                                except (KeyboardInterrupt, EOFError):
-                                    self.io.output("")
-                        else:
-                            try:
-                                command.run()
-                            except (KeyboardInterrupt, EOFError):
-                                self.io.output("")
+                        self.execute.execute_module(commands)
                     else:
                         found = True
                         if hasattr(self.storage.get_array("current_module", self.storage.get("pwd")), "commands"):
