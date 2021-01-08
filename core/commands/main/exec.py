@@ -24,15 +24,11 @@
 # SOFTWARE.
 #
 
-import os
-
-from core.badges import badges
-from core.io import io
+from core.execute import execute
 
 class ZetaSploitCommand:
     def __init__(self):
-        self.badges = badges()
-        self.io = io()
+        self.execute = execute()
 
         self.details = {
             'Label': "core",
@@ -46,6 +42,4 @@ class ZetaSploitCommand:
 
     def run(self):
         command = self.details['Args'][0]
-        self.badges.output_information("exec: ")
-        os.system(command)
-        self.io.output("")
+        self.execute.execute_system(command)
