@@ -29,6 +29,7 @@ import sys
 import re
 
 from core.badges import badges
+from core.execute import execute
 from core.exceptions import exceptions
 from core.formatter import formatter
 from core.io import io
@@ -38,29 +39,12 @@ from core.storage import storage
 class main:
     def __init__(self):
         self.badges = badges()
+        self.execute = execute()
         self.exceptions = exceptions()
         self.formatter = formatter()
         self.io = io()
         self.jobs = jobs()
         self.storage = storage()
-
-    def execute_main(self, commands):
-        if commands[0] in self.storage.get("commands")['main'].keys():
-            command = self.storage.get("commands")['main'][commands[0]]
-            if command.details['NeedsArgs']:
-                if (len(commands) - 1) < command.details['ArgsCount']:
-                    self.io.output("Usage: " + command.details['Usage'])
-                else:
-                    command.details['Args'] = self.formatter.format_arguments(arguments)
-                    try:
-                        command.run()
-                    except (KeyboardInterrupt, EOFError):
-                        self.io.output("")
-            else:
-                try:
-                    command.run()
-                except (KeyboardInterrupt, EOFError):
-                    self.io.output("")
                     
     def execute_plugin(self, commands):
         found = True
@@ -101,7 +85,7 @@ class main:
                     continue
                 else:
                     if commands[0] in self.storage.get("commands")['main'].keys():
-                        self.execute_main(commands)
+                        self.execute.execute_main(commands)
                     else:
                         self.execute_plugin(commands)
 
