@@ -28,13 +28,20 @@ import os
 import sys
 
 from core.io import io
+from core.badges import badges
 from core.storage import storage
 
 class execute:
     def __init__(self):
         self.io = io()
+        self.badges = badges()
         self.storage = storage()
 
+    def execute_system(self, commands):
+        self.badges.output_information("exec: ")
+        os.system(commands)
+        self.io.output("")
+        
     def execute_main(self, commands):
         if commands[0] in self.storage.get("commands")['main'].keys():
             command = self.storage.get("commands")['main'][commands[0]]
