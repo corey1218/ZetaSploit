@@ -44,6 +44,55 @@ class main:
         self.jobs = jobs()
         self.storage = storage()
 
+    def execute_main(self, commands):
+        if commands[0] in self.storage.get("commands")['main'].keys():
+            command = self.storage.get("commands")['main'][commands[0]]
+            if command.details['NeedsArgs']:
+                if (len(commands) - 1) < command.details['ArgsCount']:
+                    self.io.output("Usage: " + command.details['Usage'])
+                else:
+                    command.details['Args'] = self.formatter.format_arguments(arguments)
+                    try:
+                        command.run()
+                    except (KeyboardInterrupt, EOFError):
+                        self.io.output("")
+            else:
+                try:
+                    command.run()
+                except (KeyboardInterrupt, EOFError):
+                    self.io.output("")
+                    
+    def execute_plugin(self, commands):
+        found = True
+        if self.storage.get("loaded_plugins"):
+            for plugin in self.storage.get("loaded_plugins").keys():
+                if hasattr(self.storage.get("loaded_plugins")[plugin], "commands"):
+                    for label in self.storage.get("loaded_plugins")[plugin].commands.keys():
+                        if commands[0] in self.storage.get("loaded_plugins")[plugin].commands[label].keys():
+                            command = self.storage.get("loaded_plugins")[plugin].commands[label][commands[0]]
+                            if command['NeedsArgs']:
+                                if (len(commands) - 1) < command['ArgsCount']:
+                                    self.io.output("Usage: " + command['Usage'])
+                                else:
+                                    command['Args'] = self.formatter.format_arguments(arguments)
+                                    try:
+                                        command['Run']()
+                                    except (KeyboardInterrupt, EOFError):
+                                        self.io.output("")
+                            else:
+                                try:
+                                    command['Run']()
+                                except (KeyboardInterrupt, EOFError):
+                                    self.io.output("")
+                        else:
+                            found = False
+                else:
+                    found = False
+        else:
+            found = False
+        if not found:
+            self.badges.output_error("Unrecognized command!")
+        
     def main_menu(self):
         while True:
             try:
@@ -52,50 +101,9 @@ class main:
                     continue
                 else:
                     if commands[0] in self.storage.get("commands")['main'].keys():
-                        command = self.storage.get("commands")['main'][commands[0]]
-                        if command.details['NeedsArgs']:
-                            if (len(commands) - 1) < command.details['ArgsCount']:
-                                self.io.output("Usage: " + command.details['Usage'])
-                            else:
-                                command.details['Args'] = self.formatter.format_arguments(arguments)
-                                try:
-                                    command.run()
-                                except (KeyboardInterrupt, EOFError):
-                                    self.io.output("")
-                        else:
-                            try:
-                                command.run()
-                            except (KeyboardInterrupt, EOFError):
-                                self.io.output("")
+                        self.execute_main(commands)
                     else:
-                        found = True
-                        if self.storage.get("loaded_plugins"):
-                            for plugin in self.storage.get("loaded_plugins").keys():
-                                if hasattr(self.storage.get("loaded_plugins")[plugin], "commands"):
-                                    if commands[0] in self.storage.get("loaded_plugins")[plugin].commands.keys():
-                                        command = self.storage.get("loaded_plugins")[plugin].commands[commands[0]]
-                                        if command['NeedsArgs']:
-                                            if (len(commands) - 1) < command['ArgsCount']:
-                                                self.io.output("Usage: " + command['Usage'])
-                                            else:
-                                                command['Args'] = self.formatter.format_arguments(arguments)
-                                                try:
-                                                    command['Run']()
-                                                except (KeyboardInterrupt, EOFError):
-                                                    self.io.output("")
-                                        else:
-                                            try:
-                                                command['Run']()
-                                            except (KeyboardInterrupt, EOFError):
-                                                self.io.output("")
-                                    else:
-                                        found = False
-                                else:
-                                    found = False
-                        else:
-                            found = False
-                        if not found:
-                            self.badges.output_error("Unrecognized command!")
+                        self.execute_plugin(commands)
 
             except (KeyboardInterrupt, EOFError):
                 self.io.output("")
