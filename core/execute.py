@@ -52,3 +52,21 @@ class execute:
                     command.run()
                 except (KeyboardInterrupt, EOFError):
                     self.io.output("")
+                    
+    def execute_main(self, commands):
+        if commands[0] in self.storage.get("commands")['module'].keys():
+            command = self.storage.get("commands")['module'][commands[0]]
+            if command.details['NeedsArgs']:
+                if (len(commands) - 1) < command.details['ArgsCount']:
+                    self.io.output("Usage: " + command.details['Usage'])
+                else:
+                    command.details['Args'] = self.formatter.format_arguments(arguments)
+                    try:
+                        command.run()
+                    except (KeyboardInterrupt, EOFError):
+                        self.io.output("")
+            else:
+                try:
+                    command.run()
+                except (KeyboardInterrupt, EOFError):
+                    self.io.output("")
