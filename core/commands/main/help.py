@@ -51,10 +51,10 @@ class ZetaSploitCommand:
         headers = ("Command", "Description")
         commands = self.storage.get("commands")['main']
         for command in sorted(commands.keys()):
-            label = command.details['Label']
+            label = commands[command].details['Label']
             commands_data[label] = list()
         for command in sorted(commands.keys()):
-            label = command.details['Label']
+            label = commands[command].details['Label']
             commands_data[label].append((command, commands[command].details['Description']))
         self.io.output("")
         for label in sorted(commands_data.keys()):
