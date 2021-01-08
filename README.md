@@ -3,9 +3,10 @@
 <p align="center">
     <b>ZetaSploit Framework</b><br>
     <br>
-    ZetaSploit Framework is a powerful exploitation framework that
-    <br>contains a lot of modules for attacking targets, interacting
-    <br>with targets, exploiting common vulnerabilities and etc.
+    The ZetaSploit Framework is a modular penetration testing platform that 
+    <br>enables you to write, test, and execute exploit code. The ZetaSploit Framework 
+    <br>contains a suite of tools that you can use to test security vulnerabilities, 
+    <br>enumerate networks and execute attacks.
     <br>
     <br>
     <b>TODO</b><br>
