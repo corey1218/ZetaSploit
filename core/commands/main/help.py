@@ -47,7 +47,7 @@ class ZetaSploitCommand:
         }
 
     def format_base_commands(self):
-        commands_data = list()
+        commands_data = dict()
         headers = ("Command", "Description")
         commands = self.storage.get("commands")['main']
         for command in sorted(commands.keys()):
@@ -65,7 +65,7 @@ class ZetaSploitCommand:
         for plugin in self.storage.get("loaded_plugins").keys():
             loaded_plugin = self.storage.get("loaded_plugins")[plugin]
             if hasattr(loaded_plugin, "commands"):
-                commands_data = list()
+                commands_data = dict()
                 headers = ("Command", "Description")
                 commands = loaded_plugin.commands
                 for label in sorted(commands.keys()):
