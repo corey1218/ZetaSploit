@@ -54,20 +54,7 @@ class main:
                     for label in self.storage.get("loaded_plugins")[plugin].commands.keys():
                         if commands[0] in self.storage.get("loaded_plugins")[plugin].commands[label].keys():
                             command = self.storage.get("loaded_plugins")[plugin].commands[label][commands[0]]
-                            if command['NeedsArgs']:
-                                if (len(commands) - 1) < command['ArgsCount']:
-                                    self.io.output("Usage: " + command['Usage'])
-                                else:
-                                    command['Args'] = self.formatter.format_arguments(arguments)
-                                    try:
-                                        command['Run']()
-                                    except (KeyboardInterrupt, EOFError):
-                                        self.io.output("")
-                            else:
-                                try:
-                                    command['Run']()
-                                except (KeyboardInterrupt, EOFError):
-                                    self.io.output("")
+                            self.execute.execute_command(command)
                         else:
                             found = False
                 else:
