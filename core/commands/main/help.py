@@ -59,7 +59,7 @@ class ZetaSploitCommand:
         self.io.output("")
         for label in sorted(commands_data.keys()):
             self.formatter.format_table(label.title() + " Commands", headers, *commands_data[label])
-        self.io.output("")
+            self.io.output("")
         
     def format_plugin_commands(self):
         for plugin in self.storage.get("loaded_plugins").keys():
@@ -74,7 +74,7 @@ class ZetaSploitCommand:
                         commands_data[label].append((command, commands[command]['Description']))
                 for label in sorted(commands_data.keys()):
                     self.formatter.format_table(label.title() + " Commands", headers, *commands_data[label])
-                self.io.output("")
+                    self.io.output("")
         
     def run(self):
         self.format_base_commands()
