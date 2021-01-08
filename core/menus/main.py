@@ -67,6 +67,7 @@ class main:
     def main_menu(self):
         while True:
             try:
+                prompt = '(zsf)> '
                 commands, arguments = self.io.input('(zsf)> ')
                 if commands == list():
                     continue
@@ -74,7 +75,22 @@ class main:
                     if commands[0] in self.storage.get("commands")['main'].keys():
                         self.execute.execute_main(commands)
                     else:
-                        self.execute_plugin(commands)
+                        found = True
+                        if self.storage.get("loaded_plugins"):
+                            for plugin in self.storage.get("loaded_plugins").keys():
+                                if hasattr(self.storage.get("loaded_plugins")[plugin], "commands"):
+                                    for label in self.storage.get("loaded_plugins")[plugin].commands.keys():
+                                        if commands[0] in self.storage.get("loaded_plugins")[plugin].commands[label].keys():
+                                            command = self.storage.get("loaded_plugins")[plugin].commands[label][commands[0]]
+                                            self.execute.execute_command(command)
+                                        else:
+                                            found = False
+                                else:
+                                    found = False
+                        else:
+                            found = False
+                    if not found:
+                        self.badges.output_error("Unrecognized command!")
 
             except (KeyboardInterrupt, EOFError):
                 self.io.output("")
