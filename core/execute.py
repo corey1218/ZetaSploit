@@ -24,8 +24,31 @@
 # SOFTWARE.
 #
 
+import os
+import sys
+
+from core.io import io
 from core.storage import storage
 
-class commands:
+class execute:
     def __init__(self):
+        self.io = io()
         self.storage = storage()
+
+    def execute_main(self, commands):
+        if commands[0] in self.storage.get("commands")['main'].keys():
+            command = self.storage.get("commands")['main'][commands[0]]
+            if command.details['NeedsArgs']:
+                if (len(commands) - 1) < command.details['ArgsCount']:
+                    self.io.output("Usage: " + command.details['Usage'])
+                else:
+                    command.details['Args'] = self.formatter.format_arguments(arguments)
+                    try:
+                        command.run()
+                    except (KeyboardInterrupt, EOFError):
+                        self.io.output("")
+            else:
+                try:
+                    command.run()
+                except (KeyboardInterrupt, EOFError):
+                    self.io.output("")
