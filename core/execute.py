@@ -42,38 +42,28 @@ class execute:
         os.system(commands)
         self.io.output("")
         
+    def execute_command(self, command):
+        if command['NeedsArgs']:
+            if (len(commands) - 1) < command['ArgsCount']:
+                self.io.output("Usage: " + command['Usage'])
+            else:
+                command['Args'] = self.formatter.format_arguments(arguments)
+                try:
+                    command['Run']()
+                except (KeyboardInterrupt, EOFError):
+                    self.io.output("")
+        else:
+            try:
+                command['Run']()
+            except (KeyboardInterrupt, EOFError):
+                self.io.output("")
+        
     def execute_main(self, commands):
         if commands[0] in self.storage.get("commands")['main'].keys():
             command = self.storage.get("commands")['main'][commands[0]]
-            if command.details['NeedsArgs']:
-                if (len(commands) - 1) < command.details['ArgsCount']:
-                    self.io.output("Usage: " + command.details['Usage'])
-                else:
-                    command.details['Args'] = self.formatter.format_arguments(arguments)
-                    try:
-                        command.run()
-                    except (KeyboardInterrupt, EOFError):
-                        self.io.output("")
-            else:
-                try:
-                    command.run()
-                except (KeyboardInterrupt, EOFError):
-                    self.io.output("")
+            self.execute_command(command)
                     
     def execute_main(self, commands):
         if commands[0] in self.storage.get("commands")['module'].keys():
             command = self.storage.get("commands")['module'][commands[0]]
-            if command.details['NeedsArgs']:
-                if (len(commands) - 1) < command.details['ArgsCount']:
-                    self.io.output("Usage: " + command.details['Usage'])
-                else:
-                    command.details['Args'] = self.formatter.format_arguments(arguments)
-                    try:
-                        command.run()
-                    except (KeyboardInterrupt, EOFError):
-                        self.io.output("")
-            else:
-                try:
-                    command.run()
-                except (KeyboardInterrupt, EOFError):
-                    self.io.output("")
+            self.execute_command(command)
