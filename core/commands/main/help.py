@@ -71,7 +71,7 @@ class ZetaSploitCommand:
                 for label in sorted(commands.keys()):
                     commands_data[label] = list()
                     for command in sorted(commands[label].keys()):
-                        commands_data[label].append((command, commands[command]['Description']))
+                        commands_data[label].append((command, commands[label][command]['Description']))
                 for label in sorted(commands_data.keys()):
                     self.formatter.format_table(label.title() + " Commands", headers, *commands_data[label])
                     self.io.output("")
