@@ -47,7 +47,20 @@ class execute:
     def execute_core_command(self, commands, menu):
         if commands[0] in self.storage.get("commands")[menu].keys():
             command = self.storage.get("commands")[menu][commands[0]]
-            self.execute_core_command(command)
+            if command.details['NeedsArgs']:
+                if (len(commands) - 1) < command.details['ArgsCount']:
+                    self.io.output("Usage: " + command.details['Usage'])
+                else:
+                    command.details['Args'] = self.formatter.format_arguments(arguments)
+                    try:
+                        command.run()
+                    except (KeyboardInterrupt, EOFError):
+                        self.io.output("")
+            else:
+                try:
+                    command.run()
+                except (KeyboardInterrupt, EOFError):
+                    self.io.output("")
             return True
         return False
         
@@ -61,22 +74,6 @@ class execute:
                             self.execute_other_command(command)
                             return True
         return False
-        
-    def execute_core_command(self, command):
-        if command.details['NeedsArgs']:
-            if (len(commands) - 1) < command.details['ArgsCount']:
-                self.io.output("Usage: " + command.details['Usage'])
-            else:
-                command.details['Args'] = self.formatter.format_arguments(arguments)
-                try:
-                    command.run()
-                except (KeyboardInterrupt, EOFError):
-                    self.io.output("")
-        else:
-            try:
-                command.run()
-            except (KeyboardInterrupt, EOFError):
-                self.io.output("")
         
     def execute_other_command(self, command):
         if command['NeedsArgs']:
