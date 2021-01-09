@@ -64,7 +64,7 @@ class main:
                                     for label in self.storage.get("loaded_plugins")[plugin].commands.keys():
                                         if commands[0] in self.storage.get("loaded_plugins")[plugin].commands[label].keys():
                                             command = self.storage.get("loaded_plugins")[plugin].commands[label][commands[0]]
-                                            self.execute.execute_plugin_command(command)
+                                            self.execute.execute_other_command(command)
                                         else:
                                             found = False
                                 else:
