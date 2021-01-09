@@ -49,12 +49,18 @@ class execute:
             else:
                 command['Args'] = self.formatter.format_arguments(arguments)
                 try:
-                    command['Run']()
+                    if hasattr(command, "Run"):
+                        command['Run']()
+                    else:
+                        command.run()
                 except (KeyboardInterrupt, EOFError):
                     self.io.output("")
         else:
             try:
-                command['Run']()
+                if hasattr(command, "Run"):
+                    command['Run']()
+                else:
+                    command.run()
             except (KeyboardInterrupt, EOFError):
                 self.io.output("")
         
