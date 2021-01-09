@@ -62,7 +62,7 @@ class ZetaSploitPlugin:
         }
 
     def port_scan(self):
-        host = self.commands['port_scan']['Args'][0]
+        host = self.commands['scanner']['port_scan']['Args'][0]
         self.badges.output_process("Performing port scan on " + host + "...")
         try:
             result = self.nmap.scan_top_ports(host)
