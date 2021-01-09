@@ -68,7 +68,7 @@ class execute:
         if hasattr(self.storage.get_array("current_module", self.storage.get("pwd")), "commands"):
             if commands[0] in self.storage.get_array("current_module", self.storage.get("pwd")).commands.keys():
                 command = self.storage.get_array("current_module", self.storage.get("pwd")).commands[commands[0]]
-                self.parse_and_execute_command(command, arguments)
+                self.parse_and_execute_command(commands, command, arguments)
                 return True
         return False
         
@@ -79,11 +79,11 @@ class execute:
                     for label in self.storage.get("loaded_plugins")[plugin].commands.keys():
                         if commands[0] in self.storage.get("loaded_plugins")[plugin].commands[label].keys():
                             command = self.storage.get("loaded_plugins")[plugin].commands[label][commands[0]]
-                            self.parse_and_execute_command(command, arguments)
+                            self.parse_and_execute_command(commands, command, arguments)
                             return True
         return False
         
-    def parse_and_execute_command(self, command, arguments):
+    def parse_and_execute_command(self, commands, command, arguments):
         if command['NeedsArgs']:
             if (len(commands) - 1) < command['ArgsCount']:
                 self.io.output("Usage: " + command['Usage'])
