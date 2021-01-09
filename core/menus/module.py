@@ -85,8 +85,8 @@ class module:
                                         found = False
                             else:
                                 found = False
-                        if not found:
-                            self.badges.output_error("Unrecognized command!")
+                            if not found:
+                                self.badges.output_error("Unrecognized command!")
             except (KeyboardInterrupt, EOFError):
                 self.io.output("")
             except self.exceptions.ExitMenuException:
