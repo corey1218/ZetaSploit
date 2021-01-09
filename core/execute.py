@@ -44,7 +44,7 @@ class execute:
         os.system(commands)
         self.io.output("")
         
-    def execute_command(self, command):
+    def execute_core_command(self, command):
         if command.details['NeedsArgs']:
             if (len(commands) - 1) < command.details['ArgsCount']:
                 self.io.output("Usage: " + command.details['Usage'])
@@ -60,7 +60,7 @@ class execute:
             except (KeyboardInterrupt, EOFError):
                 self.io.output("")
         
-    def execute_plugin_command(self, command):
+    def execute_other_command(self, command):
         if command['NeedsArgs']:
             if (len(commands) - 1) < command['ArgsCount']:
                 self.io.output("Usage: " + command['Usage'])
