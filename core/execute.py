@@ -44,7 +44,7 @@ class execute:
         os.system(commands)
         self.io.output("")
         
-    def execute_core_command(self, commands, menu):
+    def execute_core_command(self, commands, arguments, menu):
         if commands[0] in self.storage.get("commands")[menu].keys():
             command = self.storage.get("commands")[menu][commands[0]]
             if command.details['NeedsArgs']:
@@ -64,26 +64,26 @@ class execute:
             return True
         return False
         
-    def execute_module_command(self, commands):
+    def execute_module_command(self, commands, arguments):
         if hasattr(self.storage.get_array("current_module", self.storage.get("pwd")), "commands"):
             if commands[0] in self.storage.get_array("current_module", self.storage.get("pwd")).commands.keys():
                 command = self.storage.get_array("current_module", self.storage.get("pwd")).commands[commands[0]]
-                self.parse_and_execute_command(command)
+                self.parse_and_execute_command(command, arguments)
                 return True
         return False
         
-    def execute_plugin_command(self, commands):
+    def execute_plugin_command(self, commands, arguments):
         if self.storage.get("loaded_plugins"):
             for plugin in self.storage.get("loaded_plugins").keys():
                 if hasattr(self.storage.get("loaded_plugins")[plugin], "commands"):
                     for label in self.storage.get("loaded_plugins")[plugin].commands.keys():
                         if commands[0] in self.storage.get("loaded_plugins")[plugin].commands[label].keys():
                             command = self.storage.get("loaded_plugins")[plugin].commands[label][commands[0]]
-                            self.parse_and_execute_command(command)
+                            self.parse_and_execute_command(command, arguments)
                             return True
         return False
         
-    def parse_and_execute_command(self, command):
+    def parse_and_execute_command(self, command, arguments):
         if command['NeedsArgs']:
             if (len(commands) - 1) < command['ArgsCount']:
                 self.io.output("Usage: " + command['Usage'])
