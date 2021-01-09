@@ -79,9 +79,9 @@ class execute:
     def execute_main(self, commands):
         if commands[0] in self.storage.get("commands")['main'].keys():
             command = self.storage.get("commands")['main'][commands[0]]
-            self.execute_command(command)
+            self.execute_core_command(command)
                     
     def execute_module(self, commands):
         if commands[0] in self.storage.get("commands")['module'].keys():
             command = self.storage.get("commands")['module'][commands[0]]
-            self.execute_command(command)
+            self.execute_core_command(command)
