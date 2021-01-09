@@ -48,7 +48,7 @@ class main:
                 if commands == list():
                     continue
                 else:
-                    if not self.execute.execute_core_command(commands, "main")
+                    if not self.execute.execute_core_command(commands, "main"):
                         if not self.execute.execute_plugin_command(commands):
                             self.badges.output_error("Unrecognized command!")
 
