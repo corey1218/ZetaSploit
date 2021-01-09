@@ -9,8 +9,10 @@
     <br>enumerate networks and execute attacks.
     <br>
     <br>
-    <b>TODO</b><br>
-    Optimize code, clean up messy code
+    <b>Features</b><br>
+    No unusable code and functions.
+    <br>Developer options.
+    <br>Easy to use libraries.
     <br>
     <br>
     <b>Useful links:</b><br>
