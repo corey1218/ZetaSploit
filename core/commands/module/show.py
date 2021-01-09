@@ -39,6 +39,7 @@ class ZetaSploitCommand:
         self.formatter = formatter()
 
         self.details = {
+            'Label': "core",
             'Name': "show",
             'Description': "Show specified information.",
             'Usage': "show <information>",

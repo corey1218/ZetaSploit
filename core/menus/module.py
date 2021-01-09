@@ -30,99 +30,35 @@ import re
 import readline
 
 from core.badges import badges
+from core.execute import execute
 from core.exceptions import exceptions
-from core.formatter import formatter
 from core.storage import storage
 from core.io import io
-from core.jobs import jobs
 from core.modules import modules
 
 class module:
     def __init__(self):
         self.badges = badges()
+        self.execute = execute()
         self.exceptions = exceptions()
-        self.formatter = formatter()
         self.storage = storage()
         self.io = io()
-        self.jobs = jobs()
         self.modules = modules()
 
     def module_menu(self):
         while True:
             try:
                 current_module = self.storage.get_array("current_module", self.storage.get("pwd"))
-                commands, arguments = self.io.input('(zsf: ' + self.modules.get_category(current_module.details['Name']) + ': \033[1;31m' + self.modules.get_name(current_module.details['Name']) + '\033[0m)> ')
+                prompt = '(zsf: ' + self.modules.get_category(current_module.details['Name']) + ': \033[1;31m' + self.modules.get_name(current_module.details['Name']) + '\033[0m)> '
+                commands, arguments = self.io.input(prompt)
                 if commands == list():
                     continue
                 else:
-                    if commands[0] in self.storage.get("commands")['module'].keys():
-                        command = self.storage.get("commands")['module'][commands[0]]
-                        if command.details['NeedsArgs']:
-                            if (len(commands) - 1) < command.details['ArgsCount']:
-                                self.io.output("Usage: " + command.details['Usage'])
-                            else:
-                                command.details['Args'] = self.formatter.format_arguments(arguments)
-                                try:
-                                    command.run()
-                                except (KeyboardInterrupt, EOFError):
-                                    self.io.output("")
-                        else:
-                            try:
-                                command.run()
-                            except (KeyboardInterrupt, EOFError):
-                                self.io.output("")
-                    else:
-                        found = True
-                        if hasattr(self.storage.get_array("current_module", self.storage.get("pwd")), "commands"):
-                            if commands[0] in self.storage.get_array("current_module", self.storage.get("pwd")).commands.keys():
-                                command = self.storage.get_array("current_module", self.storage.get("pwd")).commands[commands[0]]
-                                if command['NeedsArgs']:
-                                    if (len(commands) - 1) < command['ArgsCount']:
-                                        self.io.output("Usage: " + command['Usage'])
-                                    else:
-                                        command['Args'] = self.formatter.format_arguments(arguments)
-                                        try:
-                                            command['Run']()
-                                        except (KeyboardInterrupt, EOFError):
-                                            self.io.output("")
-                                else:
-                                    try:
-                                        command['Run']()
-                                    except (KeyboardInterrupt, EOFError):
-                                        self.io.output("")
-                            else:
-                                found = False
-                        else:
-                            found = False
-                        if not found:
-                            found = True
-                            if self.storage.get("loaded_plugins"):
-                                for plugin in self.storage.get("loaded_plugins").keys():
-                                    if hasattr(self.storage.get("loaded_plugins")[plugin], "commands"):
-                                        if commands[0] in self.storage.get("loaded_plugins")[plugin].commands.keys():
-                                            command = self.storage.get("loaded_plugins")[plugin].commands[commands[0]]
-                                            if command['NeedsArgs']:
-                                                if (len(commands) - 1) < command['ArgsCount']:
-                                                    self.io.output("Usage: " + command['Usage'])
-                                                else:
-                                                    command['Args'] = self.formatter.format_arguments(arguments)
-                                                    try:
-                                                        command['Run']()
-                                                    except (KeyboardInterrupt, EOFError):
-                                                        self.io.output("")
-                                            else:
-                                                try:
-                                                    command['Run']()
-                                                except (KeyboardInterrupt, EOFError):
-                                                    self.io.output("")
-                                        else:
-                                            found = False
-                                    else:
-                                        found = False
-                            else:
-                                found = False
-                            if not found:
+                    if not self.execute.execute_core_command(commands, arguments, "module"):
+                        if not self.execute.execute_module_command(commands, arguments):
+                            if not self.execute_plugin_command(commands, arguments):
                                 self.badges.output_error("Unrecognized command!")
+
             except (KeyboardInterrupt, EOFError):
                 self.io.output("")
             except self.exceptions.ExitMenuException:

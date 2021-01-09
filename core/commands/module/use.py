@@ -43,6 +43,7 @@ class ZetaSploitCommand:
         self.modules = modules()
 
         self.details = {
+            'Label': "module",
             'Name': "use",
             'Description': "Use specified module.",
             'Usage': "use <module>",

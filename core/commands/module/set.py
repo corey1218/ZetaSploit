@@ -35,6 +35,7 @@ class ZetaSploitCommand:
         self.storage = storage()
 
         self.details = {
+            'Label': "module",
             'Name': "set",
             'Description': "Set an option value.",
             'Usage': "set <option> <value>",

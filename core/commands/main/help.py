@@ -37,6 +37,7 @@ class ZetaSploitCommand:
         self.storage = storage()
 
         self.details = {
+            'Label': "core",
             'Name': "help",
             'Description': "Show available commands.",
             'Usage': "help",
@@ -45,21 +46,37 @@ class ZetaSploitCommand:
             'Args': list()
         }
 
-    def run(self):
-        commands_data = list()
+    def format_base_commands(self):
+        commands_data = dict()
         headers = ("Command", "Description")
         commands = self.storage.get("commands")['main']
         for command in sorted(commands.keys()):
-            commands_data.append((command, commands[command].details['Description']))
+            label = commands[command].details['Label']
+            commands_data[label] = list()
+        for command in sorted(commands.keys()):
+            label = commands[command].details['Label']
+            commands_data[label].append((command, commands[command].details['Description']))
         self.io.output("")
-        self.formatter.format_table("Core Commands", headers, *commands_data)
-        self.io.output("")
-        if self.storage.get("loaded_plugins"):
-            for plugin in self.storage.get("loaded_plugins").keys():
-                if hasattr(self.storage.get("loaded_plugins")[plugin], "commands"):
-                    commands_data = list()
-                    commands = self.storage.get("loaded_plugins")[plugin].commands
-                    for command in sorted(commands.keys()):
-                        commands_data.append((command, commands[command]['Description']))
-                    self.formatter.format_table(plugin + " Commands", headers, *commands_data)
+        for label in sorted(commands_data.keys()):
+            self.formatter.format_table(label.title() + " Commands", headers, *commands_data[label])
+            self.io.output("")
+        
+    def format_plugin_commands(self):
+        for plugin in self.storage.get("loaded_plugins").keys():
+            loaded_plugin = self.storage.get("loaded_plugins")[plugin]
+            if hasattr(loaded_plugin, "commands"):
+                commands_data = dict()
+                headers = ("Command", "Description")
+                commands = loaded_plugin.commands
+                for label in sorted(commands.keys()):
+                    commands_data[label] = list()
+                    for command in sorted(commands[label].keys()):
+                        commands_data[label].append((command, commands[label][command]['Description']))
+                for label in sorted(commands_data.keys()):
+                    self.formatter.format_table(label.title() + " Commands", headers, *commands_data[label])
                     self.io.output("")
+        
+    def run(self):
+        self.format_base_commands()
+        if self.storage.get("loaded_plugins"):
+            self.format_plugin_commands()
