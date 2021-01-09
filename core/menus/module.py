@@ -58,9 +58,7 @@ class module:
                 if commands == list():
                     continue
                 else:
-                    if commands[0] in self.storage.get("commands")['module'].keys():
-                        self.execute.execute_module(commands)
-                    else:
+                    if not self.execute.execute_core_command(commands, "module"):
                         found = True
                         if hasattr(self.storage.get_array("current_module", self.storage.get("pwd")), "commands"):
                             if commands[0] in self.storage.get_array("current_module", self.storage.get("pwd")).commands.keys():
