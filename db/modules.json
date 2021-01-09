@@ -91,6 +91,13 @@
                 "Dependencies": [
                     "requests"
                 ]
+            },
+            "nostromo_httpd/cve_2019_16278": {
+                "Description": "Remote Code Execution in Nostromo httpd.",
+                "Path": "modules/exploit/web/nostromo_httpd/cve_2019_16278",
+                "Dependencies": [
+                    ""
+                ]
             }
         }
     },
