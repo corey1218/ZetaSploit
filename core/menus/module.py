@@ -32,10 +32,8 @@ import readline
 from core.badges import badges
 from core.execute import execute
 from core.exceptions import exceptions
-from core.formatter import formatter
 from core.storage import storage
 from core.io import io
-from core.jobs import jobs
 from core.modules import modules
 
 class module:
@@ -43,10 +41,8 @@ class module:
         self.badges = badges()
         self.execute = execute()
         self.exceptions = exceptions()
-        self.formatter = formatter()
         self.storage = storage()
         self.io = io()
-        self.jobs = jobs()
         self.modules = modules()
 
     def module_menu(self):
@@ -59,31 +55,8 @@ class module:
                     continue
                 else:
                     if not self.execute.execute_core_command(commands, "module"):
-                        found = True
-                        if hasattr(self.storage.get_array("current_module", self.storage.get("pwd")), "commands"):
-                            if commands[0] in self.storage.get_array("current_module", self.storage.get("pwd")).commands.keys():
-                                command = self.storage.get_array("current_module", self.storage.get("pwd")).commands[commands[0]]
-                                self.execute.execute_other_command(command)
-                            else:
-                                found = False
-                        else:
-                            found = False
-                        if not found:
-                            found = True
-                            if self.storage.get("loaded_plugins"):
-                                for plugin in self.storage.get("loaded_plugins").keys():
-                                    if hasattr(self.storage.get("loaded_plugins")[plugin], "commands"):
-                                        for label in self.storage.get("loaded_plugins")[plugin].commands.keys():
-                                            if commands[0] in self.storage.get("loaded_plugins")[plugin].commands[label].keys():
-                                                command = self.storage.get("loaded_plugins")[plugin].commands[label][commands[0]]
-                                                self.execute.execute_other_command(command)
-                                            else:
-                                                found = False
-                                    else:
-                                        found = False
-                            else:
-                                found = False
-                            if not found:
+                        if not self.execute.execute_module_command(commands):
+                            if not self.execute_plugin_command(commands):
                                 self.badges.output_error("Unrecognized command!")
             except (KeyboardInterrupt, EOFError):
                 self.io.output("")
