@@ -54,10 +54,11 @@ class module:
                 if commands == list():
                     continue
                 else:
-                    if not self.execute.execute_core_command(commands, "module"):
-                        if not self.execute.execute_module_command(commands):
-                            if not self.execute_plugin_command(commands):
+                    if not self.execute.execute_core_command(commands, arguments, "module"):
+                        if not self.execute.execute_module_command(commands, arguments):
+                            if not self.execute_plugin_command(commands, arguments):
                                 self.badges.output_error("Unrecognized command!")
+
             except (KeyboardInterrupt, EOFError):
                 self.io.output("")
             except self.exceptions.ExitMenuException:
