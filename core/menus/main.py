@@ -44,7 +44,7 @@ class main:
         while True:
             try:
                 prompt = '(zsf)> '
-                commands, arguments = self.io.input('(zsf)> ')
+                commands, arguments = self.io.input(prompt)
                 if commands == list():
                     continue
                 else:
