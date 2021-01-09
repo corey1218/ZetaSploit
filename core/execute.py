@@ -30,12 +30,14 @@ import sys
 from core.io import io
 from core.badges import badges
 from core.storage import storage
+from core.formatter import formatter
 
 class execute:
     def __init__(self):
         self.io = io()
         self.badges = badges()
         self.storage = storage()
+        self.formatter = formatter()
 
     def execute_system(self, commands):
         self.badges.output_information("exec: ")
@@ -43,33 +45,43 @@ class execute:
         self.io.output("")
         
     def execute_command(self, command):
+        if command.details['NeedsArgs']:
+            if (len(commands) - 1) < command.details['ArgsCount']:
+                self.io.output("Usage: " + command.details['Usage'])
+            else:
+                command.details['Args'] = self.formatter.format_arguments(arguments)
+                try:
+                    command.run()
+                except (KeyboardInterrupt, EOFError):
+                    self.io.output("")
+        else:
+            try:
+                command.run()
+            except (KeyboardInterrupt, EOFError):
+                self.io.output("")
+        
+    def execute_plugin_command(self, command):
         if command['NeedsArgs']:
             if (len(commands) - 1) < command['ArgsCount']:
                 self.io.output("Usage: " + command['Usage'])
             else:
                 command['Args'] = self.formatter.format_arguments(arguments)
                 try:
-                    if hasattr(command, "Run"):
-                        command['Run']()
-                    else:
-                        command.run()
+                    command['Run']()
                 except (KeyboardInterrupt, EOFError):
                     self.io.output("")
         else:
             try:
-                if hasattr(command, "Run"):
-                    command['Run']()
-                else:
-                    command.run()
+                command['Run']()
             except (KeyboardInterrupt, EOFError):
                 self.io.output("")
         
     def execute_main(self, commands):
         if commands[0] in self.storage.get("commands")['main'].keys():
-            command = self.storage.get("commands")['main'][commands[0]].details
+            command = self.storage.get("commands")['main'][commands[0]]
             self.execute_command(command)
                     
     def execute_module(self, commands):
         if commands[0] in self.storage.get("commands")['module'].keys():
-            command = self.storage.get("commands")['module'][commands[0]].details
+            command = self.storage.get("commands")['module'][commands[0]]
             self.execute_command(command)
