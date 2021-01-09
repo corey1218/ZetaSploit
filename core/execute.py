@@ -44,6 +44,24 @@ class execute:
         os.system(commands)
         self.io.output("")
         
+    def execute_core_command(self, commands, menu):
+        if commands[0] in self.storage.get("commands")[menu].keys():
+            command = self.storage.get("commands")[menu][commands[0]]
+            self.execute_core_command(command)
+            return True
+        return False
+        
+    def execute_plugin_command(self, commands):
+        if self.storage.get("loaded_plugins"):
+            for plugin in self.storage.get("loaded_plugins").keys():
+                if hasattr(self.storage.get("loaded_plugins")[plugin], "commands"):
+                    for label in self.storage.get("loaded_plugins")[plugin].commands.keys():
+                        if commands[0] in self.storage.get("loaded_plugins")[plugin].commands[label].keys():
+                            command = self.storage.get("loaded_plugins")[plugin].commands[label][commands[0]]
+                            self.execute_other_command(command)
+                            return True
+        return False
+        
     def execute_core_command(self, command):
         if command.details['NeedsArgs']:
             if (len(commands) - 1) < command.details['ArgsCount']:
@@ -75,13 +93,3 @@ class execute:
                 command['Run']()
             except (KeyboardInterrupt, EOFError):
                 self.io.output("")
-        
-    def execute_main(self, commands):
-        if commands[0] in self.storage.get("commands")['main'].keys():
-            command = self.storage.get("commands")['main'][commands[0]]
-            self.execute_core_command(command)
-                    
-    def execute_module(self, commands):
-        if commands[0] in self.storage.get("commands")['module'].keys():
-            command = self.storage.get("commands")['module'][commands[0]]
-            self.execute_core_command(command)
