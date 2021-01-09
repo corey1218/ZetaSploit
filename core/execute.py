@@ -64,6 +64,14 @@ class execute:
             return True
         return False
         
+    def execute_module_command(self, commands):
+        if hasattr(self.storage.get_array("current_module", self.storage.get("pwd")), "commands"):
+            if commands[0] in self.storage.get_array("current_module", self.storage.get("pwd")).commands.keys():
+                command = self.storage.get_array("current_module", self.storage.get("pwd")).commands[commands[0]]
+                self.execute_other_command(command)
+                return True
+        return False
+        
     def execute_plugin_command(self, commands):
         if self.storage.get("loaded_plugins"):
             for plugin in self.storage.get("loaded_plugins").keys():
