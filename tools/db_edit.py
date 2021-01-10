@@ -24,5 +24,11 @@
 # SOFTWARE.
 #
 
+from core.badges import badges
+
 class db_edit:
-    # todo
+    def __init__(self):
+        self.badges = badges()
+        
+    def get_edit(self):
+        pass
