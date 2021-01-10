@@ -53,6 +53,7 @@ class badges:
         self.E = self.RED + self.BOLD + '[-] ' + self.END
         self.P = self.BLUE + self.BOLD + '[*] ' + self.END
         self.Q = self.WHITE + self.BOLD + '[?] ' + self.END
+        self.A = self.WHITE + self.BOLD + '[>] ' + self.END
 
     def output_process(self, message):
         self.io.output(self.P + message)
@@ -69,5 +70,8 @@ class badges:
     def output_information(self, message):
         self.io.output(self.I + message)
 
-    def input_confirm(self, message):
+    def input_question(self, message):
         return self.io.input(self.Q + message)[0][0]
+
+    def input_arrow(self, message):
+        return self.io.input(self.A + message)[0][0]
