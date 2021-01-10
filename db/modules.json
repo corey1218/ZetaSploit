@@ -105,6 +105,13 @@
                 "Dependencies": [
                     "requests"
                 ]
+            },
+            "vbulletin_widget_php/cve_2020_7373": {
+                "Description": "0-day vBulletin widget_php Unauthenticated Remote Code Execution.",
+                "Path": "modules/exploit/multi/vbulletin_widget_php/cve_2020_7373",
+                "Dependencies": [
+                    "requests"
+                ]
             }
         }
     },
