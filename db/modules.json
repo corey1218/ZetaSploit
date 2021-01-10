@@ -98,6 +98,13 @@
                 "Dependencies": [
                     ""
                 ]
+            },
+            "vbulletin_widget_php/cve_2019_16759": {
+                "Description": "vBulletin widget_php Unauthenticated Remote Code Execution.",
+                "Path": "modules/exploit/multi/vbulletin_widget_php/cve_2019_16759",
+                "Dependencies": [
+                    "requests"
+                ]
             }
         }
     },
