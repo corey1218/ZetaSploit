@@ -45,7 +45,7 @@
                 ]
             },
             "ssh/cydia_default_password": {
-                "Description": "Bypass iOS OpenSSH using default password.",
+                "Description": "Bypass iOS SSH authorization using Cydia.app default SSH password.",
                 "Path": "modules/exploit/iphoneos/ssh/cydia_default_password",
                 "Dependencies": [
                     "paramiko"
@@ -114,7 +114,7 @@
                 ]
             },
             "ssh/cve_2018_10933": {
-                "Description": "SSH LibSSH Unauthorized Access.",
+                "Description": "SSH LibSSH unauthorized access.",
                 "Path": "modules/exploit/multi/ssh/cve_2018_10933",
                 "Dependencies": [
                     "paramiko"
