@@ -27,10 +27,10 @@
 import os
 import sys
 
+import scapy.all
+
 from core.badges import badges
 from core.parser import parser
-
-from scapy.all import *
 
 class ZetaSploitModule:
     def __init__(self):
@@ -58,8 +58,8 @@ class ZetaSploitModule:
 
     def run(self):
         ip_range = self.parser.parse_options(self.options)
-        arp = ARP(pdst=ip_range)
-        ether = Ether(dst="ff:ff:ff:ff:ff:ff")
-        result = srp(ether/arp, timeout=10, verbose=False)[0]
+        arp = scapy.all.ARP(pdst=ip_range)
+        ether = scapy.all.Ether(dst="ff:ff:ff:ff:ff:ff")
+        result = scapy.all.srp(ether/arp, timeout=10, verbose=False)[0]
         for _, received in result:
             self.badges.output_information(f"{received.psrc:<20} {received.hwsrc:^18}")
