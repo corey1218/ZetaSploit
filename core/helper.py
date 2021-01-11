@@ -26,6 +26,7 @@
 
 import os
 import socket
+import url_normalize
 
 from core.storage import storage
 
@@ -44,6 +45,9 @@ class helper:
             local_host = "127.0.0.1"
         return local_host
 
+    def normalize_url(self, url):
+        return url_normalize.url_normalize(url)
+    
     def len_file(self, path):
         return str(os.path.getsize(path)) + " bytes"
 
