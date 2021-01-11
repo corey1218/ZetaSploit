@@ -100,14 +100,14 @@
                 ]
             },
             "vbulletin_widget_php/cve_2019_16759": {
-                "Description": "vBulletin widget_php Unauthenticated Remote Code Execution.",
+                "Description": "vBulletin 5.0.0 till 5.5.4 widget_php Unauthenticated Remote Code Execution.",
                 "Path": "modules/exploit/multi/vbulletin_widget_php/cve_2019_16759",
                 "Dependencies": [
                     "requests"
                 ]
             },
             "vbulletin_widget_php/cve_2020_7373": {
-                "Description": "0-day vBulletin widget_php Unauthenticated Remote Code Execution.",
+                "Description": "vBulletin 5.5.4 till 5.6.2 widget_php Unauthenticated Remote Code Execution.",
                 "Path": "modules/exploit/multi/vbulletin_widget_php/cve_2020_7373",
                 "Dependencies": [
                     "requests"
