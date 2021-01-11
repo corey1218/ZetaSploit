@@ -26,7 +26,8 @@
 
 import os
 import sys
-import http
+
+import http.client
 
 from core.io import io
 from core.badges import badges
