@@ -44,9 +44,9 @@
                     ""
                 ]
             },
-            "ssh/default_password": {
+            "ssh/cydia_default_password": {
                 "Description": "Bypass iOS OpenSSH using default password.",
-                "Path": "modules/exploit/iphoneos/ssh/default_password",
+                "Path": "modules/exploit/iphoneos/ssh/cydia_default_password",
                 "Dependencies": [
                     "paramiko"
                 ]
