@@ -112,6 +112,13 @@
                 "Dependencies": [
                     "requests"
                 ]
+            },
+            "ssh/cve_2018_10933": {
+                "Description": "SSH LibSSH Unauthorized Access.",
+                "Path": "modules/exploit/multi/ssh/cve_2018_10933",
+                "Dependencies": [
+                    "paramiko"
+                ]
             }
         }
     },
