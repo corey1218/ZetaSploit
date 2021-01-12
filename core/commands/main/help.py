@@ -37,7 +37,7 @@ class ZetaSploitCommand:
         self.storage = storage()
 
         self.details = {
-            'Label': "core",
+            'Category': "core",
             'Name': "help",
             'Description': "Show available commands.",
             'Usage': "help",
@@ -51,10 +51,10 @@ class ZetaSploitCommand:
         headers = ("Command", "Description")
         commands = self.storage.get("commands")['main']
         for command in sorted(commands.keys()):
-            label = commands[command].details['Label']
+            label = commands[command].details['Category']
             commands_data[label] = list()
         for command in sorted(commands.keys()):
-            label = commands[command].details['Label']
+            label = commands[command].details['Category']
             commands_data[label].append((command, commands[command].details['Description']))
         self.io.output("")
         for label in sorted(commands_data.keys()):

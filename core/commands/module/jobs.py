@@ -41,7 +41,7 @@ class ZetaSploitCommand:
         self.formatter = formatter()
 
         self.details = {
-            'Label': "jobs",
+            'Category': "jobs",
             'Name': "jobs",
             'Description': "Manage active jobs.",
             'Usage': "jobs [-l|-k <id>]",

@@ -37,7 +37,7 @@ class ZetaSploitCommand:
         self.prompt = self.badges.BOLD + ">>> " + self.badges.END
         
         self.details = {
-            'Label': "developer"
+            'Category': "developer"
             'Name': "pyshell",
             'Description': "Open Python shell.",
             'Usage': "pyshell",

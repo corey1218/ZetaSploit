@@ -38,7 +38,7 @@ class ZetaSploitCommand:
         self.exceptions = exceptions()
 
         self.details = {
-            'Label': "module",
+            'Category': "module",
             'Name': "back",
             'Description': "Return to the previous menu.",
             'Usage': "back",

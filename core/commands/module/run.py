@@ -36,7 +36,7 @@ class ZetaSploitCommand:
         self.storage = storage()
 
         self.details = {
-            'Label': "module",
+            'Category': "module",
             'Name': "run",
             'Description': "Run current module.",
             'Usage': "run",

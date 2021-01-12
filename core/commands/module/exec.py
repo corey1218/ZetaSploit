@@ -31,7 +31,7 @@ class ZetaSploitCommand:
         self.execute = execute()
 
         self.details = {
-            'Label': "developer",
+            'Category': "developer",
             'Name': "exec",
             'Description': "Execute local system command.",
             'Usage': "exec <command>",

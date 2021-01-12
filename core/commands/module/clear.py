@@ -30,7 +30,7 @@ class ZetaSploitCommand:
     def __init__(self):
 
         self.details = {
-            'Label': "core",
+            'Category': "core",
             'Name': "clear",
             'Description': "Clear terminal window.",
             'Usage': "clear",

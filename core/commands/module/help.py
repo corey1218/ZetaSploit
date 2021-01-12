@@ -37,7 +37,7 @@ class ZetaSploitCommand:
         self.io = io()
 
         self.details = {
-            'Label': "core",
+            'Category': "core",
             'Name': "help",
             'Description': "Show available commands.",
             'Usage': "help",

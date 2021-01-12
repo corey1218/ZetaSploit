@@ -27,7 +27,7 @@
 class ZetaSploitCommand:
     def __init__(self):
         self.details = {
-            'Label': "",
+            'Category': "",
             'Name': "",
             'Description': "",
             'Usage': "",

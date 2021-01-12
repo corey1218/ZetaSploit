@@ -39,7 +39,7 @@ class ZetaSploitCommand:
         self.importer = importer()
 
         self.details = {
-            'Label': "plugin",
+            'Category': "plugin",
             'Name': "load",
             'Description': "Load specified plugin.",
             'Usage': "load <plugin>",
