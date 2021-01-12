@@ -55,31 +55,33 @@ class badges:
         self.Q = self.WHITE + self.BOLD + '[?] ' + self.END
         self.A = self.WHITE + self.BOLD + '[>] ' + self.END
 
+    def output_empty(self, message):
+        self.io.output(message)
+        
     def output_process(self, message):
-        self.io.output(self.P + message)
+        self.output_empty(self.P + message)
 
     def output_success(self, message):
-        self.io.output(self.S + message)
+        self.output_empty(self.S + message)
 
     def output_error(self, message):
-        self.io.output(self.E + message)
+        self.output_empty(self.E + message)
 
     def output_warning(self, message):
-        self.io.output(self.W + message)
+        self.output_empty(self.W + message)
 
     def output_information(self, message):
-        self.io.output(self.I + message)
-
-    def input_question(self, message):
+        self.output_empty(self.I + message)
+        
+    def input_empty(self, message):
         output = ""
-        out = self.io.input(self.Q + message)[0]
-        for command in out():
+        out = self.io.input(self.prompt)[0]
+        for command in out:
             output += command + " "
         return output.strip()
+        
+    def input_question(self, message):
+        return self.input_empty(self.Q + message)
 
     def input_arrow(self, message):
-        output = ""
-        out = self.io.input(self.A + message)[0]
-        for command in out():
-            output += command + " "
-        return output.strip()
+        return self.input_empty(self.A + message)
