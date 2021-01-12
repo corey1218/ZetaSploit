@@ -38,13 +38,15 @@ class ZetaSploitPlugin:
         }
 
         self.commands = {
-            'command': {
-                'Description': "",
-                'Usage': "",
-                'ArgsCount': 0,
-                'NeedsArgs': False,
-                'Args': list(),
-                'Run': self.command
+            'category': {
+                'command': {
+                    'Description': "",
+                    'Usage': "",
+                    'ArgsCount': 0,
+                    'NeedsArgs': False,
+                    'Args': list(),
+                    'Run': self.command
+                }
             }
         }
 
