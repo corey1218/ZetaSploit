@@ -75,7 +75,7 @@ class badges:
         
     def input_empty(self, message):
         output = ""
-        out = self.io.input(self.prompt)[0]
+        out = self.io.input(message)[0]
         for command in out:
             output += command + " "
         return output.strip()
