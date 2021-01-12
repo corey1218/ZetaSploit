@@ -48,7 +48,7 @@ class ZetaSploitCommand:
 
     def run(self):
         while True:
-            self.badges.output_information(f"Python {platform.python_version} console")
+            self.badges.output_information(f"Python {platform.python_version()} console")
             self.io.output("")
             command = self.io.input(self.prompt)
             try:
