@@ -55,7 +55,7 @@ class ZetaSploitCommand:
         
         if not os.environ['EDITOR']:
             editor = "vi"
-        else
+        else:
             editor = os.environ['EDITOR']
             
         imported_modules = self.storage.get("imported_modules")
