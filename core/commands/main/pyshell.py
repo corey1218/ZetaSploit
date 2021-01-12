@@ -50,10 +50,7 @@ class ZetaSploitCommand:
         while True:
             self.badges.output_information(f"Python {platform.python_version()} console")
             self.io.output("")
-            output = ""
-            out = self.io.input(self.prompt)[0]
-            for command in out():
-                output += command + " "
+            output = self.badges.input_empty(self.prompt)
             try:
                 exec(output.strip())
             except (EOFError, KeyboardInterrupt):
