@@ -24,15 +24,15 @@
 # SOFTWARE.
 #
 
-import platform
+import os
 
-from core.io import io
 from core.badges import badges
+from core.storage import storage
 
 class ZetaSploitCommand:
     def __init__(self):
-        self.io = io()
         self.badges = badges()
+        self.storage = storage()
         
         self.details = {
             'Category': "developer",
@@ -45,4 +45,12 @@ class ZetaSploitCommand:
         }
 
     def run(self):
-        pass
+        module = self.details['Args'][0]
+        
+        if not os.environ['EDITOR']:
+            editor = "vi"
+        else
+            editor = os.environ['EDITOR']
+            
+        if self.storage.get("imported_modules"):
+            pass
