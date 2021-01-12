@@ -119,13 +119,6 @@
                 "Dependencies": [
                     "paramiko"
                 ]
-            },
-            "cctv_tvt_dvr/h264_dvr_rce": {
-                "Description": "CCTV TVT DRV Remote Code Execution.",
-                "Path": "modules/exploit/multi/cctv_tvt_dvr/h264_dvr_rce",
-                "Dependencies": [
-                    "requests"
-                ]
             }
         }
     },
