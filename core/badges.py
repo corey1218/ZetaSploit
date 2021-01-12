@@ -71,7 +71,15 @@ class badges:
         self.io.output(self.I + message)
 
     def input_question(self, message):
-        return self.io.input(self.Q + message)[0][0]
+        output = ""
+        out = self.io.input(self.Q + message)[0]
+        for command in out():
+            output += command + " "
+        return output.strip()
 
     def input_arrow(self, message):
-        return self.io.input(self.A + message)[0][0]
+        output = ""
+        out = self.io.input(self.A + message)[0]
+        for command in out():
+            output += command + " "
+        return output.strip()
