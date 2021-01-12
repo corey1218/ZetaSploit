@@ -29,17 +29,19 @@ import sys
 
 import http.client
 
+from core.io import io
 from core.badges import badges
 from core.parser import parser
-from core.io import io
+from core.helper import helper
 
 from data.modules.auxiliary.web.scanner.apache_users.dictionary import dictionary
 
 class ZetaSploitModule:
     def __init__(self):
+        self.io = io()
         self.badges = badges()
         self.parser = parser()
-        self.io = io()
+        self.helper = helper()
         
         self.dictionary = dictionary()
 
@@ -56,19 +58,21 @@ class ZetaSploitModule:
 
         self.options = {
             'URL': {
-                'Description': "Target URL.",
+                'Description': "Target URL address.",
                 'Value': None,
                 'Required': True
             }
         }
 
     def run(self):
-        url = self.parser.parse_options(self.options)
+        target_url = self.parser.parse_options(self.options)
+        target_url = self.helper.normalize_url(target_url)
+        
         paths = self.dictionary.paths
         try:
             for path in paths:
                 path = path.replace("\n", "")
-                connection = http.client.HTTPConnection(url)
+                connection = http.client.HTTPConnection(target_url)
                 connection.request("GET", path)
                 response = connection.getresponse()
                 if response.status == 200:

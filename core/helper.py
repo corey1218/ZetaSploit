@@ -26,6 +26,7 @@
 
 import os
 import socket
+import url_normalize
 
 from core.storage import storage
 
@@ -44,15 +45,11 @@ class helper:
             local_host = "127.0.0.1"
         return local_host
 
+    def normalize_url(self, url):
+        return url_normalize.url_normalize(url)
+    
     def len_file(self, path):
         return str(os.path.getsize(path)) + " bytes"
 
     def len_line(self, line):
         return str(len(line.encode())) + " bytes"
-
-    def sort_dictionary(self, dictionary):
-        new_dictionary = dict()
-        sorted_keys = sorted(dictionary.keys())
-        for key in sorted_keys:
-            new_dictionary[key] = dictionary[key]
-        return new_dictionary
