@@ -53,6 +53,8 @@ class ZetaSploitCommand:
             output = self.badges.input_empty(self.prompt)
             try:
                 exec(output.strip())
+            except SystemExit:
+                return
             except (EOFError, KeyboardInterrupt):
                 return
             except Exception as e:
