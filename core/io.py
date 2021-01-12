@@ -47,7 +47,7 @@ class io:
         command = input('\033[1K\r' + prompt_message)
         commands = command.split()
         arguments = ""
-        if commands != list():
+        if commands:
             arguments = command.replace(commands[0], "", 1).strip()
         self.storage.set("active_input", False)
         return (commands, arguments)
