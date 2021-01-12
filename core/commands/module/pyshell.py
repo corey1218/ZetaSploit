@@ -54,7 +54,7 @@ class ZetaSploitCommand:
             try:
                 exec(output.strip())
             except SystemExit:
-                return
+                break
             except (EOFError, KeyboardInterrupt):
                 return
             except Exception as e:
