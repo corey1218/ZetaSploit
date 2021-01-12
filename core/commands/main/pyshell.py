@@ -47,9 +47,9 @@ class ZetaSploitCommand:
         }
 
     def run(self):
+        self.badges.output_information(f"Python {platform.python_version()} console")
+        self.io.output("")
         while True:
-            self.badges.output_information(f"Python {platform.python_version()} console")
-            self.io.output("")
             output = self.badges.input_empty(self.prompt)
             try:
                 exec(output.strip())
