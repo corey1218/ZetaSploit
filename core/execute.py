@@ -41,9 +41,7 @@ class execute:
         self.formatter = formatter()
 
     def execute_system(self, commands):
-        self.badges.output_information("exec: ")
         subprocess.call(self.formatter.format_arguments(commands))
-        self.io.output("")
         
     def execute_core_command(self, commands, arguments, menu):
         if commands[0] in self.storage.get("commands")[menu].keys():
