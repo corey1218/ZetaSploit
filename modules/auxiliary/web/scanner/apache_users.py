@@ -81,5 +81,5 @@ class ZetaSploitModule:
                     self.badges.output_warning("[%s] ... [%s %s]" % (path, response.status, response.reason))
         except (KeyboardInterrupt, EOFError):
             self.io.output("")
-        except:
+        except Exception:
             self.badges.output_error("Host is down!")
