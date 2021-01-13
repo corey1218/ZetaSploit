@@ -5,7 +5,6 @@
     <br>
     <a href="https://www.codefactor.io/repository/github/entysec/zetasploit"><img src="https://www.codefactor.io/repository/github/entysec/zetasploit/badge" alt="CodeFactor" /></a>
     <br>
-    <br>
     The ZetaSploit Framework is a modular penetration testing platform that 
     <br>enables you to write, test, and execute exploit code. The ZetaSploit Framework 
     <br>contains a suite of tools that you can use to test security vulnerabilities, 
