@@ -53,12 +53,11 @@ class importer:
         folderpath_list = folderpath.split(".")
         for i in dir(mu):
             if i == name:
-                pass
                 return getattr(mu, name)
-            else:
-                if i in folderpath_list:
-                    i = getattr(mu, i)
-                    return self.get_module(i, name, folderpath)
+            if i in folderpath_list:
+                i = getattr(mu, i)
+                return self.get_module(i, name, folderpath)
+        return None
 
     def import_check(self, module_name):
         try:
