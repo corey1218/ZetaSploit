@@ -26,6 +26,7 @@
 
 import os
 import sys
+import subprocess
 
 from core.io import io
 from core.badges import badges
@@ -41,7 +42,7 @@ class execute:
 
     def execute_system(self, commands):
         self.badges.output_information("exec: ")
-        os.system(commands)
+        subprocess.call(self.formatter.format_arguments(commands))
         self.io.output("")
         
     def execute_core_command(self, commands, arguments, menu):
