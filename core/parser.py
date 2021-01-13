@@ -33,8 +33,8 @@ class parser:
     def parse_options(self, options, option=None):
         if not option:
             values = list()
-            for option in options.keys():
-                values.append(str(options[option]['Value']))
+            for option_name in options.keys():
+                values.append(str(options[option_name]['Value']))
             if len(values) == 1:
                 return values[0]
             return values
