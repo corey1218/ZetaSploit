@@ -35,6 +35,7 @@ from core.menus.main import main
 
 from core.io import io
 from core.tip import tip
+from core.execute import execute
 from core.loader import loader
 from core.config import config
 from core.badges import badges
@@ -48,6 +49,7 @@ class console:
         self.main = main()
         self.io = io()
         self.tip = tip()
+        self.execute = execute()
         self.loader = loader()
         self.config = config()
         self.badges = badges()
@@ -77,7 +79,7 @@ class console:
         version = self.config.core_config['details']['version']
         codename = self.config.core_config['details']['codename']
         if self.config.core_config['console']['clear']:
-            os.system("clear")
+            self.execute.execute_system("clear")
 
         if self.config.core_config['console']['banner']:
             self.banner.print_random_banner()

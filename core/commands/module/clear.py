@@ -24,10 +24,11 @@
 # SOFTWARE.
 #
 
-import os
+from core.execute import execute
 
 class ZetaSploitCommand:
     def __init__(self):
+        self.execute = execute()
 
         self.details = {
             'Category': "core",
@@ -40,4 +41,4 @@ class ZetaSploitCommand:
         }
 
     def run(self):
-        os.system("clear")
+        self.execute.execute_system("clear")
