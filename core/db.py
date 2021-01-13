@@ -34,14 +34,32 @@ class db:
         self.badges = badges()
         self.storage = storage()
         
-    def add_modules(self, path):
+    def add_modules(self, name, path):
         if not self.storage.get("modules"):
             self.storage.set("modules", dict())
         modules = json.load(open(path))
+        data = {
+            name: {
+                'type': 'modules',
+                'path': path
+            }
+        }
+        if not self.storage.get("connected_databases"):
+            self.storage.set("connected_databases", dict())
+        self.storage.update("connected_databases", data)
         self.storage.update("modules", modules)
       
-    def add_plugins(self, path):
+    def add_plugins(self, name, path):
         if not self.storage.get("plugins"):
             self.storage.set("plugins", dict())
         plugins = json.load(open(path))
+        data = {
+            name: {
+                'type': 'plugins',
+                'path': path
+            }
+        }
+        if not self.storage.get("connected_databases"):
+            self.storage.set("connected_databases", dict())
+        self.storage.update("connected_databases", data)
         self.storage.update("plugins", plugins)
