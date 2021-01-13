@@ -38,5 +38,4 @@ class parser:
             if len(values) == 1:
                 return values[0]
             return values
-        else:
-            return str(options[option]['Value'])
+        return str(options[option]['Value'])
