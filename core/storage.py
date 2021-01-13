@@ -34,47 +34,47 @@ class storage:
     def update(self, name, value):
         try:
             globals()[name].update(value)
-        except:
+        except Exception:
             pass
 
     def add_array(self, name, value):
         try:
             globals()[name].append(value)
-        except:
+        except Exception:
             pass
 
     def get_array(self, name, value):
         try:
             return globals()[name][value]
-        except:
+        except Exception:
             return None
 
     def set_array(self, name, value1, value2):
         try:
             globals()[name][value1] = value2
-        except:
+        except Exception:
             pass
 
     def delete_element(self, name, value):
         try:
             del globals()[name][value]
-        except:
+        except Exception:
             pass
 
     def delete(self, name):
         try:
             del globals()[name]
-        except:
+        except Exception:
             pass
 
     def get(self, name):
         try:
             return globals()[name]
-        except:
+        except Exception:
             return None
 
     def set_module_option(self, name, number, option, value):
         try:
             globals()[name][number].options[option]['Value'] = value
-        except:
+        except Exception:
             pass

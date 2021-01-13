@@ -53,7 +53,7 @@ class ZetaSploitCommand:
         plugins = self.storage.get("plugins")
         try:
             loaded_plugins[plugin] = self.importer.import_plugin(plugins[plugin]['Path'])
-        except:
+        except Exception:
             return loaded_plugins
         return loaded_plugins
         

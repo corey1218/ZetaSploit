@@ -70,7 +70,7 @@ class console:
     def start_zsf(self):
         try:
             self.loader.load_all()
-        except:
+        except Exception:
             sys.exit(1)
 
     def launch_shell(self):

@@ -117,7 +117,7 @@ class colors_script:
                             line = line.replace(command, self.commands[command])
                         result += line
                 return result
-            except:
+            except Exception:
                 return None
         else:
             return None

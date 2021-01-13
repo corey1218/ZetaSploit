@@ -113,7 +113,7 @@ class jobs():
             if job_id in list(self.storage.get("jobs").keys()):
                 try:
                     self.stop_job(self.storage.get("jobs")[job_id]['job_process'])
-                except:
+                except Exception:
                     pass
                 try:
                     if self.storage.get("jobs")[job_id]['has_end_function']:
@@ -121,7 +121,7 @@ class jobs():
                             self.storage.get("jobs")[job_id]['end_function'](*self.storage.get("jobs")[job_id]['end_arguments'])
                         else:
                             self.storage.get("jobs")[job_id]['end_function']()
-                except:
+                except Exception:
                     self.badges.output_error("Failed to stop job!")
                 self.storage.delete_element("jobs", job_id)
             else:

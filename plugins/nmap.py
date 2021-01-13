@@ -67,7 +67,7 @@ class ZetaSploitPlugin:
         try:
             result = self.nmap.scan_top_ports(host)
             self.badges.output_information("Raw: " + str(result))
-        except:
+        except Exception:
             self.badges.output_error("Failed to perform port scan on " + host + "!")
 
     def run(self):

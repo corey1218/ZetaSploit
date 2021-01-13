@@ -41,7 +41,7 @@ class helper:
             local_host = server.getsockname()[0]
             server.close()
             local_host = local_host
-        except:
+        except Exception:
             local_host = "127.0.0.1"
         return local_host
 

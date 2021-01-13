@@ -71,7 +71,7 @@ class ZetaSploitCommand:
             else:
                 try:
                     self.jobs.delete_job(self.details['Args'][1])
-                except:
+                except Exception:
                     pass
         else:
             self.io.output(self.details['Usage'])
