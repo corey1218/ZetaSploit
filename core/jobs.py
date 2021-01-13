@@ -98,7 +98,7 @@ class jobs():
         res = ctypes.pythonapi.PyThreadState_SetAsyncExc(ctypes.c_long(thread.ident), exc)
         if res == 0:
             raise self.exceptions.GlobalException
-        elif res > 1:
+        if res > 1:
             ctypes.pythonapi.PyThreadState_SetAsyncExc(thread.ident, None)
             raise self.exceptions.GlobalException
 
