@@ -37,7 +37,7 @@ class io:
     def output(self, message, end=os.linesep):
         sys.stdout.write('\033[1K\r' + message + end)
         sys.stdout.flush()
-        if self.storage.get("current_prompt") != None and self.storage.get("active_input"):
+        if not self.storage.get("current_prompt") and self.storage.get("active_input"):
             sys.stdout.write('\033[1K\r' + self.storage.get("current_prompt") + readline.get_line_buffer())
             sys.stdout.flush()
 
