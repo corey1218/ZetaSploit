@@ -124,10 +124,8 @@ class importer:
                                 commands[command_menu][command_name] = command_object
                             except:
                                 self.badges.output_error("Failed to load " + file[:-3] + " command!")
-                                sys.exit(1)
         except:
-            self.badges.output_error("Failed to load console commands!")
-            sys.exit(1)
+            pass
         self.storage.set("commands", commands)
 
     def import_all(self):
