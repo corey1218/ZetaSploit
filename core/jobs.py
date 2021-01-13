@@ -55,12 +55,10 @@ class jobs():
                 if not self.storage.get("jobs")[job_id]['job_process'].is_alive():
                     return False
                 return True
-            else:
-                self.badges.output_error("Invalid job id!")
-                raise self.exceptions.GlobalException
-        else:
             self.badges.output_error("Invalid job id!")
             raise self.exceptions.GlobalException
+        self.badges.output_error("Invalid job id!")
+        raise self.exceptions.GlobalException
         
     def remove_dead(self):
         if not self.check_jobs():
